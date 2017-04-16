@@ -1,5 +1,7 @@
 #include "implementOpt.h"
+#include "Log.h"
 
+using namespace CommonTool;
 
 //double myfunc(unsigned n, const double *x, double *grad, void *my_func_data)
 //{
@@ -24,11 +26,20 @@
 
 double myvfunc(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data)
 {
+	Log::PushNDC("Optimization");
+
+	double obj= sqrt(x[1]);
+
+	Log::Info("Objective value is %lf.", obj);
+
 	if (!grad.empty()) {
 		grad[0] = 0.0;
 		grad[1] = 0.5 / sqrt(x[1]);
 	}
-	return sqrt(x[1]);
+
+	Log::PopNDC();
+
+	return obj;
 }
 
 double myvconstraint(const std::vector<double> &x, std::vector<double> &grad, void *data)

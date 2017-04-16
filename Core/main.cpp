@@ -1,7 +1,9 @@
 #include <nlopt.hpp>
 #include "implementOpt.h"
+#include "Log.h"
 
 using namespace std;
+using namespace CommonTool;
 //using namespace nmspace;
 
 int main()
@@ -31,10 +33,11 @@ int main()
 	double minf;
 	nlopt::result result = opt.optimize(x, minf);
 
-	
-	cout << "Hello Gan Gan!!!!!!" << endl;
-	cout << "Object value: \n" << minf << "\n";
+	Log::Info("Hello Gan Gan!!!!!!");
+	Log::Info("Object value: %lf\n",minf);
 	system("PAUSE");
+
+
 	return 0;
 }
 
