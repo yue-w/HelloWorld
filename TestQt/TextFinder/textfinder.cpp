@@ -24,15 +24,25 @@ void TextFinder::on_findButton_clicked()
 
 void TextFinder::loadTextFile()
 {
-    //QFile inputFile("W:/Programming/Qt/Test/TextFinder/input.txt");
-    QFile inputFile("../input.txt");
-    inputFile.open(QIODevice::ReadOnly);
+   //QFile inputFile("W:\Programming\CPP\input.txt");
+    QFile inputFile("..\input.txt");
 
-    QTextStream in(&inputFile);
-    QString line = in.readAll();
-    inputFile.close();
 
-    ui->textEdit->setPlainText(line);
-    QTextCursor cursor = ui->textEdit->textCursor();
-    cursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor, 1);
+
+    if (!inputFile.open(QIODevice::ReadOnly))//failed to open
+    {
+        ui->textEdit->setPlainText("Failed to open the file");
+    }
+    else
+    {
+        QTextStream in(&inputFile);
+        QString line = in.readAll();
+        inputFile.close();
+        ui->textEdit->setPlainText(line);
+        QTextCursor cursor = ui->textEdit->textCursor();
+        cursor.movePosition(QTextCursor::Start, QTextCursor::MoveAnchor, 1);
+    }
+
+
+
 }
