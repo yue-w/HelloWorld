@@ -36,20 +36,25 @@ void MainWindow::on_actionOpen_triggered()
 
     ////pass the file path to the globle value. Use for "save file" funciton.
     m_file_path = file_name;
+    file.open(QFile::ReadOnly | QFile::Text);
 
-    if(!file.open(QFile::ReadOnly | QFile::Text))
-    {
-        QMessageBox::warning(this, "..", "File not open");
-        return;
-    }
-    else
-    {
-        QTextStream in(&file);
-        QString text = in.readAll();
-        ui->textEdit->setText(text);
-        file.close();
+    QTextStream in(&file);
+    QString text = in.readAll();
+    ui->textEdit->setText(text);
+    file.close();
+//    if(!file.open(QFile::ReadOnly | QFile::Text))
+//    {
+//        QMessageBox::warning(this, "..", "File not open");
+//        return;
+//    }
+//    else
+//    {
+//        QTextStream in(&file);
+//        QString text = in.readAll();
+//        ui->textEdit->setText(text);
+//        file.close();
 
-    }
+//    }
 }
 
 void MainWindow::on_actionSave_triggered()
@@ -66,27 +71,27 @@ void MainWindow::on_actionSave_triggered()
     }
     QFile file(m_file_path);
 
-//    if(!file.open(QFile::WriteOnly | QFile::Text))
-//    {
-//        QMessageBox::warning(this, "..", "File not open");
-//        return;
-//    }
-//    else
-//    {
-//        QTextStream out(&file);
-//        QString text = ui->textEdit->toPlainText();
-//        out<<text;
-//        file.flush();
-//        file.close();
+    file.open(QFile::WriteOnly | QFile::Text);
+    QTextStream out(&file);
+    QString text = ui->textEdit->toPlainText();
+    out<<text;
+    file.flush();
+    file.close();
 
-//    }
+            //    if(!file.open(QFile::WriteOnly | QFile::Text))
+            //    {
+            //        QMessageBox::warning(this, "..", "File not open");
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        QTextStream out(&file);
+            //        QString text = ui->textEdit->toPlainText();
+            //        out<<text;
+            //        file.flush();
+            //        file.close();
 
-            file.open(QFile::WriteOnly | QFile::Text);
-            QTextStream out(&file);
-            QString text = ui->textEdit->toPlainText();
-            out<<text;
-            file.flush();
-            file.close();
+            //    }
 
 }
 
