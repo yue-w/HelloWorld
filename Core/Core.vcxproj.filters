@@ -24,6 +24,9 @@
     <ClInclude Include="Log.h">
       <Filter>CommonTools</Filter>
     </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementOpt.cpp">
@@ -34,6 +37,9 @@
     </ClCompile>
     <ClCompile Include="Log.cpp">
       <Filter>CommonTools</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
