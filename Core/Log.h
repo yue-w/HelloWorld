@@ -8,24 +8,28 @@ namespace log4cpp
 	class Category;
 }
 
-namespace CommonTool
+namespace Core
 {
-	class Log
+	namespace CommonTool
 	{
-		static log4cpp::Category *root;
+		class Log
+		{
+			static log4cpp::Category *root;
 
-	public:
+		public:
 
-		//Log information.
-		static void Info(const string format, const double arg = 0);
+			//Log information.
+			static void Info(const string format, const double arg = 0);
 
-		static void PushNDC(const string content);
-		static void PopNDC();
+			static void PushNDC(const string content);
+			static void PopNDC();
 
-	private:
+		private:
 
-		static log4cpp::Category* InitializeLog();
-	};
+			static log4cpp::Category* InitializeLog();
+		};
+	}
 }
+
 
 

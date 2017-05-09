@@ -3,7 +3,6 @@
 #include "Log.h"
 
 using namespace std;
-using namespace CommonTool;
 //using namespace nmspace;
 
 
