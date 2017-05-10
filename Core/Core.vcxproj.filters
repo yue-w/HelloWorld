@@ -16,6 +16,9 @@
     <Filter Include="CommonTools">
       <UniqueIdentifier>{6d50d32d-a720-4c7c-a963-e402b757369d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{329983cc-fcb9-4ee6-a02b-d6e1de50f9c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="implementOpt.h">
@@ -39,6 +42,15 @@
     <ClInclude Include="OptimizationCommand.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IFunction.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectFunction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectFuncParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementOpt.cpp">
@@ -60,6 +72,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OptimizationCommand.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IFunction.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectFuncParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

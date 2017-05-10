@@ -23,6 +23,18 @@ namespace Core
 
 	private:
 
+
+
+
+
+
+
+
+
+
+
+
+
 		void TestOptimize(const std::vector<std::string>& lowerBound, std::vector<double>& var);
 
 		static double myvfunc(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data);
