@@ -1,22 +1,14 @@
 #include "Command.h"
 
-#include "implementOpt.h"
-
-#include <sstream>
-
 using namespace std;
 
 namespace Core
 {
-	template <class Type>
-	Type stringToNum(const string& str)
+	Command::Command()
 	{
-		stringstream iss(str);
-		Type num;
-		iss >> num;
-		return num;
 	}
 
+<<<<<<< HEAD
 
 	double TestOptimize(const vector<double>& lowerBound, vector<double>& var)
 	{
@@ -56,5 +48,9 @@ namespace Core
 	void test()
 	{
 		cout << "Hello From >lib";
+=======
+	Command::~Command()
+	{
+>>>>>>> 6642de20967f6defeb691c953c77675de27b5fd9
 	}
 }

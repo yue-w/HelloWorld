@@ -4,8 +4,12 @@
 #include <vector>
 #include <string.h>
 
+<<<<<<< HEAD
 #include "../../../Core/Command.h"
 #include <QDebug>
+=======
+#include "../../../Core/AlgorithmInteractive.h"
+>>>>>>> 6642de20967f6defeb691c953c77675de27b5fd9
 
 #pragma comment(lib,"../../Core/x64/Debug/Core.lib")
 
@@ -35,18 +39,20 @@ void MainWindow::on_pushButton_optimize_clicked()
     //After optimization, get two optimized variables finally.
     auto lb1=ui->lineEdit_lowerbound1->text().toStdString();
     auto lb2=ui->lineEdit_lowerbound2->text().toStdString();
-    std::vector<std::string> lowerbound;
-    lowerbound.push_back(lb1);
-    lowerbound.push_back(lb2);
 
-    std::vector<double> vars;
-    Core::TestOptimize(lowerbound,vars);
+    Core::AlgorithmInteractive interactive;
+    interactive.AddParam("lb0",lb1);
+    interactive.AddParam("lb1",lb2);
 
-    qDebug("var1: %lf",vars[0]);
-    qDebug("var2: %lf",vars[1]);
+    auto outData=interactive.Execute("Optimization");
+    auto var0=outData["var0"];
+    auto var1=outData["var1"];
 
-    ui->lineEdit_variable1_output->setText(QString::number(vars[0]));
-    ui->lineEdit_variable2_output->setText(QString::number(vars[1]));
+    qDebug("var1: %s",var0.c_str());
+    qDebug("var2: %s",var1.c_str());
+
+    ui->lineEdit_variable1_output->setText(QString::fromStdString(var0));
+    ui->lineEdit_variable2_output->setText(QString::fromStdString(var1));
 }
 
 

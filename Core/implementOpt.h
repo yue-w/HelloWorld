@@ -5,9 +5,7 @@
 #include <iostream>
 using namespace std;
 
-typedef struct {
-	double a, b;
-} my_constraint_data;
+
 
 void testFun();
 
@@ -19,8 +17,6 @@ void testFun();
 
 
 //constraint function. Vector example
-double myvfunc(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data);
 
-double myvconstraint(const std::vector<double> &x, std::vector<double> &grad, void *data);
 
 
