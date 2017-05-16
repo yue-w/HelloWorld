@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "../../../Core/Command.h"
+#include <QDebug>
 
 #pragma comment(lib,"../../Core/x64/Debug/Core.lib")
 
@@ -20,6 +21,8 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
 
 void MainWindow::on_pushButton_optimize_clicked()
 {
@@ -45,3 +48,5 @@ void MainWindow::on_pushButton_optimize_clicked()
     ui->lineEdit_variable1_output->setText(QString::number(vars[0]));
     ui->lineEdit_variable2_output->setText(QString::number(vars[1]));
 }
+
+

@@ -3,12 +3,14 @@ TEMPLATE = app
 QT += qml quick
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    callcppfromqml.cpp
 
 RESOURCES += qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
+
 
 # Additional import path used to resolve QML modules just for Qt Quick Designer
 QML_DESIGNER_IMPORT_PATH =
@@ -28,3 +30,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+HEADERS += \
+    callcppfromqml.h
+
+
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../../../Core/x64/release/ -lCore
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../../../Core/x64/debug/ -lCore
+else:unix: LIBS += -L$$PWD/../../../Core/x64/ -lCore
+
+INCLUDEPATH += $$PWD/../../../Core/x64/Debug
+DEPENDPATH += $$PWD/../../../Core/x64/Debug
+
+win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../../../Core/x64/release/libCore.a
+else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../../../Core/x64/debug/libCore.a
+else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../../../Core/x64/release/Core.lib
+else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../../../Core/x64/debug/Core.lib
+else:unix: PRE_TARGETDEPS += $$PWD/../../../Core/x64/libCore.a

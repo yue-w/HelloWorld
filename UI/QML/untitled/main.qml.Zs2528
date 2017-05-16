@@ -84,7 +84,7 @@ Window {
     Rectangle{
         id:recListView
         width: 480
-        height: 150
+        height: 300
         border.width: 1
         anchors.left: parent.left
 
@@ -99,71 +99,12 @@ Window {
 
     }
 
-    /////Rectangle that contains object function
-    Rectangle{
-        id:rectangleObjFunc
-        width: 480
-        height: 150
-        border.width: 1
-         anchors.top: recListView.bottom
-        anchors.left: parent.left
-        //anchors.top: recListView.top
-
-
-        Column{
-            ////Object Function
-            TextField{
-
-                //anchors.left: parent.left
-                //anchors.left: recListView.right
-                x:10
-                anchors.margins: 20
-                //anchors.bottomMargin: 80
-                //y:theModel_variableName.y+10
-                id: objectFunction
-                width: 200
-                height: 25
-                placeholderText: "Object function"
-                 onEditingFinished:{
-
-                     ////To do
-                    }////onEditingFinished Finish
-
-            }
-
-        }
-
-    }
-
-    Rectangle{
-
-        id:results
-        width: 310
-        height: 150
-        border.width: 1
-        anchors.right: parent.right
-
-        Rectangle{
-            id:objResult
-            width: 310
-            height: 100
-            border.color: "black"
-            border.width: 1
-            anchors.leftMargin: 10
-            Text {
-                id: objResultTxt
-                text: ""
-            }
-
-        }
-
-    }
 
     /////input
     Rectangle{
         id:inputs
         border.width: 1
-        anchors.top: rectangleObjFunc.bottom
+        anchors.top: recListView.bottom
         width: 480
         height: 100
 
@@ -333,19 +274,42 @@ Window {
     }
 
 
+
+    ////Object Function
+    TextField{
+        anchors.left: recListView.right
+        anchors.top: recListView.top
+        anchors.margins: 20
+        //anchors.bottomMargin: 80
+        //y:theModel_variableName.y+10
+        id: objectFunction
+        width: 200
+        height: 25
+        placeholderText: "Object function"
+         onEditingFinished:{
+
+             ////To do
+            }////onEditingFinished Finish
+
+    }
+
     function cppDataToQml(){
 
         var lowerBnds = [];
         for(var i = 0; i< theModel_variableName.count; i++){
+//            var c = theModel_variableName.count;
+//             theModel_variableName.get(i);
+//             nameText2.text +=theModel_variableName.get(i).lowerBound;
+            var tem = theModel_variableName.get(i).lowerBound;
 
-            lowerBnds.push(theModel_variableName.get(i).lowerBound);
+            lowerBnds.push(tem);
+
+
         }
 
 
         testCallCpp.setLowerBound(lowerBnds);
-       var variablVecOpted =  testCallCpp.test(lowerBnds);
-
-        objResultTxt.text= "Minimium object value: " + testCallCpp.getObjOptedValue();
+       var qmoVec =  testCallCpp.test(lowerBnds);
 
         for(var i = 0; i< theModel_variableName.count; i++){
 //            var c = theModel_variableName.count;
@@ -353,7 +317,7 @@ Window {
 //             nameText2.text +=theModel_variableName.get(i).lowerBound;
             var tem = theModel_variableName.get(i).solution;
 
-
+            lowerBnds.push(tem);
 
 
         }

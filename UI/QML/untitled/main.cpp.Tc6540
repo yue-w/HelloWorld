@@ -3,22 +3,16 @@
 ////YueWang
 #include<QQmlEngine>
 #include<QQmlContext>
-#include "callcppfromqml.h"
-
-
+#include<../../../Core/implementOpt.h>
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
-    ////wrape the pointer in th QScopedPointer, which is used to monitor the memory
-    QScopedPointer<CallCppFromQml> testCallCpp (new CallCppFromQml);
+    QScopedPointer<>
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-
-
-    engine.rootContext()->setContextProperty("testCallCpp",testCallCpp.data());
 
 
 

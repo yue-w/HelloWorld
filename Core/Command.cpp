@@ -17,16 +17,18 @@ namespace Core
 		return num;
 	}
 
-	void TestOptimize(const vector<std::string>& lowerBound, vector<double>& var)
+
+	double TestOptimize(const vector<double>& lowerBound, vector<double>& var)
 	{
+		
 		nlopt::opt opt(nlopt::LD_MMA, 2);
 
-		vector<double> lb;
-		for (auto lb_str: lowerBound)
-		{
-			lb.push_back(stringToNum<double>(lb_str));
-		}
-		opt.set_lower_bounds(lb);
+		//vector<double> lb;
+		//for (auto lb_str: lowerBound)
+		//{
+		//	lb.push_back(stringToNum<double>(lb_str));
+		//}
+		opt.set_lower_bounds(lowerBound);
 
 
 		////Set the object function
@@ -49,5 +51,10 @@ namespace Core
 		var.clear();
 		var.push_back(x[0]);
 		var.push_back(x[1]);
+		return minf;
+	}
+	void test()
+	{
+		cout << "Hello From >lib";
 	}
 }
