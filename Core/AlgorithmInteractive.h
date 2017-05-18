@@ -10,6 +10,7 @@ namespace Core
 	//Interface between UI and Background computation.
 	class _EXPORT_CORE_DLL AlgorithmInteractive
 	{
+		//The input data from UI.
 		DataWrapper* _dataWrapper;
 		map<string, CommandCreator*> _commandCreators;
 

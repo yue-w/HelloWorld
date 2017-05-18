@@ -20,7 +20,7 @@ QVector<double> CallCppFromQml::test( )
         //std::vector<double> vars;
         std::vector<double> variable;
 
-        m_objFunValue = Core::TestOptimize(m_lowerBound,variable);
+       // m_objFunValue = Core::TestOptimize(m_lowerBound,variable);
         QVector<double> optedVec = QVector<double>::fromStdVector(variable);
 
 

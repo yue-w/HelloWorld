@@ -187,6 +187,9 @@
     <ClCompile Include="OptimizationCommand.cpp" />
     <ClCompile Include="ThreadLocker.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Global.cd" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

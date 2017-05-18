@@ -74,3 +74,4 @@ obj/
 *.suo
 Debug/
 Release/
+*.user
