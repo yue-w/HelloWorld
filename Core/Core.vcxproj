@@ -172,6 +172,7 @@
     <ClInclude Include="ObjectFunction.h" />
     <ClInclude Include="OptimizationCommand.h" />
     <ClInclude Include="PublicHeader.h" />
+    <ClInclude Include="ThreadLocker.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AlgorithmInteractive.cpp" />
@@ -184,6 +185,7 @@
     <ClCompile Include="ObjectFuncParser.cpp" />
     <ClCompile Include="ObjectFunction.cpp" />
     <ClCompile Include="OptimizationCommand.cpp" />
+    <ClCompile Include="ThreadLocker.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

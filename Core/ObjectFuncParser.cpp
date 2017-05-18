@@ -1,6 +1,7 @@
 #include "ObjectFuncParser.h"
 
 #include "ObjectFunction.h"
+#include "Log.h"
 
 #include <RuntimeCompiler/ICompilerLogger.h>
 #include <RuntimeObjectSystem/RuntimeObjectSystem.h>
@@ -17,6 +18,8 @@
 #include "Windows.h"
 #pragma warning( disable : 4996 4800 )
 #endif
+
+using namespace Core::CommonTool;
 
 //Loger for rcc.
 class StdioLogSystem : public ICompilerLogger
@@ -67,9 +70,9 @@ void StdioLogSystem::LogInternal(const char * format, va_list args)
 namespace Core
 {
 
-	RuntimeObjectSystem * ObjectFuncParser::_sys;
+	RuntimeObjectSystem * ObjectFuncParser::_sys=NULL;
 
-	bool ObjectFuncParser::_compiled = false;
+	std::mutex ObjectFuncParser::_mutex;
 
 	ObjectFuncParser::ObjectFuncParser()
 	{
@@ -84,9 +87,10 @@ namespace Core
 	IFunction* ObjectFuncParser::Parse(const string functionStr)
 	{
 		//Try to modify ObjectFunction.cpp.
+		Log::Info("Function to parse: " + functionStr);;
 
 		//Read all lines of cpp file.
-		string filename = "ObjectFunction.cpp";
+		string filename = "E:\\Projects\\HelloWorld\\Core\\ObjectFunction.cpp";
 		vector<string> lines;
 		ifstream in(filename);
 		string line = "";
@@ -96,7 +100,8 @@ namespace Core
 		}
 		//Find the position to insert function.
 		auto insertPos = find(lines.begin(), lines.end(), "	//Insert Function");
-		lines.insert(insertPos, functionStr);
+		*(insertPos + 1) = "double fun=" + functionStr + ";";
+
 		//Output a new file.
 		ofstream out(filename);
 		for (auto line : lines)
@@ -104,9 +109,17 @@ namespace Core
 			out << line << endl;
 		}
 		out.flush();
+		out.close();
+		Log::Info("Finish insert function.");
+
+		_sys->CompileAll(true);
+		while (!_sys->GetIsCompiledComplete())
+		{
+
+		}
 
 		//Wait for compilation.
-		while (!_compiled);
+		//_t.join();
 
 		ObjectFunction *objFunc = new ObjectFunction();
 		return objFunc;
@@ -116,23 +129,26 @@ namespace Core
 	{
 		StdioLogSystem *pThreadsafeLog = new StdioLogSystem();
 
-		auto _sys = new RuntimeObjectSystem();
+		_sys = new RuntimeObjectSystem();
 		_sys->Initialise(pThreadsafeLog, NULL);
 		//Run loop in another thread.
-		std::thread t(&LoopRunRcc);
+		//_t = std::thread(&LoopRunRcc);
 	}
 
 	void ObjectFuncParser::LoopRunRcc()
 	{
-		while (true)
-		{
-			Sleep(1000);
-
-			if (_sys->GetIsCompiledComplete())
-			{
-				_compiled = true;
-			}
-		}
+// 		ThreadLocker locker(_mutex);
+// 		while (true)
+// 		{
+// 			Sleep(1000);
+// 
+// 			cout << "hi" << endl;
+// 			if (_sys->GetIsCompiledComplete())
+// 			{
+// 				Log::Info("The cpp is compiled.");
+// 				break;
+// 			}
+// 		}
 	}
 
 }

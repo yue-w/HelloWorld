@@ -13,8 +13,10 @@ ObjectFunction::~ObjectFunction()
 
 double ObjectFunction::Compute(const vector<double>& x) const
 {
+	auto x0 = x.front();
 	//Insert Function
-	return 0;
+double fun=x0;
+	return fun;
 }
 
 REGISTERCLASS(ObjectFunction);

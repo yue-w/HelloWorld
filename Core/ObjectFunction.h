@@ -1,7 +1,7 @@
 #pragma once
 #include "IFunction.h"
 
-#include <RuntimeObjectSystem/IObject.h>
+#include "RuntimeObjectSystem/IObject.h"
 
 class ObjectFunction : public Core::IFunction, public IObject
 {

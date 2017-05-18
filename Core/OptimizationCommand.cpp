@@ -2,6 +2,8 @@
 
 #include "Log.h"
 #include "DataWrapper.h"
+#include "ObjectFuncParser.h"
+#include "IFunction.h"
 
 #include <sstream>
 #include <nlopt.hpp>
@@ -40,18 +42,31 @@ namespace Core
 
 	void OptimizationCommand::Execute(const DataWrapper* data)
 	{
-		//Get input data.
-		auto lb0 = data->GetData("lb0");
-		auto lb1 = data->GetData("lb1");
-		vector<std::string> lowerbound;
-		lowerbound.push_back(lb0);
-		lowerbound.push_back(lb1);
-		//Optimize.
-		vector<double> vars;
-		TestOptimize(lowerbound, vars);
-		//Output data.
-		_outData->Add("var0", Num2String(vars[0]));
-		_outData->Add("var1", Num2String(vars[1]));
+// 		//Get input data.
+// 		auto lb0 = data->GetData("lb0");
+// 		auto lb1 = data->GetData("lb1");
+// 		vector<std::string> lowerbound;
+// 		lowerbound.push_back(lb0);
+// 		lowerbound.push_back(lb1);
+// 		//Optimize.
+// 		vector<double> vars;
+// 		TestOptimize(lowerbound, vars);
+// 		//Output data.
+// 		_outData->Add("var0", Num2String(vars[0]));
+// 		_outData->Add("var1", Num2String(vars[1]));
+
+
+		Log::PushNDC("OptimizationCommand");
+		Log::Info("Start execute");
+
+		ObjectFuncParser parser;
+		auto func = parser.Parse(data->GetData("objFunc"));
+
+		vector<double> var{ 2 };
+		auto res = func->Compute(var);
+		_outData->Add("objVal", Num2String(res));
+
+		Log::PopNDC();
 	}
 
 	map<string, string> OptimizationCommand::GetOutData() const

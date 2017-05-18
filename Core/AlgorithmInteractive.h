@@ -13,6 +13,7 @@ namespace Core
 		DataWrapper* _dataWrapper;
 		map<string, CommandCreator*> _commandCreators;
 
+		map<string, string> _outdata;
 	public:
 		AlgorithmInteractive();
 		~AlgorithmInteractive();
@@ -22,7 +23,9 @@ namespace Core
 		void AddParam(const string paramKey, const string param);
 		//Execute the command <cmd>.
 		//Currently, only "Optimization" is supported.
-		map<string, string> Execute(const string cmd);
+		bool Execute(const string cmd);
+
+		map<string, string> GetOutput() const { return _outdata; }
 
 	private:
 
