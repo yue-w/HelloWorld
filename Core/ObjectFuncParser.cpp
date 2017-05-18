@@ -5,6 +5,7 @@
 
 #include <RuntimeCompiler/ICompilerLogger.h>
 #include <RuntimeObjectSystem/RuntimeObjectSystem.h>
+#include <RuntimeObjectSystem/IObjectFactorySystem.h>
 #include <stdarg.h>
 #include <assert.h>
 #include <iostream>
@@ -86,11 +87,13 @@ namespace Core
 
 	IFunction* ObjectFuncParser::Parse(const string functionStr)
 	{
+		Log::PushNDC("ObjectFuncParser");
+
 		//Try to modify ObjectFunction.cpp.
 		Log::Info("Function to parse: " + functionStr);;
 
 		//Read all lines of cpp file.
-		string filename = "E:\\Projects\\HelloWorld\\Core\\ObjectFunction.cpp";
+		string filename = "..\\..\\Core\\ObjectFunction.cpp";
 		vector<string> lines;
 		ifstream in(filename);
 		string line = "";
@@ -112,17 +115,19 @@ namespace Core
 		out.close();
 		Log::Info("Finish insert function.");
 
+		//Dynamic compile.
 		_sys->CompileAll(true);
+		//Wait for finishing compilation.
 		while (!_sys->GetIsCompiledComplete())
 		{
-
 		}
+		_sys->LoadCompiledModule();
 
-		//Wait for compilation.
-		//_t.join();
+		Log::PopNDC();
 
-		ObjectFunction *objFunc = new ObjectFunction();
-		return objFunc;
+		//Get object function from factory.
+		auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor("ObjectFunction")->Construct();
+		return dynamic_cast<ObjectFunction*>(objFunc);
 	}
 
 	void ObjectFuncParser::InitRccSystem()
@@ -131,24 +136,6 @@ namespace Core
 
 		_sys = new RuntimeObjectSystem();
 		_sys->Initialise(pThreadsafeLog, NULL);
-		//Run loop in another thread.
-		//_t = std::thread(&LoopRunRcc);
-	}
-
-	void ObjectFuncParser::LoopRunRcc()
-	{
-// 		ThreadLocker locker(_mutex);
-// 		while (true)
-// 		{
-// 			Sleep(1000);
-// 
-// 			cout << "hi" << endl;
-// 			if (_sys->GetIsCompiledComplete())
-// 			{
-// 				Log::Info("The cpp is compiled.");
-// 				break;
-// 			}
-// 		}
 	}
 
 }

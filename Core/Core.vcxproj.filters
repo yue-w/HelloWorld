@@ -45,13 +45,13 @@
     <ClInclude Include="IFunction.h">
       <Filter>Interface</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectFunction.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ObjectFuncParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ThreadLocker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectFunction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

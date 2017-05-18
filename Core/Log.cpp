@@ -53,7 +53,9 @@ namespace Core
 			log4cpp::Category* root = &log4cpp::Category::getRoot();
 			root->setPriority(log4cpp::Priority::DEBUG);
 			root->addAppender(appender1);
-			//root->addAppender(appender2);
+			root->addAppender(appender2);
+
+			root->info("-------------------------------Start----------------------------");
 
 			return root;
 		}

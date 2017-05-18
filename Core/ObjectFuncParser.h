@@ -24,8 +24,6 @@ namespace Core
 	private:
 
 		void InitRccSystem();
-
-		static void LoopRunRcc();
 	};
 
 }

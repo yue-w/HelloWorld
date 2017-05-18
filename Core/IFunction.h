@@ -7,8 +7,8 @@ namespace Core
 	class IFunction
 	{
 	public:
-		IFunction();
-		~IFunction();
+		IFunction() {};
+		~IFunction() {};
 
 		virtual double Compute(const vector<double>& x) const =0;
 	};
