@@ -31,8 +31,11 @@ void MainWindow::on_pushButton_optimize_clicked()
     //lineEdit = new QLineEdit("Hello World", this);
     //lineEdit->show();
 
+    auto lb1=ui->lineEdit_lowerbound1->text().toStdString();
     auto func=ui->lineEdit_objectFunction->text().toStdString();
+
     Core::AlgorithmInteractive interactive_test;
+    interactive_test.AddParam("lb0",lb1);
     interactive_test.AddParam("objFunc",func);
     if(interactive_test.Execute("Optimization"))
     {

@@ -4,6 +4,7 @@
 #include "DataWrapper.h"
 #include "ObjectFuncParser.h"
 #include "IFunction.h"
+#include "CommonFunc.h"
 
 #include <sstream>
 #include <nlopt.hpp>
@@ -23,22 +24,6 @@ namespace Core
 		delete _outData;
 	}
 
-	template <class Type>
-	Type stringToNum(const string& str)
-	{
-		stringstream iss(str);
-		Type num;
-		iss >> num;
-		return num;
-	}
-
-	template <class Type>
-	string Num2String(const Type& val)
-	{
-		stringstream iss;
-		iss << val;
-		return iss.str();
-	}
 
 	void OptimizationCommand::Execute(const DataWrapper* data)
 	{
@@ -56,8 +41,7 @@ namespace Core
 // 		_outData->Add("var1", Num2String(vars[1]));
 
 
-		Log::Info("Start execute");
-
+		//Parse the objective function.
 		ObjectFuncParser parser;
 		auto func = parser.Parse(data->GetData("objFunc"));
 		if (func == NULL)
@@ -66,9 +50,13 @@ namespace Core
 		}
 		else
 		{
-			vector<double> var{ 2 };
+			//Get input from UI.
+			auto x = StringToNum<double>(data->GetData("lb0"));
+			vector<double> var{ x };
+			//Compute
 			auto res = func->Compute(var);
 			Core::CommonTool::Log::Info("end compute: "+Num2String(res));
+			//Send data to output wrapper.
 			_outData->Add("objVal", Num2String(res));
 		}
 
@@ -86,7 +74,7 @@ namespace Core
 		vector<double> lb;
 		for (auto lb_str : lowerBound)
 		{
-			lb.push_back(stringToNum<double>(lb_str));
+			lb.push_back(StringToNum<double>(lb_str));
 		}
 		opt.set_lower_bounds(lb);
 
