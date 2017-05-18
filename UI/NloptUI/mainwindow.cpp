@@ -4,7 +4,12 @@
 #include <vector>
 #include <string.h>
 
+<<<<<<< HEAD
+#include "../../../Core/Command.h"
+#include <QDebug>
+=======
 #include "../../../Core/AlgorithmInteractive.h"
+>>>>>>> 6642de20967f6defeb691c953c77675de27b5fd9
 
 #pragma comment(lib,"../../Core/x64/Debug/Core.lib")
 
@@ -20,6 +25,8 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
 
 void MainWindow::on_pushButton_optimize_clicked()
 {
@@ -63,3 +70,5 @@ void MainWindow::on_pushButton_optimize_clicked()
     //ui->lineEdit_variable1_output->setText(QString::fromStdString(var0));
     //ui->lineEdit_variable2_output->setText(QString::fromStdString(var1));
 }
+
+
