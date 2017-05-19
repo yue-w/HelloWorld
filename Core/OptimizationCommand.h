@@ -17,7 +17,7 @@ namespace Core
 
 	public:
 		OptimizationCommand();
-		~OptimizationCommand();
+		~OptimizationCommand(); 
 
 		virtual void Execute(const DataWrapper* data);
 
