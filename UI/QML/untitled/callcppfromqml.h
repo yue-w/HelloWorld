@@ -4,7 +4,8 @@
 
 #include <QObject>
 #include <QVector>
-
+//#include "../../../Core/DebugCppAndQml.h"
+#include "../../../Core/AlgorithmInteractive.h"
 class CallCppFromQml : public QObject
 {
     Q_OBJECT

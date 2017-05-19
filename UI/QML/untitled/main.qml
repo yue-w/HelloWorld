@@ -7,6 +7,7 @@ Window {
     width: 800
     height: 600
     id:root
+    property int marginValue: 5
 
     ListModel {
         id: theModel_variableName
@@ -24,7 +25,7 @@ Window {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: optimizeButton.top
-        anchors.margins: 20
+        anchors.margins: marginValue
 
         height: 40
 
@@ -91,7 +92,7 @@ Window {
         ListView {
             id:listView_id
             anchors.fill: parent
-            anchors.margins: 20
+            anchors.margins: marginValue
             clip: true
             model: theModel_variableName
             delegate: variableName
@@ -113,15 +114,14 @@ Window {
         Column{
             ////Object Function
             TextField{
-
-                //anchors.left: parent.left
-                //anchors.left: recListView.right
-                x:10
-                anchors.margins: 20
-                //anchors.bottomMargin: 80
-                //y:theModel_variableName.y+10
                 id: objectFunction
-                width: 200
+                anchors.left: parent.left
+                anchors.leftMargin: marginValue
+                anchors.top: parent.top
+                anchors.topMargin: marginValue
+
+
+                width: 400
                 height: 25
                 placeholderText: "Object function"
                  onEditingFinished:{
@@ -135,6 +135,7 @@ Window {
 
     }
 
+    /////Rectangle that contains result
     Rectangle{
 
         id:results
@@ -167,21 +168,85 @@ Window {
         width: 480
         height: 100
 
-        Row{
-            id:rowMaxIterationTimes
+//        Row{
+//            id:rowMaxIterationTimes
+//            anchors.left: parent.left
+//            anchors.leftMargin: marginValue
+//            anchors.top: parent.top
+//            anchors.topMargin: marginValue
+//            spacing:20
+
+//            Text {
+//                id: txtItetimes
+//                //anchors.left: parent.left
+//                text: qsTr("Max iteration\n"+"times:")
+
+//            }
+
+//            TextField{
+//                id:maxIteInputTxt
+//                width: 100
+//                height: 25
+//                placeholderText: "1000"
+//                 onEditingFinished:{
+//                     ////Todo
+//                   }////onEditingFinished Finish
+
+//            }
+
+//        }
+
+//        Row{
+//            id:rowAccuracy
+//            anchors.left: parent.left
+//            anchors.leftMargin: marginValue
+//            anchors.top: rowMaxIterationTimes.bottom
+//            anchors.topMargin: marginValue
+//            spacing:20
+//            Text {
+//                id: txtAccuracy
+//                //anchors.left: parent.left
+//                text: qsTr("Accuracy:")
+//            }
+
+//            TextField{
+//                id:inputAccuracy
+//                width: 100
+//                height: 25
+//                //anchors.right:  maxIteInputTxt.right
+
+//                placeholderText: "0.001"
+//                 onEditingFinished:{
+//                     ////Todo
+//                   }////onEditingFinished Finish
+
+//            }
+
+//        }
+
+        Grid{
+            id:inputGrid
+            width:240
+            height:80
+            anchors.left: parent.left
+            anchors.leftMargin: marginValue
+            anchors.top: parent.top
+            anchors.topMargin: marginValue
+            rows:1
+            columns:4
+            spacing: 10
+
             Text {
-                y:inputs+4
                 id: txtItetimes
-                anchors.left: parent.left
-                text: qsTr("Max iteration times")
+                //anchors.left: parent.left
+                text: qsTr("Max iteration\n"+"times:")
+
             }
 
             TextField{
                 id:maxIteInputTxt
                 width: 100
                 height: 25
-                x:200
-                ////anchors.left: txtItetimes.right +100
                 placeholderText: "1000"
                  onEditingFinished:{
                      ////Todo
@@ -189,23 +254,18 @@ Window {
 
             }
 
-        }
-
-        Row{
-            id:rowAccuracy
-            y:rowMaxIterationTimes.y+30
             Text {
                 id: txtAccuracy
-                anchors.left: parent.left
-                text: qsTr("Accuracy")
+                //anchors.left: parent.left
+                text: qsTr("Accuracy:")
             }
 
             TextField{
                 id:inputAccuracy
                 width: 100
                 height: 25
-                x:200
-                //anchors.left: txtAccuracy.right
+                //anchors.right:  maxIteInputTxt.right
+
                 placeholderText: "0.001"
                  onEditingFinished:{
                      ////Todo
@@ -214,7 +274,6 @@ Window {
             }
 
         }
-
 
 
     }

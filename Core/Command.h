@@ -3,10 +3,10 @@
 
 namespace Core
 {
-<<<<<<< HEAD
-	_declspec(dllexport) double TestOptimize(const std::vector<double>& lowerBound, std::vector<double>& var);
-	_declspec(dllexport) void test();
-=======
+
+	//_declspec(dllexport) double TestOptimize(const std::vector<double>& lowerBound, std::vector<double>& var);
+	//_declspec(dllexport) void test();
+
 	class DataWrapper;
 
 	class Command
@@ -47,6 +47,6 @@ namespace Core
 			return new T();
 		}
 	};
->>>>>>> 6642de20967f6defeb691c953c77675de27b5fd9
+
 }
 

@@ -225,6 +225,9 @@ release\moc_callcppfromqml.cpp: W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QOb
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qvarlengtharray.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qcontainerfwd.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qobject_impl.h \
+		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QVector \
+		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qvector.h \
+		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qpoint.h \
 		..\untitled\callcppfromqml.h \
 		release\moc_predefs.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\bin\moc.exe
@@ -338,7 +341,8 @@ release\main.obj: ..\untitled\main.cpp W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtG
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtQml\QQmlContext \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtQml\qqmlcontext.h \
 		../untitled/callcppfromqml.h \
-		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QObject
+		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QObject \
+		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QVector
 
 release\callcppfromqml.obj: ..\untitled\callcppfromqml.cpp ../untitled/callcppfromqml.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QObject \
@@ -389,6 +393,9 @@ release\callcppfromqml.obj: ..\untitled\callcppfromqml.cpp ../untitled/callcppfr
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qvarlengtharray.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qcontainerfwd.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qobject_impl.h \
+		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QVector \
+		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qvector.h \
+		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qpoint.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QDebug \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qdebug.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qhash.h \
@@ -398,12 +405,13 @@ release\callcppfromqml.obj: ..\untitled\callcppfromqml.cpp ../untitled/callcppfr
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qlocale.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qvariant.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qshareddata.h \
-		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qvector.h \
-		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qpoint.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qset.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qcontiguouscache.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qsharedpointer.h \
-		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qsharedpointer_impl.h
+		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qsharedpointer_impl.h \
+		..\..\..\Core\Command.h \
+		..\..\..\Core\PublicHeader.h \
+		..\..\..\Middleware\nlopt\include\nlopt.hpp
 
 release\qrc_qml.obj: release\qrc_qml.cpp 
 
