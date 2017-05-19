@@ -2,6 +2,9 @@
 
 #include "Log.h"
 #include "DataWrapper.h"
+#include "ObjectFuncParser.h"
+#include "IFunction.h"
+#include "CommonFunc.h"
 
 #include <sstream>
 #include <nlopt.hpp>
@@ -21,37 +24,42 @@ namespace Core
 		delete _outData;
 	}
 
-	template <class Type>
-	Type stringToNum(const string& str)
-	{
-		stringstream iss(str);
-		Type num;
-		iss >> num;
-		return num;
-	}
-
-	template <class Type>
-	string Num2String(const Type& val)
-	{
-		stringstream iss;
-		iss << val;
-		return iss.str();
-	}
 
 	void OptimizationCommand::Execute(const DataWrapper* data)
 	{
 		//Get input data.
-		auto lb0 = data->GetData("lb0");
-		auto lb1 = data->GetData("lb1");
-		vector<std::string> lowerbound;
-		lowerbound.push_back(lb0);
-		lowerbound.push_back(lb1);
-		//Optimize.
-		vector<double> vars;
-		TestOptimize(lowerbound, vars);
-		//Output data.
-		_outData->Add("var0", Num2String(vars[0]));
-		_outData->Add("var1", Num2String(vars[1]));
+// 		auto lb0 = data->GetData("lb0");
+// 		auto lb1 = data->GetData("lb1");
+// 		vector<std::string> lowerbound;
+// 		lowerbound.push_back(lb0);
+// 		lowerbound.push_back(lb1);
+// 		//Optimize.
+// 		vector<double> vars;
+// 		TestOptimize(lowerbound, vars);
+// 		//Output data.
+// 		_outData->Add("var0", Num2String(vars[0]));
+// 		_outData->Add("var1", Num2String(vars[1]));
+
+
+		//Parse the objective function.
+		ObjectFuncParser parser;
+		auto func = parser.Parse(data->GetData("objFunc"));
+		if (func == NULL)
+		{
+			Log::Info("func is null");
+		}
+		else
+		{
+			//Get input from UI.
+			auto x = StringToNum<double>(data->GetData("lb0"));
+			vector<double> var{ x };
+			//Compute
+			auto res = func->Compute(var);
+			Core::CommonTool::Log::Info("end compute: "+Num2String(res));
+			//Send data to output wrapper.
+			_outData->Add("objVal", Num2String(res));
+		}
+
 	}
 
 	map<string, string> OptimizationCommand::GetOutData() const
@@ -66,7 +74,7 @@ namespace Core
 		vector<double> lb;
 		for (auto lb_str : lowerBound)
 		{
-			lb.push_back(stringToNum<double>(lb_str));
+			lb.push_back(StringToNum<double>(lb_str));
 		}
 		opt.set_lower_bounds(lb);
 

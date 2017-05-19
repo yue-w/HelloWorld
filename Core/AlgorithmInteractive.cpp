@@ -3,6 +3,9 @@
 
 #include "Command.h"
 #include "OptimizationCommand.h"
+#include "Log.h"
+
+#include <windows.h>
 
 namespace Core
 {
@@ -26,16 +29,28 @@ namespace Core
 		_dataWrapper->Add(paramKey, param);
 	}
 
-	map<string, string> AlgorithmInteractive::Execute(const string cmd)
+	bool AlgorithmInteractive::Execute(const string cmd)
 	{
-		auto command = _commandCreators[cmd]->Create();
+		try
+		{
+			wchar_t buffer[MAX_PATH];
+			GetModuleFileName(NULL, buffer, MAX_PATH);
+			wcout <<"Working directory: " <<wstring(buffer)<<endl;
 
-		command->Execute(_dataWrapper);
+			auto command = _commandCreators[cmd]->Create();
 
-		auto outdata= command->GetOutData();
+			command->Execute(_dataWrapper);
 
-		delete command;
+			_outdata = command->GetOutData();
 
-		return outdata;
+			delete command;
+
+			return true;
+		}
+		catch (const std::exception& ex)
+		{
+			_outdata["error"] = ex.what();
+			return false;
+		}
 	}
 }

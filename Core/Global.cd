@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Core::DataWrapper" Collapsed="true">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAIAAAAAFAAAAAAAAAAAAAAAAIIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DataWrapper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core::Command" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAQBAAAAAAIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core::CommandCreator">
+    <Position X="0.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABIAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core::AlgorithmInteractive" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAIAAAAAAgAEQIAAAAAAAAAEAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>AlgorithmInteractive.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_dataWrapper" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Core::ConcreteCommandCreator&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAgAAAACAAAAA=</HashCode>
+      <FileName>Command.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Core::OptimizationCommand">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <NestedTypes>
+      <Typedef Name="Core::OptimizationCommand::my_constraint_data" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>OptimizationCommand.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Struct Name="Core::OptimizationCommand::__unnamed_struct_0013_1" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>OptimizationCommand.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAQAAAAUAAAAAIAAAAAAQAAAEAAACAA=</HashCode>
+      <FileName>OptimizationCommand.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_outData" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>

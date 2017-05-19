@@ -1,5 +1,6 @@
 #pragma once
 #include "PublicHeader.h"
+#include "ThreadLocker.h"
 
 class RuntimeObjectSystem;
 namespace Core
@@ -9,7 +10,9 @@ namespace Core
 	class ObjectFuncParser
 	{
 		static RuntimeObjectSystem *_sys;
-		static bool _compiled;
+		static mutex _mutex;
+
+		std::thread _t;
 	public:
 		ObjectFuncParser();
 		~ObjectFuncParser();
@@ -21,8 +24,6 @@ namespace Core
 	private:
 
 		void InitRccSystem();
-
-		static void LoopRunRcc();
 	};
 
 }

@@ -11,18 +11,22 @@ CallCppFromQml::CallCppFromQml(QObject *parent) : QObject(parent)
 
 QVector<double> CallCppFromQml::test( )
 {
-    qDebug()<<"Hello!";
+//    qDebug()<<"Hello!";
 
-        std::vector<std::string> lowerbound;
-        lowerbound.push_back("0");
-        lowerbound.push_back("0");
+//        std::vector<std::string> lowerbound;
+//        lowerbound.push_back("0");
+//        lowerbound.push_back("0");
 
-        //std::vector<double> vars;
+//        //std::vector<double> vars;
         std::vector<double> variable;
 
-        OptimizationCommand command;
-        //m_objFunValue =command.TestOptimize(lowerbound,variable);
-       // m_objFunValue = testCPPQml::TestOptimize(m_lowerBound,variable);
+
+//        OptimizationCommand command;
+//        m_objFunValue =command.TestOptimize(lowerbound,variable);
+//       // m_objFunValue = testCPPQml::TestOptimize(m_lowerBound,variable);
+
+//       // m_objFunValue = Core::TestOptimize(m_lowerBound,variable);
+
         QVector<double> optedVec = QVector<double>::fromStdVector(variable);
 
 

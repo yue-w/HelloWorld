@@ -228,6 +228,8 @@ release\moc_callcppfromqml.cpp: W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QOb
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QVector \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qvector.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qpoint.h \
+		..\..\..\Core\AlgorithmInteractive.h \
+		..\..\..\Core\PublicHeader.h \
 		..\untitled\callcppfromqml.h \
 		release\moc_predefs.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\bin\moc.exe
@@ -342,7 +344,9 @@ release\main.obj: ..\untitled\main.cpp W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtG
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtQml\qqmlcontext.h \
 		../untitled/callcppfromqml.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QObject \
-		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QVector
+		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QVector \
+		..\..\..\Core\AlgorithmInteractive.h \
+		..\..\..\Core\PublicHeader.h
 
 release\callcppfromqml.obj: ..\untitled\callcppfromqml.cpp ../untitled/callcppfromqml.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QObject \
@@ -396,6 +400,8 @@ release\callcppfromqml.obj: ..\untitled\callcppfromqml.cpp ../untitled/callcppfr
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QVector \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qvector.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qpoint.h \
+		..\..\..\Core\AlgorithmInteractive.h \
+		..\..\..\Core\PublicHeader.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\QDebug \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qdebug.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qhash.h \
@@ -408,10 +414,7 @@ release\callcppfromqml.obj: ..\untitled\callcppfromqml.cpp ../untitled/callcppfr
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qset.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qcontiguouscache.h \
 		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qsharedpointer.h \
-		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qsharedpointer_impl.h \
-		..\..\..\Core\Command.h \
-		..\..\..\Core\PublicHeader.h \
-		..\..\..\Middleware\nlopt\include\nlopt.hpp
+		W:\Qt\Qt5.8.0\5.8\msvc2015_64\include\QtCore\qsharedpointer_impl.h
 
 release\qrc_qml.obj: release\qrc_qml.cpp 
 

@@ -45,10 +45,16 @@
     <ClInclude Include="IFunction.h">
       <Filter>Interface</Filter>
     </ClInclude>
+    <ClInclude Include="ObjectFuncParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadLocker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ObjectFunction.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectFuncParser.h">
+    <ClInclude Include="CommonFunc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DebugCppAndQml.h">
@@ -86,8 +92,20 @@
     <ClCompile Include="ObjectFuncParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="DebugCppAndQml.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+=======
+    <ClCompile Include="ThreadLocker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CommonFunc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Global.cd" />
+>>>>>>> d7debb79e235d47bd1e59af496f7dd37c43b5d7e
   </ItemGroup>
 </Project>

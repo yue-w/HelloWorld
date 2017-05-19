@@ -1,20 +1,18 @@
 #include "ObjectFunction.h"
 
-#include <RuntimeObjectSystem/ObjectInterfacePerModule.h>
-
-ObjectFunction::ObjectFunction()
-{
-}
+#include "../Middleware/rcc/include/RuntimeObjectSystem/ObjectInterfacePerModule.h"
 
 
-ObjectFunction::~ObjectFunction()
-{
-}
 
 double ObjectFunction::Compute(const vector<double>& x) const
 {
+	auto x0 = x.front();
 	//Insert Function
-	return 0;
+double fun=x0*2;
+
+	cout << x0 << endl;
+	cout << fun << endl;
+	return fun;
 }
 
 REGISTERCLASS(ObjectFunction);

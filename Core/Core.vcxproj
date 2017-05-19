@@ -164,6 +164,7 @@
   <ItemGroup>
     <ClInclude Include="AlgorithmInteractive.h" />
     <ClInclude Include="Command.h" />
+    <ClInclude Include="CommonFunc.h" />
     <ClInclude Include="DataWrapper.h" />
     <ClInclude Include="DebugCppAndQml.h" />
     <ClInclude Include="IFunction.h" />
@@ -173,10 +174,12 @@
     <ClInclude Include="ObjectFunction.h" />
     <ClInclude Include="OptimizationCommand.h" />
     <ClInclude Include="PublicHeader.h" />
+    <ClInclude Include="ThreadLocker.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AlgorithmInteractive.cpp" />
     <ClCompile Include="Command.cpp" />
+    <ClCompile Include="CommonFunc.cpp" />
     <ClCompile Include="DataWrapper.cpp" />
     <ClCompile Include="DebugCppAndQml.cpp" />
     <ClCompile Include="IFunction.cpp" />
@@ -186,6 +189,10 @@
     <ClCompile Include="ObjectFuncParser.cpp" />
     <ClCompile Include="ObjectFunction.cpp" />
     <ClCompile Include="OptimizationCommand.cpp" />
+    <ClCompile Include="ThreadLocker.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Global.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

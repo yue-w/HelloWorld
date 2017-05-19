@@ -3,8 +3,7 @@ TEMPLATE = app
 QT += qml quick
 CONFIG += c++11
 
-SOURCES += main.cpp \
-    callcppfromqml.cpp
+SOURCES += main.cpp
 
 RESOURCES += qml.qrc
 

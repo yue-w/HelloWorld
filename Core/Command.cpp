@@ -10,6 +10,7 @@ namespace Core
 
 
 
+
 	//double TestOptimize(const vector<double>& lowerBound, vector<double>& var)
 	//{
 	//	
@@ -57,5 +58,8 @@ Command::~Command()
 {
 
 }
+
+
+
 
 }

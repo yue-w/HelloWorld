@@ -74,3 +74,6 @@ obj/
 *.suo
 Debug/
 Release/
+*.user
+UI/QML/build-untitled-Desktop_Qt_5_8_0_MSVC2015_64bit-Debug/
+UI/QML/build-untitled-Desktop_Qt_5_8_0_MSVC2015_64bit-Release/
