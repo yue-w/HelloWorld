@@ -401,7 +401,7 @@ Window {
         }
 
 
-        testCallCpp.setLowerBound(lowerBnds);
+       testCallCpp.setLowerBound(lowerBnds);
        var variablVecOpted =  testCallCpp.test(lowerBnds);
 
         objResultTxt.text= "Minimium object value: " + testCallCpp.getObjOptedValue();
