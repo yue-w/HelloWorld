@@ -67,7 +67,7 @@ namespace Core
 		return _outData->GetAllData();
 	}
 
-	void OptimizationCommand::TestOptimize(const std::vector<std::string>& lowerBound, std::vector<double>& var)
+	double OptimizationCommand::TestOptimize(const std::vector<std::string>& lowerBound, std::vector<double>& var)
 	{
 		nlopt::opt opt(nlopt::LD_MMA, 2);
 
@@ -99,6 +99,8 @@ namespace Core
 		var.clear();
 		var.push_back(x[0]);
 		var.push_back(x[1]);
+
+		return minf;
 	}
 
 	double OptimizationCommand::myvfunc(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data)

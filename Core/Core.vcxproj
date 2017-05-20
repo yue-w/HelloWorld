@@ -166,6 +166,7 @@
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommonFunc.h" />
     <ClInclude Include="DataWrapper.h" />
+    <ClInclude Include="DebugCppAndQml.h" />
     <ClInclude Include="IFunction.h" />
     <ClInclude Include="implementOpt.h" />
     <ClInclude Include="Log.h" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommonFunc.cpp" />
     <ClCompile Include="DataWrapper.cpp" />
+    <ClCompile Include="DebugCppAndQml.cpp" />
     <ClCompile Include="IFunction.cpp" />
     <ClCompile Include="implementOpt.cpp" />
     <ClCompile Include="Log.cpp" />

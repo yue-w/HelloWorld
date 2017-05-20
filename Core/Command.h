@@ -3,6 +3,7 @@
 
 namespace Core
 {
+
 	class DataWrapper;
 
 	class Command
@@ -43,5 +44,6 @@ namespace Core
 			return new T();
 		}
 	};
+
 }
 
