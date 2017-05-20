@@ -92,11 +92,6 @@
     <ClCompile Include="ObjectFuncParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
-    <ClCompile Include="DebugCppAndQml.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-=======
     <ClCompile Include="ThreadLocker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -106,6 +101,5 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Global.cd" />
->>>>>>> d7debb79e235d47bd1e59af496f7dd37c43b5d7e
   </ItemGroup>
 </Project>
