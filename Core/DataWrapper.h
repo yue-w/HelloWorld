@@ -5,7 +5,7 @@ namespace Core
 {
 	class DataWrapper
 	{
-		map<string, string> _data;
+		unordered_map<string, string> _data;
 	public:
 		DataWrapper();
 		~DataWrapper();
@@ -16,7 +16,7 @@ namespace Core
 
 		string GetData(const string key) const;
 
-		map<string, string> GetAllData() const { return _data; }
+		unordered_map<string, string> GetAllData() const { return _data; }
 	};
 }
 

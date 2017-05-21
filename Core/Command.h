@@ -15,7 +15,7 @@ namespace Core
 		virtual void Execute(const DataWrapper* data) = 0;
 		//Get output data.
 		//Use <Execute> first!
-		virtual map<string, string> GetOutData() const = 0;
+		virtual unordered_map<string, string> GetOutData() const = 0;
 
 	private:
 

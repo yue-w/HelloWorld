@@ -10,6 +10,7 @@
 #include <nlopt.hpp>
 #include <math.h>
 
+
 namespace Core
 {
 	using namespace CommonTool;
@@ -49,7 +50,8 @@ namespace Core
 
 		//auto func = parser.Parse(data->GetData("objFunc"));
 
-		////bbjFunc is the string that contains the modified object function.
+
+		////objFunc is the string that contains the modified object function.
 		string objFunc = modifyObjectFunc(data);
 		auto func = parser.Parse(objFunc);
 
@@ -73,43 +75,79 @@ namespace Core
 
 	string OptimizationCommand::modifyObjectFunc(const DataWrapper* data)
 	{
+		
+
 		////make a copy of data
-		map<string, string> allKeys = data->GetAllData();
+		unordered_map<string, string> allKeys = data->GetAllData();
 
 		////original object function
 		string oriObjfunc = data->GetData("objFunc");
 
 		////Remove the key "objFunc" from the data to make replacing the variable name easier.
-		map<string, string>::iterator it;
+		unordered_map<string, string>::iterator it;
 		it = allKeys.find("objFunc");
 		allKeys.erase(it);
 
-		///iterate the map.
-		for (std::map<string, string>::iterator iter = allKeys.begin(); iter != allKeys.end(); ++iter)
+
+		string modifiedObjFun= data->GetData("objFunc");
+
+		int indexInx = 0;
+		///iterate the unordered_map.
+		for (std::unordered_map<string, string>::iterator iter = allKeys.begin(); iter != allKeys.end(); ++iter)
 		{
+			
 			string key = iter->first;
 			string value = allKeys[key];
 
 			///find and replace the variable
-			//size_t f = oriObjfunc.find("value");
-			//oriObjfunc.replace(f, std::string("text to replace").length(), "new text");
+			size_t pos = modifiedObjFun.find(value, 0);
+			while (pos !=string::npos)////if find the occurance
+			{
+				string replace = "x[" + std::to_string(indexInx) + "]";
+				modifiedObjFun.replace(pos, value.length(), replace);
+				
+				 pos = modifiedObjFun.find(value, 0);
+			}
+			indexInx++;
 
-			int debug = 0;
+			//size_t f = modifiedObjFun.find(value);
+			//string replace = "[" + std::to_string(i) + "]";
+			//modifiedObjFun.replace(f, value.length(), replace);
 
 			
 		}
 
 
-		string modifiedObjFun;
-		auto objFun = data->GetData("objFunc");
-		auto x1_ = data->GetData("x1");
-		auto x2_ = data->GetData("x2");
+		//string modifiedObjFun;
+		//auto objFun = data->GetData("objFunc");
+		//auto x1_ = data->GetData("x1");
+		//auto x2_ = data->GetData("x2");
 
 
 
 		return modifiedObjFun;
 	}
-	map<string, string> OptimizationCommand::GetOutData() const
+	vector<double> OptimizationCommand::changeVariableToVector(const unordered_map<string, string> & variableKeyValue)
+	{
+		//////make a copy of data, and eraze object function, so that only numbers are remained.
+		unordered_map<string, string> allKeys= variableKeyValue;
+
+		unordered_map<string, string>::const_iterator it;
+		it = allKeys.find("objFunc");
+		allKeys.erase(it);
+
+		//vector<double> x(variableKeyValue.size());
+		vector<double> x;
+		rsize_t i = 0;
+		for (unordered_map<string, string>::iterator it = allKeys.begin(); it!= allKeys.end(); it++)
+		{
+			////the order of the variable is the same as in the key			
+			x.push_back(std::stod(it->second));
+		}
+
+		return x;
+	}
+	unordered_map<string, string> OptimizationCommand::GetOutData() const
 	{
 		return _outData->GetAllData();
 	}

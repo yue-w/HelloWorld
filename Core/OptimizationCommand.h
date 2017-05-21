@@ -21,7 +21,7 @@ namespace Core
 
 		virtual void Execute(const DataWrapper* data);
 
-		map<string, string> GetOutData() const;
+		unordered_map<string, string> GetOutData() const;
 
 	private:
 
@@ -30,6 +30,9 @@ namespace Core
 
 		////Modify the object function input by user
 		string modifyObjectFunc(const DataWrapper* data);
+
+		////Change the variable from unordered_map to a vector<double> that contains all the variable.
+		vector<double> changeVariableToVector(const unordered_map<string, string> &variableKeyValue);
 
 	public:
 		static double myvfunc(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data);

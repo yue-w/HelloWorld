@@ -68,9 +68,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Log.cpp">
-      <Filter>CommonTools</Filter>
-    </ClCompile>
     <ClCompile Include="Command.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -97,6 +94,12 @@
     </ClCompile>
     <ClCompile Include="CommonFunc.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugCppAndQml.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Log.cpp">
+      <Filter>CommonTools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

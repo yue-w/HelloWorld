@@ -12,9 +12,9 @@ namespace Core
 	{
 		//The input data from UI.
 		DataWrapper* _dataWrapper;
-		map<string, CommandCreator*> _commandCreators;
+		unordered_map<string, CommandCreator*> _commandCreators;
 
-		map<string, string> _outdata;
+		unordered_map<string, string> _outdata;
 	public:
 		AlgorithmInteractive();
 		~AlgorithmInteractive();
@@ -26,7 +26,7 @@ namespace Core
 		//Currently, only "Optimization" is supported.
 		bool Execute(const string cmd);
 
-		map<string, string> GetOutput() const { return _outdata; }
+		unordered_map<string, string> GetOutput() const { return _outdata; }
 
 	private:
 
