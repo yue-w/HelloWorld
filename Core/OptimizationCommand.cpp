@@ -43,7 +43,16 @@ namespace Core
 
 		//Parse the objective function.
 		ObjectFuncParser parser;
-		auto func = parser.Parse(data->GetData("objFunc"));
+		
+
+		
+
+		//auto func = parser.Parse(data->GetData("objFunc"));
+
+		////bbjFunc is the string that contains the modified object function.
+		string objFunc = modifyObjectFunc(data);
+		auto func = parser.Parse(objFunc);
+
 		if (func == NULL)
 		{
 			Log::Info("func is null");
@@ -62,6 +71,44 @@ namespace Core
 
 	}
 
+	string OptimizationCommand::modifyObjectFunc(const DataWrapper* data)
+	{
+		////make a copy of data
+		map<string, string> allKeys = data->GetAllData();
+
+		////original object function
+		string oriObjfunc = data->GetData("objFunc");
+
+		////Remove the key "objFunc" from the data to make replacing the variable name easier.
+		map<string, string>::iterator it;
+		it = allKeys.find("objFunc");
+		allKeys.erase(it);
+
+		///iterate the map.
+		for (std::map<string, string>::iterator iter = allKeys.begin(); iter != allKeys.end(); ++iter)
+		{
+			string key = iter->first;
+			string value = allKeys[key];
+
+			///find and replace the variable
+			//size_t f = oriObjfunc.find("value");
+			//oriObjfunc.replace(f, std::string("text to replace").length(), "new text");
+
+			int debug = 0;
+
+			
+		}
+
+
+		string modifiedObjFun;
+		auto objFun = data->GetData("objFunc");
+		auto x1_ = data->GetData("x1");
+		auto x2_ = data->GetData("x2");
+
+
+
+		return modifiedObjFun;
+	}
 	map<string, string> OptimizationCommand::GetOutData() const
 	{
 		return _outData->GetAllData();

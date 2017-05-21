@@ -8,7 +8,7 @@ double ObjectFunction::Compute(const vector<double>& x) const
 {
 	auto x0 = x.front();
 	//Insert Function
-double fun=x0;
+double fun=0;
 
 	cout << x0 << endl;
 	cout << fun << endl;

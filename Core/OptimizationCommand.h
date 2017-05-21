@@ -28,6 +28,9 @@ namespace Core
 
 		_declspec(dllexport)  double TestOptimize(const std::vector<std::string>& lowerBound, std::vector<double>& var);
 
+		////Modify the object function input by user
+		string modifyObjectFunc(const DataWrapper* data);
+
 	public:
 		static double myvfunc(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data);
 

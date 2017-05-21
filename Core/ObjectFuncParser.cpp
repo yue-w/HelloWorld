@@ -93,14 +93,29 @@ namespace Core
 		Log::Info("Function to parse: " + functionStr);;
 
 		//Read all lines of cpp file.
-		string filename = "..\\..\\Core\\ObjectFunction.cpp";
+		//string filename = "..\\..\\Core\\ObjectFunction.cpp";
+
+		////The following path is for debuging in vs
+		string filename = "..\\Core\\ObjectFunction.cpp";
+		
 		vector<string> lines;
 		ifstream in(filename);
+
 		string line = "";
-		while (getline(in,line))
+		if (in.is_open())
 		{
-			lines.push_back(line);
+			while (getline(in, line))
+			{
+				lines.push_back(line);
+			}
 		}
+
+		else
+		{
+			throw ERROR;
+		}
+
+
 		//Find the position to insert function.
 		auto insertPos = find(lines.begin(), lines.end(), "	//Insert Function");
 		*(insertPos + 1) = "double fun=" + functionStr + ";";
