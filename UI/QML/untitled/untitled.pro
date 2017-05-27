@@ -4,7 +4,8 @@ QT += qml quick
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    callcppfromqml.cpp
+    callcppfromqml.cpp \
+    uidata.cpp
 
 RESOURCES += qml.qrc
 
@@ -32,7 +33,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    callcppfromqml.h
+    callcppfromqml.h \
+    uidata.h
 
 
 

@@ -394,28 +394,22 @@ Window {
 
     function cppDataToQml(){
 
-        //name:""; lowerBound:""; upperBound:"";initialValue:""; solution:""
 
-        ////Set variable name to C++
-        for(var j = 0; j< theModel_variableName.count; j++){
-
-          testCallCpp.pushName(theModel_variableName.get(j).name);
-
-        }
-
-        ////Set lower bound to C++
+        var lowerBnds = [];
         for(var i = 0; i< theModel_variableName.count; i++){
 
-           testCallCpp.pushLowerBnd(theModel_variableName.get(i).lowerBound);
+            lowerBnds.push(theModel_variableName.get(i).lowerBound);
+        }
+
+        var varName = [];
+        for(var i = 0; i< theModel_variableName.count; i++){
+
+            varName.push(theModel_variableName.get(i).name);
         }
 
 
-
-
-
-       //testCallCpp.setLowerBnd(lowerBnds);
-       //testCallCpp.test(theModel_variableName.get(1).name);//
-
+       //testCallCpp.setLowerBound(lowerBnds);
+       testCallCpp.setLowerBnd(lowerBnds);
 
         objResultTxt.text= "Minimium object value: " + testCallCpp.getObjOptedValue();
 
