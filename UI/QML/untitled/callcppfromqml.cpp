@@ -23,12 +23,22 @@ void CallCppFromQml::test(QString name)
 void CallCppFromQml::pushLowerBnd(double oneLowerBnd)
 {
 
-    _uiData->addLowerBnd(oneLowerBnd);
+    _uiData->pushLowerBnd(oneLowerBnd);
+}
+
+void CallCppFromQml::pushUpperBnd(double oneUpperBnd)
+{
+    _uiData->pushUpperBnd(oneUpperBnd);
+}
+
+void CallCppFromQml::pushInitialValue(double oneinitialValue)
+{
+    _uiData->pushInitialValue(oneinitialValue);
 }
 
 void CallCppFromQml::pushName(QString oneName)
 {
-    _uiData->addvariableName(oneName);
+    _uiData->pushvariableName(oneName);
 }
 
 

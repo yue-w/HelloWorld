@@ -50,3 +50,5 @@ else:win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../../../Co
 else:win32:!win32-g++:CONFIG(release, debug|release): PRE_TARGETDEPS += $$PWD/../../../Core/x64/release/Core.lib
 else:win32:!win32-g++:CONFIG(debug, debug|release): PRE_TARGETDEPS += $$PWD/../../../Core/x64/debug/Core.lib
 else:unix: PRE_TARGETDEPS += $$PWD/../../../Core/x64/libCore.a
+
+DISTFILES +=

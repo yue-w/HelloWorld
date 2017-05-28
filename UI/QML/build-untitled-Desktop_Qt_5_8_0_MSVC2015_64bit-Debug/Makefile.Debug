@@ -53,7 +53,7 @@ OBJECTS       = debug\main.obj \
 		debug\qrc_qml.obj \
 		debug\moc_callcppfromqml.obj
 
-DIST          =  ..\untitled\callcppfromqml.h \
+DIST          = jsFunc.js ..\untitled\callcppfromqml.h \
 		..\untitled\uidata.h ..\untitled\main.cpp \
 		..\untitled\callcppfromqml.cpp \
 		..\untitled\uidata.cpp

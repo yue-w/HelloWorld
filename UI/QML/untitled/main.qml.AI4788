@@ -330,7 +330,7 @@ Window {
                 onEditingFinished:{
 
                    ////Add.
-                    upperBound = textFieldUpperBound.getText(0,20)
+                    lowerBound = textFieldUpperBound.getText(0,20)
 
                 }////onEditingFinished Finish
 
@@ -345,7 +345,7 @@ Window {
                 onEditingFinished:{
 
                    ////Add.
-                    initialValue = textFieldInitialValue.getText(0,20)
+                    lowerBound = textFieldInitialValue.getText(0,20)
 
                 }////onEditingFinished Finish
 
@@ -419,11 +419,6 @@ Window {
            testCallCpp.pushLowerBnd(theModel_variableName.get(i).lowerBound);
         }
 
-        ////Set initial value to C++
-        for(var i = 0; i< theModel_variableName.count; i++){
-
-           testCallCpp.pushInitialValue(theModel_variableName.get(i).initialValue);
-        }
 
 
        //testCallCpp.setLowerBnd(lowerBnds);

@@ -17,14 +17,34 @@ QVector<double> UIData::vecLowerBnd() const
 
 
 
-void UIData::addLowerBnd(const double variable)
+void UIData::pushLowerBnd(const double value)
 {
-    _vecLowerBnd.push_back(variable);
+    _vecLowerBnd.push_back(value);
 }
 
-void UIData::addvariableName(const QString variable)
+void UIData::pushvariableName(const QString value)
 {
-    _vecVariableName.push_back(variable);
+    _vecVariableName.push_back(value);
+}
+
+QVector<double> UIData::vecUpperBnd() const
+{
+    return _vecUpperBnd;
+}
+
+void UIData::pushUpperBnd(const double value)
+{
+    _vecUpperBnd.push_back(value);
+}
+
+QVector<double> UIData::vecInitialValue() const
+{
+    return _vecinitialValue;
+}
+
+void UIData::pushInitialValue(const double value)
+{
+    _vecinitialValue.push_back(value);
 }
 
 QVector<QString> UIData::vecVariableName() const

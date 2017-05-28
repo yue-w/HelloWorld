@@ -10,15 +10,23 @@ public:
     ~UIData();
 
     QVector<double> vecLowerBnd() const;
-    void addLowerBnd(const double variable);
+    void pushLowerBnd(const double value);
 
 
     QVector<QString> vecVariableName() const;
-    void addvariableName(const QString variable);
+    void pushvariableName(const QString value);
+
+    QVector<double> vecUpperBnd() const;
+    void pushUpperBnd(const double value);
+
+    QVector<double> vecInitialValue() const;
+    void pushInitialValue(const double value);
 
 private:
     QVector<QString> _vecVariableName;
     QVector<double> _vecLowerBnd;
+    QVector<double> _vecUpperBnd;
+     QVector<double> _vecinitialValue;
 };
 
 #endif // UIDATA_H

@@ -18,6 +18,8 @@ public:
 
     Q_INVOKABLE void test(QString name);
     Q_INVOKABLE void pushLowerBnd(double oneLowerBnd);
+    Q_INVOKABLE void pushUpperBnd(double oneUpperBnd);
+    Q_INVOKABLE void pushInitialValue(double oneinitialValue);
     Q_INVOKABLE void pushName(QString oneName);
 
 
