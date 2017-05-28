@@ -102,6 +102,9 @@ void CallCppFromQml::TransferDataToCpp(Core::AlgorithmInteractive *interative, c
     keyValue = "varName";
     TransferDataToCppExcute(interative,keyValue, _uiData->vecVariableName() );
 
+    //Transfer lower bound
+    keyValue = "varName";
+    TransferDataToCppExcute(interative,keyValue, _uiData->vecVariableName() );
 }
 
 void CallCppFromQml::TransferDataToCppExcute(Core::AlgorithmInteractive* interative, QString key,QVector<QString> vecValue)
