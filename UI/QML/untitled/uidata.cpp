@@ -10,14 +10,14 @@ UIData::~UIData()
 
 }
 
-QVector<double> UIData::vecLowerBnd() const
+QVector<QString> UIData::vecLowerBnd() const
 {
     return _vecLowerBnd;
 }
 
 
 
-void UIData::pushLowerBnd(const double value)
+void UIData::pushLowerBnd(const QString value)
 {
     _vecLowerBnd.push_back(value);
 }
@@ -27,24 +27,34 @@ void UIData::pushvariableName(const QString value)
     _vecVariableName.push_back(value);
 }
 
-QVector<double> UIData::vecUpperBnd() const
+QVector<QString> UIData::vecUpperBnd() const
 {
     return _vecUpperBnd;
 }
 
-void UIData::pushUpperBnd(const double value)
+void UIData::pushUpperBnd(const QString value)
 {
     _vecUpperBnd.push_back(value);
 }
 
-QVector<double> UIData::vecInitialValue() const
+QVector<QString> UIData::vecInitialValue() const
 {
     return _vecinitialValue;
 }
 
-void UIData::pushInitialValue(const double value)
+void UIData::pushInitialValue(const QString value)
 {
     _vecinitialValue.push_back(value);
+}
+
+QString UIData::objectFunction() const
+{
+    return _objectFunction;
+}
+
+void UIData::setObjectFunction(const QString &objectFunction)
+{
+    _objectFunction = objectFunction;
 }
 
 QVector<QString> UIData::vecVariableName() const

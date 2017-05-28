@@ -53,6 +53,13 @@ namespace Core
 
 		////objFunc is the string that contains the modified object function.
 		string objFunc = modifyObjectFunc(data);
+
+
+		//////WangYue Debug
+		//_outData->Add("modi", objFunc);
+		//return;
+		//////WangYue Debug 
+
 		auto func = parser.Parse(objFunc);
 
 		if (func == NULL)

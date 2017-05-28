@@ -127,8 +127,8 @@ Window {
                 height: 25
                 placeholderText: "Object function"
                  onEditingFinished:{
-
                      ////To do
+
                     }////onEditingFinished Finish
 
             }
@@ -170,61 +170,6 @@ Window {
         width: 480
         height: 100
 
-//        Row{
-//            id:rowMaxIterationTimes
-//            anchors.left: parent.left
-//            anchors.leftMargin: marginValue
-//            anchors.top: parent.top
-//            anchors.topMargin: marginValue
-//            spacing:20
-
-//            Text {
-//                id: txtItetimes
-//                //anchors.left: parent.left
-//                text: qsTr("Max iteration\n"+"times:")
-
-//            }
-
-//            TextField{
-//                id:maxIteInputTxt
-//                width: 100
-//                height: 25
-//                placeholderText: "1000"
-//                 onEditingFinished:{
-//                     ////Todo
-//                   }////onEditingFinished Finish
-
-//            }
-
-//        }
-
-//        Row{
-//            id:rowAccuracy
-//            anchors.left: parent.left
-//            anchors.leftMargin: marginValue
-//            anchors.top: rowMaxIterationTimes.bottom
-//            anchors.topMargin: marginValue
-//            spacing:20
-//            Text {
-//                id: txtAccuracy
-//                //anchors.left: parent.left
-//                text: qsTr("Accuracy:")
-//            }
-
-//            TextField{
-//                id:inputAccuracy
-//                width: 100
-//                height: 25
-//                //anchors.right:  maxIteInputTxt.right
-
-//                placeholderText: "0.001"
-//                 onEditingFinished:{
-//                     ////Todo
-//                   }////onEditingFinished Finish
-
-//            }
-
-//        }
 
         Grid{
             id:inputGrid
@@ -425,23 +370,13 @@ Window {
            testCallCpp.pushInitialValue(theModel_variableName.get(i).initialValue);
         }
 
-
-       //testCallCpp.setLowerBnd(lowerBnds);
-       //testCallCpp.test(theModel_variableName.get(1).name);//
-
-
-        objResultTxt.text= "Minimium object value: " + testCallCpp.getObjOptedValue();
-
-        for(var i = 0; i< theModel_variableName.count; i++){
-//            var c = theModel_variableName.count;
-//             theModel_variableName.get(i);
-//             nameText2.text +=theModel_variableName.get(i).lowerBound;
-            var tem = theModel_variableName.get(i).solution;
+        ////Set object function
+        testCallCpp.setObjectFunction(objectFunction.text);
 
 
+        testCallCpp.doOptimize();
 
 
-        }
 
     }
 

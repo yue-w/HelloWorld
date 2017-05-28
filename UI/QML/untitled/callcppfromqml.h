@@ -6,7 +6,14 @@
 #include <QVector>
 #include <QString>
 #include <string>
+
 class UIData;
+
+namespace Core {
+
+class AlgorithmInteractive;
+
+}
 
 class CallCppFromQml : public QObject
 {
@@ -17,12 +24,19 @@ public:
     explicit CallCppFromQml(QObject *parent = 0);
 
     Q_INVOKABLE void test(QString name);
-    Q_INVOKABLE void pushLowerBnd(double oneLowerBnd);
-    Q_INVOKABLE void pushUpperBnd(double oneUpperBnd);
-    Q_INVOKABLE void pushInitialValue(double oneinitialValue);
+    Q_INVOKABLE void pushLowerBnd(QString oneLowerBnd);
+    Q_INVOKABLE void pushUpperBnd(QString oneUpperBnd);
+    Q_INVOKABLE void pushInitialValue(QString oneinitialValue);
     Q_INVOKABLE void pushName(QString oneName);
+    Q_INVOKABLE void setObjectFunction(QString value);
+    Q_INVOKABLE bool doOptimize();
 
+    UIData *uiData() const;
+    void setUiData(UIData *uiData);
 
+private:
+    Q_INVOKABLE void TransferDataToCpp(Core::AlgorithmInteractive* interative, const UIData* _uiData);
+    Q_INVOKABLE void TransferDataToCppExcute(Core::AlgorithmInteractive* interative, QString key,QString value);
 
 signals:
 
