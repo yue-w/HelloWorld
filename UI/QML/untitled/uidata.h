@@ -25,12 +25,16 @@ public:
     QString objectFunction() const;
     void setObjectFunction(const QString &objectFunction);
 
+    QVector<std::string> vecNameKeys() const;
+    void pushNameKey(const std::string aKey);
+
 private:
     QVector<QString> _vecVariableName;
     QVector<QString> _vecLowerBnd;
     QVector<QString> _vecUpperBnd;
     QVector<QString> _vecinitialValue;
     QString _objectFunction;
+    QVector<std::string> _vecNameKeys;
 };
 
 #endif // UIDATA_H

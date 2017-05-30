@@ -28,6 +28,9 @@ namespace Core
 
 		_declspec(dllexport)  double TestOptimize(const std::vector<std::string>& lowerBound, std::vector<double>& var);
 
+		//Excute Nlopt optimization
+		_declspec(dllexport)  void callNloptOptimize(const DataWrapper* data);
+
 		////Modify the object function input by user
 		string modifyObjectFunc(const DataWrapper* data);
 

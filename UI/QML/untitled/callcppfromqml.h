@@ -37,6 +37,8 @@ public:
 private:
     Q_INVOKABLE void TransferDataToCpp(Core::AlgorithmInteractive* interative, const UIData* _uiData);
     Q_INVOKABLE void TransferDataToCppExcute(Core::AlgorithmInteractive* interative, QString key,QVector<QString> vecValue);
+    Q_INVOKABLE void addNameKey(std::string aNameKey);
+
 
 
 signals:

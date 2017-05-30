@@ -1,17 +1,17 @@
 #include "ObjectFunction.h"
 
 #include "../Middleware/rcc/include/RuntimeObjectSystem/ObjectInterfacePerModule.h"
+#include <math.h>
 
 
-
-double ObjectFunction::Compute(const vector<double>& x) const
+double ObjectFunction::objectFunction(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data) const
 {
-	auto x0 = x.front();
+	
 	//Insert Function
-double fun=0;
+double fun=x[0]*x[0]+x[1]*x[1];
 
-	cout << x0 << endl;
-	cout << fun << endl;
+
+
 	return fun;
 }
 

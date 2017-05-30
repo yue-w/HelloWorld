@@ -68,14 +68,22 @@ namespace Core
 		}
 		else
 		{
-			//Get input from UI.
-			auto x = StringToNum<double>(data->GetData("lb0"));
-			vector<double> var{ x };
-			//Compute
-			auto res = func->Compute(var);
-			Core::CommonTool::Log::Info("end compute: "+Num2String(res));
-			//Send data to output wrapper.
-			_outData->Add("objVal", Num2String(res));
+			////Get input from UI.
+			//auto x = StringToNum<double>(data->GetData("lb0"));
+			//vector<double> var{ x };
+			////Compute
+			//auto res =  func->Compute(var);
+			//Core::CommonTool::Log::Info("end compute: "+Num2String(res));
+			////Send data to output wrapper.
+			//_outData->Add("objVal", Num2String(res));
+
+			callNloptOptimize(data);
+
+			vector<std::string> varNameKeys = data->getVecVariableNameKeys();
+			for (int i = 0; i < varNameKeys.size(); i++)
+			{
+				Core::CommonTool::Log::Info("variable Name Keys " + varNameKeys[i]);
+			}
 		}
 
 	}
@@ -90,45 +98,31 @@ namespace Core
 		////original object function
 		string oriObjfunc = data->GetData("objFunc");
 
-		////Remove the key "objFunc" from the data to make replacing the variable name easier.
-		unordered_map<string, string>::iterator it;
-		it = allKeys.find("objFunc");
-		allKeys.erase(it);
 
-
+		////will be modified and returned
 		string modifiedObjFun= data->GetData("objFunc");
 
+
 		int indexInx = 0;
-		///iterate the unordered_map.
-		for (std::unordered_map<string, string>::iterator iter = allKeys.begin(); iter != allKeys.end(); ++iter)
+		vector<string> varNameKeys = data->getVecVariableNameKeys();
+		for (vector<string>::iterator it= varNameKeys.begin(); it!=varNameKeys.end();it++)
 		{
-			
-			string key = iter->first;
+
+			string key = *it;
 			string value = allKeys[key];
 
 			///find and replace the variable
 			size_t pos = modifiedObjFun.find(value, 0);
-			while (pos !=string::npos)////if find the occurance
+			while (pos != string::npos)////if find the occurance
 			{
 				string replace = "x[" + std::to_string(indexInx) + "]";
 				modifiedObjFun.replace(pos, value.length(), replace);
-				
-				 pos = modifiedObjFun.find(value, 0);
+
+				pos = modifiedObjFun.find(value, 0);
 			}
 			indexInx++;
 
-			//size_t f = modifiedObjFun.find(value);
-			//string replace = "[" + std::to_string(i) + "]";
-			//modifiedObjFun.replace(f, value.length(), replace);
-
-			
 		}
-
-
-		//string modifiedObjFun;
-		//auto objFun = data->GetData("objFunc");
-		//auto x1_ = data->GetData("x1");
-		//auto x2_ = data->GetData("x2");
 
 
 
@@ -193,6 +187,43 @@ namespace Core
 		var.push_back(x[1]);
 
 		return minf;
+	}
+
+	void OptimizationCommand::callNloptOptimize(const DataWrapper * data)
+	{
+		nlopt::opt opt(nlopt::LD_MMA, 2);
+
+		////Set lower bound
+		//vector<double> lb;
+		//for (auto lb_str : lowerBound)
+		//{
+		//	lb.push_back(StringToNum<double>(lb_str));
+		//}
+		//opt.set_lower_bounds(lb);
+
+
+		//////Set the object function
+		//opt.set_min_objective(myvfunc, NULL);////Change to the following code
+		////opt.set_min_objective(ObjectFunction::objectFunction, NULL);
+
+		//////coefficients for the constraint
+		//my_constraint_data data[2] = { { 2,0 },{ -1,1 } };
+
+		////Set the constraint function
+		//opt.add_inequality_constraint(myvconstraint, &data[0], 1e-8);
+		//opt.add_inequality_constraint(myvconstraint, &data[1], 1e-8);
+
+		//opt.set_xtol_rel(1e-4);
+
+		//std::vector<double> x(2);
+		//x[0] = 1.234; x[1] = 5.678;
+		//double minf;
+		//nlopt::result result = opt.optimize(x, minf);
+
+		//var.clear();
+		//var.push_back(x[0]);
+		//var.push_back(x[1]);
+		//
 	}
 
 	double OptimizationCommand::myvfunc(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data)

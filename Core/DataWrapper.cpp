@@ -26,5 +26,18 @@ namespace Core
 		return "";
 	}
 
+	void DataWrapper::setVecVariableNameKeys(const vector<std::string> nameKeys)
+	{
+		_vecVariableNameKeys = nameKeys;
+	}
+
+	vector<std::string> DataWrapper::getVecVariableNameKeys() const
+	{
+		return _vecVariableNameKeys;
+	}
+
+
+
+
 }
 

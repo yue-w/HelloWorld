@@ -57,6 +57,18 @@ void UIData::setObjectFunction(const QString &objectFunction)
     _objectFunction = objectFunction;
 }
 
+QVector<std::string> UIData::vecNameKeys() const
+{
+    return _vecNameKeys;
+}
+
+void UIData::pushNameKey(const std::string aKey)
+{
+
+    _vecNameKeys.push_back(aKey);
+}
+
+
 QVector<QString> UIData::vecVariableName() const
 {
     return _vecVariableName;

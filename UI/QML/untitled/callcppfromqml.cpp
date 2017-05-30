@@ -81,6 +81,16 @@ bool CallCppFromQml::doOptimize()
 
     Core::AlgorithmInteractive* interative = new Core::AlgorithmInteractive ;
     TransferDataToCpp(interative,uiData());
+
+
+        if (interative->Execute("Optimization"))
+        {
+            unordered_map<string, string> outData = interative->GetOutput();
+            string modifiedObj = outData.at("modi");
+            int c= 0;
+
+        }
+
     ////Modify the return value.
     return true;
 }
@@ -102,20 +112,52 @@ void CallCppFromQml::TransferDataToCpp(Core::AlgorithmInteractive *interative, c
     keyValue = "varName";
     TransferDataToCppExcute(interative,keyValue, _uiData->vecVariableName() );
 
+
+    //Transfer lower bound
+    keyValue = "lowBnd";
+    TransferDataToCppExcute(interative,keyValue, _uiData->vecLowerBnd() );
+
+    //Transfer higher bound
+    keyValue = "upBnd";
+    TransferDataToCppExcute(interative,keyValue, _uiData->vecUpperBnd() );
+
+    //Transfer initial value
+    keyValue = "initVal";
+    TransferDataToCppExcute(interative,keyValue, _uiData->vecInitialValue() );
+
+    //Transfer object function
+    QString objStr = _uiData->objectFunction();
+    interative->AddParam("objFunc", objStr.toStdString());
+
+    //transfer the vector that contains all the keys of the name
+    interative->setVarNameKey(_uiData->vecNameKeys().toStdVector());
+
+    int c = 0;
 }
 
 void CallCppFromQml::TransferDataToCppExcute(Core::AlgorithmInteractive* interative, QString key,QVector<QString> vecValue)
 {
 
-
-    ////Transfer variable name
     for(int i =0; i< vecValue.size(); i++)
     {
         QString str;
         str.setNum(i+1);
         QString temStr= key +str;
+        //add a key and value
         interative->AddParam(temStr.toStdString(),  vecValue[i].toStdString());
+
+        //if the key is varName, store it
+        if(key=="varName")
+        {
+           addNameKey(temStr.toStdString());
+        }
     }
+
+}
+
+void CallCppFromQml::addNameKey(std::string aNameKey)
+{
+    _uiData->pushNameKey(aNameKey);
 
 }
 

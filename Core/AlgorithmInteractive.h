@@ -22,6 +22,11 @@ namespace Core
 		//Add data to <me>.
 		//<paramKey> is key of parameter.
 		void AddParam(const string paramKey, const string param);
+
+		
+		void setVarNameKey(const vector<string> vecNameKeys);
+		vector<string> getVarNameKey()const;
+
 		//Execute the command <cmd>.
 		//Currently, only "Optimization" is supported.
 		bool Execute(const string cmd);

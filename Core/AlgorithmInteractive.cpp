@@ -29,6 +29,16 @@ namespace Core
 		_dataWrapper->Add(paramKey, param);
 	}
 
+	void AlgorithmInteractive::setVarNameKey(const vector<string> vecNameKeys)
+	{
+		_dataWrapper->setVecVariableNameKeys(vecNameKeys);
+	}
+
+	vector<string> AlgorithmInteractive::getVarNameKey() const
+	{
+		return _dataWrapper->getVecVariableNameKeys();
+	}
+
 	bool AlgorithmInteractive::Execute(const string cmd)
 	{
 		try
