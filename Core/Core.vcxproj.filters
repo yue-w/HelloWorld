@@ -19,6 +19,9 @@
     <Filter Include="Interface">
       <UniqueIdentifier>{329983cc-fcb9-4ee6-a02b-d6e1de50f9c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{18bf4ceb-aa34-4613-9b56-500de00c2661}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="implementOpt.h">
@@ -34,9 +37,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AlgorithmInteractive.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DataWrapper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="OptimizationCommand.h">
@@ -60,6 +60,21 @@
     <ClInclude Include="DebugCppAndQml.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DataParser.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="DataWrapper.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="VariableProperty.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="OptimizationData.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionData.h">
+      <Filter>Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementOpt.cpp">
@@ -72,9 +87,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AlgorithmInteractive.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DataWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="OptimizationCommand.cpp">
@@ -100,6 +112,21 @@
     </ClCompile>
     <ClCompile Include="Log.cpp">
       <Filter>CommonTools</Filter>
+    </ClCompile>
+    <ClCompile Include="DataParser.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="DataWrapper.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="OptimizationData.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="VariableProperty.cpp">
+      <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="FunctionData.cpp">
+      <Filter>Data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

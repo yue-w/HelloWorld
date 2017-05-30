@@ -8,6 +8,11 @@ namespace Core
 	}
 
 
+	DataWrapper::DataWrapper(const DataWrapper& data)
+	{
+		_data = data._data;
+	}
+
 	DataWrapper::~DataWrapper()
 	{
 	}
@@ -24,6 +29,11 @@ namespace Core
 			return _data.at(key);
 		}
 		return "";
+	}
+
+	bool DataWrapper::HasData(const string key) const
+	{
+		return _data.find(key) != _data.end();
 	}
 
 	void DataWrapper::setVecVariableNameKeys(const vector<std::string> nameKeys)
