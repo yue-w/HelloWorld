@@ -20,6 +20,10 @@ namespace Core
 		parser.Parse();
 		auto optData = parser.GetParsedData();
 
+		auto varData = optData.GetVarData(3);
+
+		ASSERT_EQ("x3", varData.VarName());
+
 		ASSERT_EQ(3, optData.VarCount());
 	}
 
