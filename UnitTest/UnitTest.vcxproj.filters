@@ -4,5 +4,6 @@
     <ClCompile Include="MyMain.cpp" />
     <ClCompile Include="..\Middleware\googletest-master\googletest\src\gtest-all.cc" />
     <ClCompile Include="TestFile.cpp" />
+    <ClCompile Include="TestDataParse.cpp" />
   </ItemGroup>
 </Project>

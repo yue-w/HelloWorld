@@ -2,6 +2,10 @@
 #include "PublicHeader.h"
 namespace Core
 {
+	const double DEFAULT_DOUBLE = 1e10;
+	const string DEFAULT_STRING = "~!@##RWEFSDF@#ED";
+
+
 	namespace CommonTool
 	{
 		template <class Type>
@@ -13,6 +17,8 @@ namespace Core
 			return num;
 		}
 
+		double StringToDouble(const string str);
+
 		template <class Type>
 		string Num2String(const Type& val)
 		{
@@ -20,6 +26,9 @@ namespace Core
 			iss << val;
 			return iss.str();
 		}
+
+		//Return a string with format input.
+		string StringFormat(const char * format, ...);
 	}
 }
 

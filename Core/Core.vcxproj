@@ -87,7 +87,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)_EXPORT_FOR_UNIT_TEST;</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\Middleware\nlopt\include;;$(ProjectDir)..\Middleware\rcc\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -106,7 +106,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;_EXPORT_CORE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_EXPORT_CORE;%(PreprocessorDefinitions)_EXPORT_FOR_UNIT_TEST;</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)..\Middleware\nlopt\include;$(ProjectDir)..\Middleware\log4cpp\include;$(ProjectDir)..\Middleware\rcc\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -127,7 +127,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)_EXPORT_FOR_UNIT_TEST;</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,7 +148,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;_EXPORT_CORE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_EXPORT_CORE;%(PreprocessorDefinitions)_EXPORT_FOR_UNIT_TEST;</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -165,23 +165,29 @@
     <ClInclude Include="AlgorithmInteractive.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommonFunc.h" />
+    <ClInclude Include="DataParser.h" />
     <ClInclude Include="DataWrapper.h" />
     <ClInclude Include="DebugCppAndQml.h" />
+    <ClInclude Include="FunctionData.h" />
     <ClInclude Include="IFunction.h" />
     <ClInclude Include="implementOpt.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="ObjectFuncParser.h" />
     <ClInclude Include="ObjectFunction.h" />
     <ClInclude Include="OptimizationCommand.h" />
+    <ClInclude Include="OptimizationData.h" />
     <ClInclude Include="PublicHeader.h" />
     <ClInclude Include="ThreadLocker.h" />
+    <ClInclude Include="VariableProperty.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AlgorithmInteractive.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommonFunc.cpp" />
+    <ClCompile Include="DataParser.cpp" />
     <ClCompile Include="DataWrapper.cpp" />
     <ClCompile Include="DebugCppAndQml.cpp" />
+    <ClCompile Include="FunctionData.cpp" />
     <ClCompile Include="IFunction.cpp" />
     <ClCompile Include="implementOpt.cpp" />
     <ClCompile Include="Log.cpp" />
@@ -189,7 +195,9 @@
     <ClCompile Include="ObjectFuncParser.cpp" />
     <ClCompile Include="ObjectFunction.cpp" />
     <ClCompile Include="OptimizationCommand.cpp" />
+    <ClCompile Include="OptimizationData.cpp" />
     <ClCompile Include="ThreadLocker.cpp" />
+    <ClCompile Include="VariableProperty.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Global.cd" />

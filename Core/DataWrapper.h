@@ -3,7 +3,7 @@
 
 namespace Core
 {
-	class DataWrapper
+	class _EXPORT_DLL_UNIT_TEST DataWrapper
 	{
 		unordered_map<string, string> _data;
 
@@ -13,12 +13,15 @@ namespace Core
 	public:
 		DataWrapper();
 		~DataWrapper();
+		DataWrapper(const DataWrapper& data);
 
 		//Add data to <me>.
 		//<paramKey> is key of parameter.
 		void Add(const string paramKey, const string param);
 
 		string GetData(const string key) const;
+
+		bool HasData(const string key) const;
 
 		unordered_map<string, string> GetAllData() const { return _data; }
 

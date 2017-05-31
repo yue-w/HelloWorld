@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\Middleware\googletest-master\googletest\src\gtest-all.cc" />
     <ClCompile Include="MyMain.cpp" />
+    <ClCompile Include="TestDataParse.cpp" />
     <ClCompile Include="TestFile.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
