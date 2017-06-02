@@ -93,10 +93,10 @@ namespace Core
 		Log::Info("Function to parse: " + functionStr);;
 
 		//Read all lines of cpp file.
-		string filename = "..\\..\\..\\Core\\ObjectFunction.cpp";
+		//string filename = "..\\..\\..\\Core\\ObjectFunction.cpp";
 
 		////The following path is for debuging in vs
-		//string filename = "..\\Core\\ObjectFunction.cpp";
+		string filename = "..\\Core\\ObjectFunction.cpp";
 		
 		vector<string> lines;
 		ifstream in(filename);

@@ -35,12 +35,13 @@ namespace Core
 		data.Add("lowBnd1", "0");
 		data.Add("upBnd1", "1");
 		data.Add("initVal1", "0.5");
+		data.Add("varName2", "x2");
 		//Parse.
 		DataParser parser(&data);
 		parser.Parse();
 		auto optData = parser.GetParsedData();
 
-		ASSERT_EQ(1, optData.VarCount());
+		ASSERT_EQ(2, optData.VarCount());
 
 		auto varData = optData.GetVarData(1);
 

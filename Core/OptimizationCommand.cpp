@@ -2,6 +2,8 @@
 
 #include "Log.h"
 #include "DataWrapper.h"
+#include "DataParser.h"
+#include "OptimizationData.h"
 #include "ObjectFuncParser.h"
 #include "IFunction.h"
 #include "CommonFunc.h"
@@ -193,6 +195,21 @@ namespace Core
 	{
 		nlopt::opt opt(nlopt::LD_MMA, 2);
 
+		//DataWrapper data2;
+		//data2.Add("varName1", "x1");
+		//data2.Add("varName2", "x2");
+		//data2.Add("varName3", "x3");
+
+		//Parse.
+		DataParser parser(data);
+		parser.Parse();
+		auto optData = parser.GetParsedData();
+
+		auto varData = optData.GetVarData(3);
+
+
+
+		int debug = 0;
 		////Set lower bound
 		//vector<double> lb;
 		//for (auto lb_str : lowerBound)

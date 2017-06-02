@@ -7,7 +7,7 @@
 
 namespace Core
 {
-	DataParser::DataParser(const DataWrapper* dataWrapper):_dataWapper(new DataWrapper(*dataWrapper))
+	DataParser::DataParser(const DataWrapper* dataWrapper):_dataWapper(new DataWrapper(*dataWrapper)), _optData(NULL)
 	{
 	}
 

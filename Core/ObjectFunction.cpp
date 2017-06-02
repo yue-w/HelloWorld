@@ -8,7 +8,7 @@ double ObjectFunction::objectFunction(const std::vector<double> &x, std::vector<
 {
 	
 	//Insert Function
-double fun=x[0]*x[0]+x[1]*x[1];
+double fun=sqrt(x[0])+sqrt(x[1]);
 
 
 
