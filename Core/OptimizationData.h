@@ -35,6 +35,7 @@ namespace Core
 		static const string UpperBound;
 		static const string InitialValue;
 		static const string ObjectFunction;
+		static const string Grad;
 	};
 }
 

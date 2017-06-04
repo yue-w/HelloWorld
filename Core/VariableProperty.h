@@ -10,6 +10,7 @@ namespace Core
 		double _lb;//lower bound.
 		double _ub;//upper bound.
 		double _initVal;//initial value.
+		string _grad;//gradient
 
 	public:
 		VariableProperty(const string varName);
@@ -23,6 +24,8 @@ namespace Core
 		void Ub(double val) { _ub = val; }
 		double InitVal() const { return _initVal; }
 		void InitVal(double val) { _initVal = val; }
+		string Grad()const { return _grad; }
+		void Grad(string val) { _grad = val; }
 	};
 
 }

@@ -7,25 +7,29 @@
 
 namespace Core
 {
-	TEST(Test_DataParser, ComputeVarCountCorrectly)
-	{
-		//Prepare data wrapper.
-		DataWrapper data;
-		data.Add("varName1", "x1");
-		data.Add("varName2", "x2");
-		data.Add("varName3", "x3");
 
-		//Parse.
-		DataParser parser(&data);
-		parser.Parse();
-		auto optData = parser.GetParsedData();
+	//TEST(Test_DataParser, TestGrad)
+	//{
+	//	//Prepare data wrapper.
+	//	DataWrapper data;
+	//	data.Add("varName1", "x1");
+	//	data.Add("varName2", "x2");
+	//	data.Add("varName3", "x3");
+	//	data.Add("grad1", "x1-1");
+	//	data.Add("grad2", "x2-2");
+	//	data.Add("grad3", "3*x3-8");
+	//	//Parse.
+	//	DataParser parser(&data);
+	//	parser.Parse();
+	//	auto optData = parser.GetParsedData();
 
-		auto varData = optData.GetVarData(3);
+	//	auto varData = optData.GetVarData(3);
 
-		ASSERT_EQ("x3", varData.VarName());
+	//	ASSERT_EQ("x3", varData.VarName());
+	//	ASSERT_EQ("3*x3-8", varData.Grad());
 
-		ASSERT_EQ(3, optData.VarCount());
-	}
+	//}
+
 
 	TEST(Test_DataParser, ParseLowerBoundAndUpperBound)
 	{
@@ -51,73 +55,73 @@ namespace Core
 		ASSERT_EQ(0.5, varData.InitVal());
 	}
 
-	TEST(Test_DataParser, SomeValuesAreOptional)
-	{
-		//Prepare data wrapper with no upper bound and lower bound.
-		DataWrapper data;
-		data.Add("varName1", "x1");
-		data.Add("initVal1", "0.5");
+	//TEST(Test_DataParser, SomeValuesAreOptional)
+	//{
+	//	//Prepare data wrapper with no upper bound and lower bound.
+	//	DataWrapper data;
+	//	data.Add("varName1", "x1");
+	//	data.Add("initVal1", "0.5");
 
-		//Parse.
-		DataParser parser(&data);
-		parser.Parse();
-		auto optData = parser.GetParsedData();
+	//	//Parse.
+	//	DataParser parser(&data);
+	//	parser.Parse();
+	//	auto optData = parser.GetParsedData();
 
-		ASSERT_EQ(1, optData.VarCount());
+	//	ASSERT_EQ(1, optData.VarCount());
 
-		auto varData = optData.GetVarData(1);
+	//	auto varData = optData.GetVarData(1);
 
-		ASSERT_EQ("x1", varData.VarName());
-		ASSERT_EQ(0.5, varData.InitVal());
-		ASSERT_EQ(DEFAULT_DOUBLE, varData.Lb());//lower bound is a default double.
-		ASSERT_EQ(DEFAULT_DOUBLE, varData.Ub());
-	}
+	//	ASSERT_EQ("x1", varData.VarName());
+	//	ASSERT_EQ(0.5, varData.InitVal());
+	//	ASSERT_EQ(DEFAULT_DOUBLE, varData.Lb());//lower bound is a default double.
+	//	ASSERT_EQ(DEFAULT_DOUBLE, varData.Ub());
+	//}
 
-	TEST(Test_DataParser, VarCountIsDeterminedByVarName)
-	{
-		//Prepare data wrapper.
-		DataWrapper data;
-		data.Add("varName1", "x1");
-		data.Add("initVal1", "0.5");
-		//Add another var without a Var name.
-		data.Add("lowBnd2", "0");
-		data.Add("upBnd2", "1");
-		data.Add("initVal2", "0.5");
+	//TEST(Test_DataParser, VarCountIsDeterminedByVarName)
+	//{
+	//	//Prepare data wrapper.
+	//	DataWrapper data;
+	//	data.Add("varName1", "x1");
+	//	data.Add("initVal1", "0.5");
+	//	//Add another var without a Var name.
+	//	data.Add("lowBnd2", "0");
+	//	data.Add("upBnd2", "1");
+	//	data.Add("initVal2", "0.5");
 
-		//Parse.
-		DataParser parser(&data);
-		parser.Parse();
-		auto optData = parser.GetParsedData();
+	//	//Parse.
+	//	DataParser parser(&data);
+	//	parser.Parse();
+	//	auto optData = parser.GetParsedData();
 
-		//Then there is only one var.
-		ASSERT_EQ(1, optData.VarCount());
-	}
+	//	//Then there is only one var.
+	//	ASSERT_EQ(1, optData.VarCount());
+	//}
 
-	TEST(Test_DataParser, ParseObjFunc)
-	{
-		//Prepare data wrapper.
-		DataWrapper data;
-		data.Add("objFunc", "x1*x1");
+	//TEST(Test_DataParser, ParseObjFunc)
+	//{
+	//	//Prepare data wrapper.
+	//	DataWrapper data;
+	//	data.Add("objFunc", "x1*x1");
 
-		//Parse.
-		DataParser parser(&data);
-		parser.Parse();
-		auto optData = parser.GetParsedData();
+	//	//Parse.
+	//	DataParser parser(&data);
+	//	parser.Parse();
+	//	auto optData = parser.GetParsedData();
 
-		ASSERT_EQ("x1*x1", optData.GetObjFunc());
-	}
+	//	ASSERT_EQ("x1*x1", optData.GetObjFunc());
+	//}
 
-	TEST(Test_DataParser, ObjFuncIsDefaultValueIfThereIsNoFuncInDataWrapper)
-	{
-		//Prepare data wrapper.
-		DataWrapper data;
-		data.Add("varName", "x1");
+	//TEST(Test_DataParser, ObjFuncIsDefaultValueIfThereIsNoFuncInDataWrapper)
+	//{
+	//	//Prepare data wrapper.
+	//	DataWrapper data;
+	//	data.Add("varName", "x1");
 
-		//Parse.
-		DataParser parser(&data);
-		parser.Parse();
-		auto optData = parser.GetParsedData();
+	//	//Parse.
+	//	DataParser parser(&data);
+	//	parser.Parse();
+	//	auto optData = parser.GetParsedData();
 
-		ASSERT_EQ(DEFAULT_STRING, optData.GetObjFunc());
-	}
+	//	ASSERT_EQ(DEFAULT_STRING, optData.GetObjFunc());
+	//}
 }

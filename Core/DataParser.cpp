@@ -107,6 +107,15 @@ namespace Core
 			varProperty.InitVal(intialVal);
 		}
 
+		//Parse gradient
+		string grad_key = OptimizationData::Grad + CommonTool::StringFormat("%d", i);
+		if (_dataWapper->HasData(grad_key))
+		{
+			string initStr = _dataWapper->GetData(grad_key);
+			
+			varProperty.Grad(initStr);
+		}
+
 		return varProperty;
 	}
 

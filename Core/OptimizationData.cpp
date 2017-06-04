@@ -42,5 +42,6 @@ namespace Core
 
 	const string OptimizationData::ObjectFunction="objFunc";
 
+	const string OptimizationData::Grad = "grad";
 }
 
