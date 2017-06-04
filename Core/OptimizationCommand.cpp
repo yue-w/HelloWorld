@@ -7,6 +7,7 @@
 #include "ObjectFuncParser.h"
 #include "IFunction.h"
 #include "CommonFunc.h"
+#include "ObjFuncExcut.h"
 
 #include <sstream>
 #include <nlopt.hpp>
@@ -193,54 +194,98 @@ namespace Core
 
 	void OptimizationCommand::callNloptOptimize(const DataWrapper * data)
 	{
-		nlopt::opt opt(nlopt::LD_MMA, 2);
+		//
+		//nlopt::opt opt2(nlopt::LD_MMA, 2);
 
-		//DataWrapper data2;
-		//data2.Add("varName1", "x1");
-		//data2.Add("varName2", "x2");
-		//data2.Add("varName3", "x3");
+		//std::vector<double> lb2(2);
+		//lb2[0] = -HUGE_VAL; lb2[1] = 0;
+		//opt2.set_lower_bounds(lb2);
 
+
+		//////Set the object function
+		//opt2.set_min_objective(ObjFuncExcut::objectFunction, NULL);
+
+		//opt2.set_xtol_rel(1e-4);
+
+		//std::vector<double> xD(2);
+		//xD[0] = 1.234; xD[1] = 5.678;
+		//double minf;
+		//nlopt::result result2 = opt2.optimize(xD, minf);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		//nlopt::opt opt(nlopt::LD_MMA, 2);
+		////Parse.
+		//DataParser parser(data);
+		//parser.Parse();
+		//auto optData = parser.GetParsedData();
+
+		//////Get the total amount of variable.
+		//size_t numberVariable = optData.VarCount();
+		//
+		//
+		////Set lower bound, upper bound, initial value...
+		//vector<double> lb(numberVariable);
+		//vector<double> ub(numberVariable);
+		//vector<double> x(numberVariable);
+
+		//for (size_t index = 0; index<numberVariable; index++)
+		//{
+		//	auto varData = optData.GetVarData(index+1);////the index start from one
+		//	lb[index] = varData.Lb();
+		//	ub[index] = varData.Ub();
+		//	x[index]=varData.InitVal();
+		//}
+		//opt.set_lower_bounds(lb);
+		//////Set the object function
+		//opt.set_min_objective(ObjFuncExcut::objectFunction, NULL);
+		//opt.set_xtol_rel(1e-4);
+		//double minf2;
+		//nlopt::result result = opt.optimize(x, minf2);
+		//int debug = 0;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		//Parse.
 		DataParser parser(data);
 		parser.Parse();
 		auto optData = parser.GetParsedData();
 
-		auto varData = optData.GetVarData(3);
+		////Get the total amount of variable.
+		size_t numberVariable = optData.VarCount();
+		
+		
+		//Set lower bound, upper bound, initial value...
+		vector<double> lb(numberVariable);
+		vector<double> ub(numberVariable);
+		vector<double> x(numberVariable);
+
+		for (size_t index = 0; index<numberVariable; index++)
+		{
+			auto varData = optData.GetVarData(index+1);////the index start from one
+			lb[index] = varData.Lb();
+			ub[index] = varData.Ub();
+			x[index]=varData.InitVal();
+		}
 
 
-
-		int debug = 0;
-		////Set lower bound
-		//vector<double> lb;
-		//for (auto lb_str : lowerBound)
-		//{
-		//	lb.push_back(StringToNum<double>(lb_str));
-		//}
-		//opt.set_lower_bounds(lb);
+		nlopt::opt opt(nlopt::LD_MMA, x.size());//LD_MMA //GN_DIRECT//LD_AUGLAG_EQ
+		opt.set_lower_bounds(lb);
+		opt.set_upper_bounds(ub);
 
 
-		//////Set the object function
-		//opt.set_min_objective(myvfunc, NULL);////Change to the following code
-		////opt.set_min_objective(ObjectFunction::objectFunction, NULL);
+		////Set the object function	
+		opt.set_min_objective(ObjFuncExcut::objectFunction, NULL);
 
-		//////coefficients for the constraint
-		//my_constraint_data data[2] = { { 2,0 },{ -1,1 } };
 
 		////Set the constraint function
 		//opt.add_inequality_constraint(myvconstraint, &data[0], 1e-8);
 		//opt.add_inequality_constraint(myvconstraint, &data[1], 1e-8);
 
-		//opt.set_xtol_rel(1e-4);
+		opt.set_xtol_rel(1e-4);
 
-		//std::vector<double> x(2);
-		//x[0] = 1.234; x[1] = 5.678;
-		//double minf;
-		//nlopt::result result = opt.optimize(x, minf);
 
-		//var.clear();
-		//var.push_back(x[0]);
-		//var.push_back(x[1]);
-		//
+		double minf;
+		nlopt::result result = opt.optimize(x, minf);
+		
+
 	}
 
 	double OptimizationCommand::myvfunc(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data)

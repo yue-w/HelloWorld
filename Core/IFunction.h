@@ -10,7 +10,8 @@ namespace Core
 		IFunction() {};
 		~IFunction() {};
 
-		virtual double objectFunction(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data) const =0;
+		//virtual double objectFunction(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data) const =0;
+		virtual double objectFunction(const std::vector<double> &x) const = 0;
 	};
 }
 

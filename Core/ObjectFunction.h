@@ -11,7 +11,8 @@ public:
 	~ObjectFunction() {};
 
 	//virtual double Compute(const vector<double>& x) const;
-	virtual double objectFunction(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data) const;
+	//virtual double objectFunction(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data) const;
+	virtual double objectFunction(const std::vector<double> &x) const;
 
 	virtual PerTypeObjectId GetPerTypeId() const { return 0; }
 	virtual IObjectConstructor* GetConstructor() const { return NULL; };

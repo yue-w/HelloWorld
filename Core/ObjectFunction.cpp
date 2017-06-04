@@ -4,11 +4,11 @@
 #include <math.h>
 
 
-double ObjectFunction::objectFunction(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data) const
+double ObjectFunction::objectFunction(const std::vector<double> &x) const
 {
 	
 	//Insert Function
-double fun=sqrt(x[0])+sqrt(x[1]);
+double fun=(x[0]-1)*(x[0]-1)+(x[1]-4)*(x[1]-4);
 
 
 

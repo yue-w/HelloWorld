@@ -75,6 +75,9 @@
     <ClInclude Include="FunctionData.h">
       <Filter>Data</Filter>
     </ClInclude>
+    <ClInclude Include="ObjFuncExcut.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementOpt.cpp">
@@ -127,6 +130,9 @@
     </ClCompile>
     <ClCompile Include="FunctionData.cpp">
       <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjFuncExcut.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
