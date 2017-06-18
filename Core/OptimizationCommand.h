@@ -46,7 +46,7 @@ namespace Core
 
 
 		//Push Grad Pointer to the static vector in the class ObjFuncExcut
-		void PushGradPointer(const int totalVariable);
+		//void PushGradPointer(const int totalVariable);
 
 	public:
 		static double myvfunc(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data);

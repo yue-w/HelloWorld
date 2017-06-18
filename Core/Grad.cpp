@@ -22,3 +22,9 @@ double Grad::Compute(const std::vector<double>& x) const
 	return gradValue;
 }
 
+
+
+
+
+
+

@@ -13,6 +13,7 @@
 #include <nlopt.hpp>
 #include <math.h>
 //#include "GradPasser.h"
+#include "CompileGradExcut.h"
 
 
 namespace Core
@@ -44,24 +45,28 @@ namespace Core
 		auto func = parser.Parse(objFunc, "..\\Core\\ObjectFunction.cpp");
 		parser.DynamicCompile("ObjectFunction");
 		vector<string> grad = ModifyGrad(&optData);
-
-
-		/////YueWangDebug Dynamic Compiling
-		ExcuteGradParser excuPasser;
-		auto funcExcu = excuPasser.Parse(objFunc, "..\\Core\\CompileGradExcut.cpp");
-		excuPasser.DynamicCompile("CompileGradExcut");
-		////YueWangDebug Dynamic Compiling
+		
 		//pass the gradient
 		GradPasser gradPasser;
+		vector<string> vecClassName(grad.size());
 		for (size_t i = 0; i<grad.size(); i++)
 		{
-			auto funcGrad = gradPasser.Parse(grad[i], "..\\Core\\Grad",i);				
+			string className = "";
+			auto funcGrad = gradPasser.Parse(grad[i], "..\\Core\\Grad",i, className);
+			vecClassName[i] = className;
 		}
 		gradPasser.DynamicCompile("Grad");
 
 
+		/////Dynamic Compiling
+		ExcuteGradParser excuPasser;
+		auto funcExcu = excuPasser.Parse(objFunc, "..\\Core\\CompileGradExcut.cpp", vecClassName);
+		excuPasser.DynamicCompile("CompileGradExcut");
 
-		
+		CompileGradExcut excu;
+		excu.PushGradPointer();
+
+
 
 		if (func == NULL)
 		{
@@ -69,6 +74,7 @@ namespace Core
 		}
 		else
 		{
+
 			callNloptOptimize(&optData);
 
 			vector<std::string> varNameKeys = data->getVecVariableNameKeys();
@@ -292,16 +298,16 @@ namespace Core
 
 	}
 
-	void OptimizationCommand::PushGradPointer(const int totalVariable)
-	{
-		for (size_t i = 0; i<totalVariable; i++)
-		{
-			string className = "Grad";
-			string indexStr = std::to_string(i);
-			className += indexStr;
-			//ObjFuncExcut::pushGradPnt(className);
-		}
-	}
+	//void OptimizationCommand::PushGradPointer(const int totalVariable)
+	//{
+	//	for (size_t i = 0; i<totalVariable; i++)
+	//	{
+	//		string className = "Grad";
+	//		string indexStr = std::to_string(i);
+	//		className += indexStr;
+	//		//ObjFuncExcut::pushGradPnt(className);
+	//	}
+	//}
 
 	double OptimizationCommand::myvfunc(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data)
 	{

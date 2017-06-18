@@ -1,7 +1,10 @@
 #include "CompileGradExcut.h"
 
 #include "../Middleware/rcc/include/RuntimeObjectSystem/ObjectInterfacePerModule.h"
+#include "ObjFuncExcut.h"
 
+#include "Grad.h"
+REGISTERCLASS(CompileGradExcut);
 CompileGradExcut::CompileGradExcut()
 {
 }
@@ -11,10 +14,18 @@ CompileGradExcut::~CompileGradExcut()
 {
 }
 
-void CompileGradExcut::Test()
+void CompileGradExcut::PushGradPointer()
 {
-	//insert here
+	//&*)(%$#-insert start
 
+
+	//&*)(%$#-insert end
+	
 }
 
-REGISTERCLASS(CompileGradExcut);//Hello
+double CompileGradExcut::Compute(const std::vector<double>& x) const
+{
+	return 0.0;
+}
+
+

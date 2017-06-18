@@ -35,3 +35,8 @@ double ObjFuncExcut::ObjFunction(const std::vector<double>& x, std::vector<doubl
 	double obj = _objFunDefin->Compute(x);
 	return obj;
 }
+
+void ObjFuncExcut::PushGradPnt(Grad * gradPnt)
+{
+	_gradDefin.push_back(gradPnt);
+}

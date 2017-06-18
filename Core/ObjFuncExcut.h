@@ -22,6 +22,6 @@ public:
 
 	////Number of variable
 	static size_t _numOfVar;
-	static void pushGradPnt(Grad* gradPnt) { _gradDefin.push_back(gradPnt); };
+	static void PushGradPnt(Grad* gradPnt) ;//{ _gradDefin.push_back(gradPnt); }
 };
 

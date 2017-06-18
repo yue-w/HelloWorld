@@ -36,7 +36,7 @@ void main(int argc, char* argv[])
 	//interactive_test.AddParam("initVal4", "5.12");
 	////add gradient
 	//interactive_test.AddParam("grad1", "2*x1-2");
-	interactive_test.AddParam("grad1", "2*x1");
+	interactive_test.AddParam("grad1", "2*x1-2");
 	interactive_test.AddParam("grad2", "2*x2-8");
 
  	vector<string> varKey;

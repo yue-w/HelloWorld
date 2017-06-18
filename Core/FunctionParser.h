@@ -48,13 +48,13 @@ namespace Core
 		GradPasser();
 		~GradPasser();
 
-		IFunction* Parse(const string gradStr, const string ,int index);
+		IFunction* Parse(const string gradStr, const string ,int index, string& className);
 	private:
 
 		void InitRccSystem();
 
 		//Write .h file
-		bool WriteHeadlerFile(const string gradStr, const string, int index);
+		bool WriteHeadlerFile(const string gradStr, const string, int index, string& className);
 
 		//write .cpp file
 		bool WriteCPPFile(const string gradStr, const string, int index);
@@ -63,13 +63,19 @@ namespace Core
 	};
 
 
-	class ExcuteGradParser : public FunctionParser
+	class ExcuteGradParser : 
+		public FunctionParser
 	{
 	public:
 		ExcuteGradParser();
 		~ExcuteGradParser();
 
-		IFunction* Parse(const string functionStr, const string fileName);
+		/*vecClassNames stores all the names of 
+		the class that have been compiled dynamically by GradPasser::parse*/
+		IFunction* Parse(const string functionStr, const string fileName, const vector<string> vecClassNames);
+	private:
+
+		void InitRccSystem();
 	};
 }
 

@@ -134,11 +134,10 @@ namespace Core
 
 
 
-		////Get object function from factory.
-		//auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor("ObjectFunction")->Construct();
-		//return dynamic_cast<ObjectFunction*>(objFunc);
+		//Get object function from factory.
+		auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor("ObjectFunction")->Construct();
+		return dynamic_cast<ObjectFunction*>(objFunc);
 
-		return NULL;
 	
 	}
 
@@ -173,12 +172,11 @@ namespace Core
 		}
 		_sys->LoadCompiledModule();
 
-		Log::PopNDC();
+		//Log::PopNDC();
 
 		//Get object function from factory.
 		//auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor("ObjectFunction")->Construct();
-		auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor(fileName)->Construct();
-		return dynamic_cast<ObjectFunction*>(objFunc);
+		auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor(fileName)->Construct();		return dynamic_cast<ObjectFunction*>(objFunc);
 		
 	}
 
@@ -193,13 +191,13 @@ namespace Core
 	{
 	}
 
-	IFunction * GradPasser::Parse(const string functionStr, const string fileName, int index)
+	IFunction * GradPasser::Parse(const string functionStr, const string fileName, int index,  string& className)
 	{
 		string indexStr = std::to_string(index);
-		string className = "Grad" + indexStr;
+		className = "Grad" + indexStr;
 
 
-		bool hState = WriteHeadlerFile(functionStr, fileName, index );
+		bool hState = WriteHeadlerFile(functionStr, fileName, index, className );
 
 		bool cppState = WriteCPPFile(functionStr, fileName, index);
 
@@ -220,7 +218,7 @@ namespace Core
 		_sys->Initialise(pThreadsafeLog, NULL);
 	}
 
-	bool GradPasser::WriteHeadlerFile(const string gradStr, const string fileName, int index)
+	bool GradPasser::WriteHeadlerFile(const string gradStr, const string fileName, int index, string& className)
 	{
 		bool success=false;
 
@@ -243,7 +241,7 @@ namespace Core
 
 		*/
 		string strIndex = std::to_string(index);
-		string className = "Grad" + strIndex;
+		className = "Grad" + strIndex;
 
 		////write
 		myfile << "class"<<" "<<className<< ": public Grad"<<endl;
@@ -302,15 +300,64 @@ namespace Core
 	{
 	}
 
-	IFunction * ExcuteGradParser::Parse(const string functionStr, const string fileName)
+	IFunction * ExcuteGradParser::Parse(const string functionStr, const string fileName, const vector<string> vecClassNames)
 	{
 
-	
-		ofstream out(fileName, ios::app);
-		out << "//Hello";
+		vector<string> lines;
+		ifstream in(fileName);
+
+		string line = "";
+		if (in.is_open())
+		{
+			while (getline(in, line))
+			{
+				lines.push_back(line);
+			}
+		}
+
+		else
+		{
+			throw ERROR;
+		}
+
+
+		//Find the position to insert function.
+		auto insertPos = find(lines.begin(), lines.end(),"\t//&*)(%$#-insert start" );//"	//&*)(%$#-insert start"
+		//
+
+		//Find the position to stop
+		auto endPos = find(lines.begin(), lines.end(),"\t//&*)(%$#-insert end" );  //"	//&*)(%$#-insert end"
+				
+		////erase the old codes
+		insertPos = lines.erase(insertPos+1,endPos-1);
+
+		//insert the new codes
+		for (size_t i = 0; i < vecClassNames.size(); i++)
+		{
+			endPos = find(lines.begin(), lines.end(), "\t//&*)(%$#-insert end");  //"	//&*)(%$#-insert end"
+			insertPos = endPos - 1;
+
+			string insertCode1 = vecClassNames[i] + "* ";
+			string objectName = "grad" + std::to_string(int(i));
+			
+			insertCode1 += objectName + "=" + "new" + " " + vecClassNames[i] + ";";
+			insertPos = lines.insert(insertPos, insertCode1);
+			
+
+			string insertCode2 = "ObjFuncExcut::PushGradPnt(" + objectName + ");";
+			lines.insert(insertPos+1, insertCode2);
+		}
+
+
+
+		//Output a new file.
+		ofstream out(fileName);
+		for (auto line : lines)
+		{
+			out << line << endl;
+		}
 		out.flush();
 		out.close();
-
 
 
 
@@ -319,6 +366,13 @@ namespace Core
 		//return dynamic_cast<ObjectFunction*>(objFunc);
 
 		return NULL;
+	}
+	void ExcuteGradParser::InitRccSystem()
+	{
+		StdioLogSystem *pThreadsafeLog = new StdioLogSystem();
+
+		_sys = new RuntimeObjectSystem();
+		_sys->Initialise(pThreadsafeLog, NULL);
 	}
 }
 
