@@ -8,7 +8,7 @@ namespace Core
 		unordered_map<string, string> _data;
 
 		//contains all the keys of variable name.
-		vector<std::string> _vecVariableNameKeys;
+		vector<std::string> _vecVariableNameKeys;////to be delete
 
 	public:
 		DataWrapper();

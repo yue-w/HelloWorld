@@ -45,9 +45,6 @@
     <ClInclude Include="IFunction.h">
       <Filter>Interface</Filter>
     </ClInclude>
-    <ClInclude Include="ObjectFuncParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ThreadLocker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -78,6 +75,18 @@
     <ClInclude Include="ObjFuncExcut.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="NloptPara.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Grad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CompileGradExcut.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementOpt.cpp">
@@ -99,9 +108,6 @@
       <Filter>Interface</Filter>
     </ClCompile>
     <ClCompile Include="ObjectFunction.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectFuncParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ThreadLocker.cpp">
@@ -132,6 +138,18 @@
       <Filter>Data</Filter>
     </ClCompile>
     <ClCompile Include="ObjFuncExcut.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="NloptPara.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Grad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FunctionParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CompileGradExcut.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

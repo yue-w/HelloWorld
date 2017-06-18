@@ -6,7 +6,7 @@ namespace Core
 	class DataWrapper;
 	class OptimizationData;
 	class VariableProperty;
-	class FunctionData;
+	class FunctionData;////store the object function input from UI
 
 	//////////////////////////////////////////////////////////////////////////
 	//Parse data from DataWrapper to a concrete data class.

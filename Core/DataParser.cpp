@@ -40,7 +40,7 @@ namespace Core
 			_optData->AddVar(varProperty);
 		}
 
-		//Parse functions.
+		//Pass object function. Because there is only one object function,it is stored seperately.
 		auto funcData = ParseFunctionData();
 		_optData->SetFuncData(funcData);
 	}
@@ -111,9 +111,8 @@ namespace Core
 		string grad_key = OptimizationData::Grad + CommonTool::StringFormat("%d", i);
 		if (_dataWapper->HasData(grad_key))
 		{
-			string initStr = _dataWapper->GetData(grad_key);
-			
-			varProperty.Grad(initStr);
+			string gradStr = _dataWapper->GetData(grad_key);		
+			varProperty.Grad(gradStr);
 		}
 
 		return varProperty;

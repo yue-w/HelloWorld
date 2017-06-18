@@ -9,6 +9,7 @@ namespace Core
 		_lb = DEFAULT_DOUBLE;
 		_ub = DEFAULT_DOUBLE;
 		_initVal = DEFAULT_DOUBLE;
+		_grad = "";
 	}
 
 

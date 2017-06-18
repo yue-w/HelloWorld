@@ -7,17 +7,42 @@
 
 namespace Core
 {
+	TEST(Test_DataParser, TestGrad)
+	{
+		//Prepare data wrapper.
+		DataWrapper data;
+		data.Add("varName1", "x1");
+		data.Add("lowBnd1", "0");
+		data.Add("upBnd1", "1");
+		data.Add("initVal1", "0.5");
+		data.Add("grad1", "2*x1+1.11");
+		data.Add("varName2", "x2");
+		data.Add("lowBnd2", "0");
+		data.Add("upBnd2", "1");
+		data.Add("initVal2", "0.5");
+		data.Add("grad2", "2*x2+2.12");
+		//Parse.
+		DataParser parser(&data);
+		parser.Parse();
+		auto optData = parser.GetParsedData();
 
-	//TEST(Test_DataParser, TestGrad)
+		ASSERT_EQ(2, optData.VarCount());
+
+		auto varData = optData.GetVarData(2);
+
+
+		ASSERT_EQ("2*x2+2.12", varData.Grad());
+
+	}
+
+	//TEST(Test_DataParser, ComputeVarCountCorrectly)
 	//{
 	//	//Prepare data wrapper.
 	//	DataWrapper data;
 	//	data.Add("varName1", "x1");
 	//	data.Add("varName2", "x2");
 	//	data.Add("varName3", "x3");
-	//	data.Add("grad1", "x1-1");
-	//	data.Add("grad2", "x2-2");
-	//	data.Add("grad3", "3*x3-8");
+
 	//	//Parse.
 	//	DataParser parser(&data);
 	//	parser.Parse();
@@ -26,34 +51,33 @@ namespace Core
 	//	auto varData = optData.GetVarData(3);
 
 	//	ASSERT_EQ("x3", varData.VarName());
-	//	ASSERT_EQ("3*x3-8", varData.Grad());
 
+	//	ASSERT_EQ(3, optData.VarCount());
 	//}
 
+	//TEST(Test_DataParser, ParseLowerBoundAndUpperBound)
+	//{
+	//	//Prepare data wrapper.
+	//	DataWrapper data;
+	//	data.Add("varName1", "x1");
+	//	data.Add("lowBnd1", "0");
+	//	data.Add("upBnd1", "1");
+	//	data.Add("initVal1", "0.5");
+	//	data.Add("varName2", "x2");
+	//	//Parse.
+	//	DataParser parser(&data);
+	//	parser.Parse();
+	//	auto optData = parser.GetParsedData();
 
-	TEST(Test_DataParser, ParseLowerBoundAndUpperBound)
-	{
-		//Prepare data wrapper.
-		DataWrapper data;
-		data.Add("varName1", "x1");
-		data.Add("lowBnd1", "0");
-		data.Add("upBnd1", "1");
-		data.Add("initVal1", "0.5");
-		data.Add("varName2", "x2");
-		//Parse.
-		DataParser parser(&data);
-		parser.Parse();
-		auto optData = parser.GetParsedData();
+	//	ASSERT_EQ(2, optData.VarCount());
 
-		ASSERT_EQ(2, optData.VarCount());
+	//	auto varData = optData.GetVarData(1);
 
-		auto varData = optData.GetVarData(1);
-
-		ASSERT_EQ("x1", varData.VarName());
-		ASSERT_EQ(0, varData.Lb());
-		ASSERT_EQ(1, varData.Ub());
-		ASSERT_EQ(0.5, varData.InitVal());
-	}
+	//	ASSERT_EQ("x1", varData.VarName());
+	//	ASSERT_EQ(0, varData.Lb());
+	//	ASSERT_EQ(1, varData.Ub());
+	//	ASSERT_EQ(0.5, varData.InitVal());
+	//}
 
 	//TEST(Test_DataParser, SomeValuesAreOptional)
 	//{

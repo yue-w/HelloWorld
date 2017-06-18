@@ -4,7 +4,7 @@
 #include "DataWrapper.h"
 #include "DataParser.h"
 #include "OptimizationData.h"
-#include "ObjectFuncParser.h"
+#include "FunctionParser.h"
 #include "IFunction.h"
 #include "CommonFunc.h"
 #include "ObjFuncExcut.h"
@@ -12,6 +12,7 @@
 #include <sstream>
 #include <nlopt.hpp>
 #include <math.h>
+//#include "GradPasser.h"
 
 
 namespace Core
@@ -31,39 +32,36 @@ namespace Core
 
 	void OptimizationCommand::Execute(const DataWrapper* data)
 	{
-		//Get input data.
-// 		auto lb0 = data->GetData("lb0");
-// 		auto lb1 = data->GetData("lb1");
-// 		vector<std::string> lowerbound;
-// 		lowerbound.push_back(lb0);
-// 		lowerbound.push_back(lb1);
-// 		//Optimize.
-// 		vector<double> vars;
-// 		TestOptimize(lowerbound, vars);
-// 		//Output data.
-// 		_outData->Add("var0", Num2String(vars[0]));
-// 		_outData->Add("var1", Num2String(vars[1]));
 
+		////objFunc is the string that contains the modified object function.
+			DataParser dataParser(data);
+			dataParser.Parse();
+			OptimizationData optData = dataParser.GetParsedData();
+		string objFunc = modifyObjectFunc(&optData);
 
 		//Parse the objective function.
 		ObjectFuncParser parser;
-		
+		auto func = parser.Parse(objFunc, "..\\Core\\ObjectFunction.cpp");
+		parser.DynamicCompile("ObjectFunction");
+		vector<string> grad = ModifyGrad(&optData);
+
+
+		/////YueWangDebug Dynamic Compiling
+		ExcuteGradParser excuPasser;
+		auto funcExcu = excuPasser.Parse(objFunc, "..\\Core\\CompileGradExcut.cpp");
+		excuPasser.DynamicCompile("CompileGradExcut");
+		////YueWangDebug Dynamic Compiling
+		//pass the gradient
+		GradPasser gradPasser;
+		for (size_t i = 0; i<grad.size(); i++)
+		{
+			auto funcGrad = gradPasser.Parse(grad[i], "..\\Core\\Grad",i);				
+		}
+		gradPasser.DynamicCompile("Grad");
+
+
 
 		
-
-		//auto func = parser.Parse(data->GetData("objFunc"));
-
-
-		////objFunc is the string that contains the modified object function.
-		string objFunc = modifyObjectFunc(data);
-
-
-		//////WangYue Debug
-		//_outData->Add("modi", objFunc);
-		//return;
-		//////WangYue Debug 
-
-		auto func = parser.Parse(objFunc);
 
 		if (func == NULL)
 		{
@@ -71,16 +69,7 @@ namespace Core
 		}
 		else
 		{
-			////Get input from UI.
-			//auto x = StringToNum<double>(data->GetData("lb0"));
-			//vector<double> var{ x };
-			////Compute
-			//auto res =  func->Compute(var);
-			//Core::CommonTool::Log::Info("end compute: "+Num2String(res));
-			////Send data to output wrapper.
-			//_outData->Add("objVal", Num2String(res));
-
-			callNloptOptimize(data);
+			callNloptOptimize(&optData);
 
 			vector<std::string> varNameKeys = data->getVecVariableNameKeys();
 			for (int i = 0; i < varNameKeys.size(); i++)
@@ -91,45 +80,83 @@ namespace Core
 
 	}
 
-	string OptimizationCommand::modifyObjectFunc(const DataWrapper* data)
+	string OptimizationCommand::modifyObjectFunc(const OptimizationData* optData)
 	{
+		string modifiedObjFun = optData->GetObjFunc();////Object function input by the user
+		return ChangeNameToIndex(modifiedObjFun, optData);
 		
-
-		////make a copy of data
-		unordered_map<string, string> allKeys = data->GetAllData();
-
-		////original object function
-		string oriObjfunc = data->GetData("objFunc");
-
-
+		
+		/*
 		////will be modified and returned
-		string modifiedObjFun= data->GetData("objFunc");
+		string modifiedObjFun= optData->GetObjFunc();////Object function input by the user
 
-
+		int varNumber = optData->VarCount();
 		int indexInx = 0;
-		vector<string> varNameKeys = data->getVecVariableNameKeys();
-		for (vector<string>::iterator it= varNameKeys.begin(); it!=varNameKeys.end();it++)
+		for (size_t i = 1; i<=varNumber; i++) 
 		{
+			auto varData = optData->GetVarData(i);
+			string value = varData.VarName();
 
-			string key = *it;
-			string value = allKeys[key];
+				///find and replace the variable
+				size_t pos = modifiedObjFun.find(value, 0);
+				while (pos != string::npos)////if find the occurance
+				{
+					string replace = "x[" + std::to_string(indexInx) + "]";
+					modifiedObjFun.replace(pos, value.length(), replace);
 
-			///find and replace the variable
-			size_t pos = modifiedObjFun.find(value, 0);
-			while (pos != string::npos)////if find the occurance
-			{
-				string replace = "x[" + std::to_string(indexInx) + "]";
-				modifiedObjFun.replace(pos, value.length(), replace);
-
-				pos = modifiedObjFun.find(value, 0);
-			}
-			indexInx++;
+					pos = modifiedObjFun.find(value, 0);
+				}
+				indexInx++;
 
 		}
 
 
+		return modifiedObjFun;*/
 
-		return modifiedObjFun;
+	
+	}
+	std::vector<string> OptimizationCommand::ModifyGrad(const OptimizationData * optData)
+	{
+		int varNumber = optData->VarCount();
+
+		////will be returned.
+		std::vector<string> grad(varNumber);
+		
+		int indexInx = 0;
+		for (size_t i = 1; i <= varNumber; i++)
+		{
+			auto varData = optData->GetVarData(i);
+			string modifiedGrad = varData.Grad();
+
+			//change xi to x[i-0]. Start
+
+			//int varNumber = optData->VarCount();
+			//int indexInx = 0;
+			//for (size_t i = 1; i <= varNumber; i++)
+			//{
+			//	auto varData = optData->GetVarData(i);
+			//	string value = varData.VarName();
+
+			//	///find and replace the variable
+			//	size_t pos = modifiedGrad.find(value, 0);
+			//	while (pos != string::npos)////if find the occurance
+			//	{
+			//		string replace = "x[" + std::to_string(indexInx) + "]";
+			//		modifiedGrad.replace(pos, value.length(), replace);
+
+			//		pos = modifiedGrad.find(value, 0);
+			//	}
+			//	indexInx++;
+
+			//}
+
+			//change xi to x[i-0]. End
+
+			grad[i - 1] = ChangeNameToIndex(modifiedGrad, optData);
+			//grad[i - 1] = modifiedGrad;
+		}
+
+		return grad;
 	}
 	vector<double> OptimizationCommand::changeVariableToVector(const unordered_map<string, string> & variableKeyValue)
 	{
@@ -150,6 +177,34 @@ namespace Core
 		}
 
 		return x;
+	}
+	string OptimizationCommand::ChangeNameToIndex(string  modified, const OptimizationData* optData)
+	{
+
+		int varNumber = optData->VarCount();
+		int indexInx = 0;
+		for (size_t i = 1; i <= varNumber; i++)
+		{
+			auto varData = optData->GetVarData(i);
+			string value = varData.VarName();
+
+			///find and replace the variable
+			size_t pos = modified.find(value, 0);
+			while (pos != string::npos)////if find the occurance
+			{
+				string replace = "x[" + std::to_string(indexInx) + "]";
+				modified.replace(pos, value.length(), replace);
+
+				pos = modified.find(value, 0);
+			}
+			indexInx++;
+
+		}
+
+
+
+		return modified;
+
 	}
 	unordered_map<string, string> OptimizationCommand::GetOutData() const
 	{
@@ -192,64 +247,11 @@ namespace Core
 		return minf;
 	}
 
-	void OptimizationCommand::callNloptOptimize(const DataWrapper * data)
+	void OptimizationCommand::callNloptOptimize(const OptimizationData* optData)
 	{
-		//
-		//nlopt::opt opt2(nlopt::LD_MMA, 2);
-
-		//std::vector<double> lb2(2);
-		//lb2[0] = -HUGE_VAL; lb2[1] = 0;
-		//opt2.set_lower_bounds(lb2);
-
-
-		//////Set the object function
-		//opt2.set_min_objective(ObjFuncExcut::objectFunction, NULL);
-
-		//opt2.set_xtol_rel(1e-4);
-
-		//std::vector<double> xD(2);
-		//xD[0] = 1.234; xD[1] = 5.678;
-		//double minf;
-		//nlopt::result result2 = opt2.optimize(xD, minf);
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//nlopt::opt opt(nlopt::LD_MMA, 2);
-		////Parse.
-		//DataParser parser(data);
-		//parser.Parse();
-		//auto optData = parser.GetParsedData();
-
-		//////Get the total amount of variable.
-		//size_t numberVariable = optData.VarCount();
-		//
-		//
-		////Set lower bound, upper bound, initial value...
-		//vector<double> lb(numberVariable);
-		//vector<double> ub(numberVariable);
-		//vector<double> x(numberVariable);
-
-		//for (size_t index = 0; index<numberVariable; index++)
-		//{
-		//	auto varData = optData.GetVarData(index+1);////the index start from one
-		//	lb[index] = varData.Lb();
-		//	ub[index] = varData.Ub();
-		//	x[index]=varData.InitVal();
-		//}
-		//opt.set_lower_bounds(lb);
-		//////Set the object function
-		//opt.set_min_objective(ObjFuncExcut::objectFunction, NULL);
-		//opt.set_xtol_rel(1e-4);
-		//double minf2;
-		//nlopt::result result = opt.optimize(x, minf2);
-		//int debug = 0;
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		//Parse.
-		DataParser parser(data);
-		parser.Parse();
-		auto optData = parser.GetParsedData();
 
 		////Get the total amount of variable.
-		size_t numberVariable = optData.VarCount();
+		size_t numberVariable = optData->VarCount();
 		
 		
 		//Set lower bound, upper bound, initial value...
@@ -259,7 +261,7 @@ namespace Core
 
 		for (size_t index = 0; index<numberVariable; index++)
 		{
-			auto varData = optData.GetVarData(index+1);////the index start from one
+			auto varData = optData->GetVarData(index+1);////the index start from one
 			lb[index] = varData.Lb();
 			ub[index] = varData.Ub();
 			x[index]=varData.InitVal();
@@ -270,9 +272,11 @@ namespace Core
 		opt.set_lower_bounds(lb);
 		opt.set_upper_bounds(ub);
 
+		////Set static value for ObjFuncExcut::ObjFunction
+		//ObjFuncExcut::_numOfVar = numberVariable;
 
 		////Set the object function	
-		opt.set_min_objective(ObjFuncExcut::objectFunction, NULL);
+		opt.set_min_objective(ObjFuncExcut::ObjFunction, NULL);
 
 
 		////Set the constraint function
@@ -286,6 +290,17 @@ namespace Core
 		nlopt::result result = opt.optimize(x, minf);
 		
 
+	}
+
+	void OptimizationCommand::PushGradPointer(const int totalVariable)
+	{
+		for (size_t i = 0; i<totalVariable; i++)
+		{
+			string className = "Grad";
+			string indexStr = std::to_string(i);
+			className += indexStr;
+			//ObjFuncExcut::pushGradPnt(className);
+		}
 	}
 
 	double OptimizationCommand::myvfunc(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data)
