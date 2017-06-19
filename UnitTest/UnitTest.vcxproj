@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Middleware\googletest-master\googletest\src\gtest-all.cc" />
+    <ClCompile Include="IntegrationTest.cpp" />
     <ClCompile Include="MyMain.cpp" />
     <ClCompile Include="TestDataParse.cpp" />
     <ClCompile Include="TestFile.cpp" />
