@@ -14,6 +14,7 @@
 #include <stdarg.h>
 #include <thread>
 #include <fstream>
+#include "CompileGradExcut.h"
 
 #ifdef _WIN32
 #include "Windows.h"
@@ -164,6 +165,12 @@ namespace Core
 
 	IFunction * FunctionParser::DynamicCompile(const char* fileName)
 	{
+		Log::PushNDC("ObjectFuncParser");
+
+		//Try to modify ObjectFunction.cpp.
+		string toParse(fileName);
+		Log::Info("Function to parse: " + toParse);
+
 		//Dynamic compile.
 		_sys->CompileAll(true);
 		//Wait for finishing compilation.
@@ -172,11 +179,12 @@ namespace Core
 		}
 		_sys->LoadCompiledModule();
 
-		//Log::PopNDC();
+		Log::PopNDC();
 
 		//Get object function from factory.
 		//auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor("ObjectFunction")->Construct();
-		auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor(fileName)->Construct();		return dynamic_cast<ObjectFunction*>(objFunc);
+		auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor(fileName)->Construct();		
+		return dynamic_cast<CompileGradExcut*>(objFunc);
 		
 	}
 

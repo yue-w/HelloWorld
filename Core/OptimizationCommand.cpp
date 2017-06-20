@@ -44,8 +44,9 @@ namespace Core
 		ObjectFuncParser parser;
 		auto func = parser.Parse(objFunc, "..\\Core\\ObjectFunction.cpp");
 		parser.DynamicCompile("ObjectFunction");
-		vector<string> grad = ModifyGrad(&optData);
+
 		
+		vector<string> grad = ModifyGrad(&optData);
 		//pass the gradient
 		GradPasser gradPasser;
 		vector<string> vecClassName(grad.size());
@@ -58,14 +59,15 @@ namespace Core
 		gradPasser.DynamicCompile("Grad");
 
 
-		/////Dynamic Compiling
+
+		///////Dynamic Compiling
 		ExcuteGradParser excuPasser;
-		auto funcExcu = excuPasser.Parse(objFunc, "..\\Core\\CompileGradExcut.cpp", vecClassName);
-		excuPasser.DynamicCompile("CompileGradExcut");
+		excuPasser.Parse(objFunc, "..\\Core\\CompileGradExcut.cpp", vecClassName);
+		IFunction* iFunc = excuPasser.DynamicCompile("CompileGradExcut");
 
-		CompileGradExcut excu;
-		excu.PushGradPointer();
-
+		CompileGradExcut* comPilExcu =dynamic_cast<CompileGradExcut*>(iFunc);
+		comPilExcu->PushGradPointer();
+		
 
 
 		if (func == NULL)
