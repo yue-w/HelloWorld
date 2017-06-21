@@ -48,6 +48,12 @@ namespace Core
 		GradPasser();
 		~GradPasser();
 
+		bool EraseExistingCodesH() { return _eraseExistingCodes_h; }
+		void EraseExistingCodesH(const bool value) { _eraseExistingCodes_h = value; }
+
+		bool EraseExistingCodesCPP() { return _eraseExistingCodes_cpp; }
+		void EraseExistingCodesCPP(const bool value) { _eraseExistingCodes_cpp = value; }
+
 		IFunction* Parse(const string gradStr, const string ,int index, string& className);
 	private:
 
@@ -59,7 +65,8 @@ namespace Core
 		//write .cpp file
 		bool WriteCPPFile(const string gradStr, const string, int index);
 
-
+		bool _eraseExistingCodes_h;
+		bool _eraseExistingCodes_cpp;
 	};
 
 

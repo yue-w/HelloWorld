@@ -118,7 +118,8 @@ namespace Core
 
 
 		//Find the position to insert function.
-		auto insertPos = find(lines.begin(), lines.end(), "	//Insert Function");
+		string startMark = "//Insert Function";
+		auto insertPos = find(lines.begin(), lines.end(), startMark);
 		*(insertPos + 1) = "double fun=" + functionStr + ";";
 
 		//Output a new file.
@@ -192,6 +193,8 @@ namespace Core
 
 	GradPasser::GradPasser()
 	{
+		_eraseExistingCodes_h = true;
+		_eraseExistingCodes_cpp = true;
 	}
 
 
@@ -228,73 +231,176 @@ namespace Core
 
 	bool GradPasser::WriteHeadlerFile(const string gradStr, const string fileName, int index, string& className)
 	{
-		bool success=false;
+		
+		vector<string> lines;
+		ifstream in(fileName+".h");
 
-		ofstream myfile;
-		string hName = fileName + ".h";
-		myfile.open(hName, ios::app);
-
-		/*
-		class Grad : public Core::IFunction, public IObject
+		string line = "";
+		if (in.is_open())
 		{
-		public:
-		Grad();
-		~Grad();
-		virtual double Compute(const std::vector<double> &x) const;
+			while (getline(in, line))
+			{
+				lines.push_back(line);
+			}
+		}
 
-		virtual PerTypeObjectId GetPerTypeId() const { return 0; }
-		virtual IObjectConstructor* GetConstructor() const { return NULL; };
-		virtual const char* GetTypeName() const { return ""; };
-		};
+		else
+		{
+			throw ERROR;
+		}
 
-		*/
+
+		//Find the position to insert function.
+		string startMark = "//Gradient Class Headler file-insert start";
+		auto insertPos = find(lines.begin(), lines.end(), startMark);
+																					  
+		//Find the position to stop
+		string endMark = "//Gradient Class Headler file-insert end";
+		auto endPos = find(lines.begin(), lines.end(), endMark);
+
+		 ////erase the old codes
+		if (EraseExistingCodesH())
+		{
+			insertPos = lines.erase(insertPos + 1, endPos - 1);
+			endPos = find(lines.begin(), lines.end(), endMark);
+		}
+		
+
+		////The new codes that will be inserted
 		string strIndex = std::to_string(index);
 		className = "Grad" + strIndex;
 
-		////write
-		myfile << "class"<<" "<<className<< ": public Grad"<<endl;
-		myfile << "{"<<endl;
-		myfile << "public:" << endl;
-		myfile << className << "(){};" << endl;
-		myfile <<"~"<< className << "(){};" << endl;
-		myfile << "virtual double Compute(const std::vector<double> &x) const;" << endl;
-		//myfile << "virtual PerTypeObjectId GetPerTypeId() const { return 0; }" << endl;
-		//myfile << "virtual IObjectConstructor* GetConstructor() const { return NULL; };" << endl;
-		//myfile << "virtual const char* GetTypeName() const { return \" \"; };" << endl;
-		myfile << "};" << endl;
+		vector<string> newCodes;
+		string newCode = "class\t" + className + ": public Grad";
+		newCodes.push_back(newCode);
+		newCode = "{";
+		newCodes.push_back(newCode);
+		newCode = "public:";
+		newCodes.push_back(newCode);
+		newCode = className + "(){};";
+		newCodes.push_back(newCode);
+		newCode = "~" + className + "(){};";
+		newCodes.push_back(newCode);
+		newCode = "virtual double Compute(const std::vector<double> &x) const;";
+		newCodes.push_back(newCode);
+		newCode = "};";
+		newCodes.push_back(newCode);
 
+		////insert new codes
+		lines.insert(endPos - 1, newCodes.begin(), newCodes.end());
+
+		bool success = false;
+
+		//Output a new file.
+		ofstream out;
+		string hName = fileName + ".h";
+		out.open(hName);
+
+		if (out.is_open())
+		{
+			success = true;
+
+			for (auto line : lines)
+			{
+				out << line << endl;
+			}
+			out.flush();
+			out.close();
+
+		}
+		
+		EraseExistingCodesH(false);
 
 		return success;
 	}
 	bool GradPasser::WriteCPPFile(const string gradStr, const string fileName, int index)
 	{
-		bool success = false;
-		ofstream myfile;
-		string cppName = fileName + ".cpp";
-		myfile.open(cppName, ios::app);
+		vector<string> lines;
+		ifstream in(fileName + ".cpp");
 
+		string line = "";
+		if (in.is_open())
+		{
+			while (getline(in, line))
+			{
+				lines.push_back(line);
+			}
+		}
+
+		else
+		{
+			throw ERROR;
+		}
+
+		//Find the position to insert function.
+		string startMark = "//Gradient Class CPP file-insert start";
+		auto insertPos = find(lines.begin(), lines.end(), startMark);
+
+		//Find the position to stop
+		string endMark = "//Gradient Class CPP file-insert end";
+		auto endPos = find(lines.begin(), lines.end(), endMark);
+
+		////erase the old codes
+		if (EraseExistingCodesCPP())
+		{
+			insertPos = lines.erase(insertPos + 1, endPos - 1);
+			endPos = find(lines.begin(), lines.end(), endMark);
+		}
+
+		////The new codes that will be inserted
 		string strIndex = std::to_string(index);
 		string className = "Grad" + strIndex;
 
-		/*
-		double Grad::Compute(const std::vector<double>& x) const
+		vector<string> newCodes;
+		string newCode = "double\t" + className + "::Compute(const std::vector<double>& x) const";
+		newCodes.push_back(newCode);
+		newCode = "{";
+		newCodes.push_back(newCode);
+		newCode = "double gradValue=" + gradStr + ";";
+		newCodes.push_back(newCode);
+		newCode = "return gradValue;";
+		newCodes.push_back(newCode);
+		newCode = "}";
+		newCodes.push_back(newCode);
+		//////Register this class for dynamic compiling
+		newCode = "REGISTERCLASS(" + className + ");";
+		newCodes.push_back(newCode);
+
+		////insert new codes
+		lines.insert(endPos - 1, newCodes.begin(), newCodes.end());
+
+		//output the new file
+		bool success = false;
+		ofstream out;
+		string cppName = fileName + ".cpp";
+		out.open(cppName);
+
+
+		if (out.is_open())
 		{
+			success = true;
 
-		//insert grad here
-		double gradValue = 0.0;
+			for (auto line : lines)
+			{
+				out << line << endl;
+			}
+			out.flush();
+			out.close();
 
-		return gradValue;
 		}
-		*/
 
-		myfile << "double" << " " << className << "::Compute(const std::vector<double>& x) const" << endl;
-		myfile << "{" << endl;
-		myfile << "double gradValue=" << gradStr << ";" << endl;
-		myfile << "return gradValue;"<<endl;
-		myfile << "}" << endl;
-		////Register this class for dynamic compiling
-		myfile << "REGISTERCLASS(" << className << ");" << endl;
+		EraseExistingCodesCPP(false);
+
 		return success;
+
+
+		
+
+
+
+
+
+
 	}
 
 
@@ -329,12 +435,15 @@ namespace Core
 		}
 
 
-		//Find the position to insert function.
-		auto insertPos = find(lines.begin(), lines.end(),"\t//&*)(%$#-insert start" );//"	//&*)(%$#-insert start"
+		//Find the position to insert function. The insert does not use this as benchmark, it insert right
+		//above the mark of "insert end"
+		string startMark = "//CompileGradExcut-insert start";
+		auto insertPos = find(lines.begin(), lines.end(), startMark);
 		//
 
-		//Find the position to stop
-		auto endPos = find(lines.begin(), lines.end(),"\t//&*)(%$#-insert end" );  //"	//&*)(%$#-insert end"
+		string endMark = "//CompileGradExcut-insert end";
+		//Find the position to stop. The insert start from right above this mark.
+		auto endPos = find(lines.begin(), lines.end(), endMark);
 				
 		////erase the old codes
 		insertPos = lines.erase(insertPos+1,endPos-1);
@@ -342,7 +451,7 @@ namespace Core
 		//insert the new codes
 		for (size_t i = 0; i < vecClassNames.size(); i++)
 		{
-			endPos = find(lines.begin(), lines.end(), "\t//&*)(%$#-insert end");  //"	//&*)(%$#-insert end"
+			endPos = find(lines.begin(), lines.end(), endMark); 
 			insertPos = endPos - 1;
 
 			string insertCode1 = vecClassNames[i] + "* ";
@@ -367,11 +476,6 @@ namespace Core
 		out.flush();
 		out.close();
 
-
-
-		////Get object function from factory.
-		//auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor("ObjectFunction")->Construct();
-		//return dynamic_cast<ObjectFunction*>(objFunc);
 
 		return NULL;
 	}
