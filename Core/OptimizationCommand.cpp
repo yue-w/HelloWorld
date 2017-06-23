@@ -14,6 +14,7 @@
 #include <math.h>
 //#include "GradPasser.h"
 #include "CompileGradExcut.h"
+#include "Grad.h"
 
 
 namespace Core
@@ -26,7 +27,7 @@ namespace Core
 
 
 	OptimizationCommand::~OptimizationCommand()
-	{
+	{ 
 		delete _outData;
 	}
 
@@ -43,10 +44,12 @@ namespace Core
 		//Parse the objective function.
 		ObjectFuncParser parser;
 		auto func = parser.Parse(objFunc, "..\\Core\\ObjectFunction.cpp");
-		parser.DynamicCompile("ObjectFunction");
+		IFunction* iFunctionObjFunc = parser.DynamicCompile("ObjectFunction");
+		ObjectFunction* objFtest=dynamic_cast<ObjectFunction*>(iFunctionObjFunc);
+		objFtest->test();
 
 		
-		vector<string> grad = ModifyGrad(&optData);
+		vector<string> grad = ModifyGrad(&optData); 
 		//pass the gradient
 		GradPasser gradPasser;
 		vector<string> vecClassName(grad.size());
@@ -56,8 +59,10 @@ namespace Core
 			auto funcGrad = gradPasser.Parse(grad[i], "..\\Core\\Grad",i, className);
 			vecClassName[i] = className;
 		}
-		gradPasser.DynamicCompile("Grad");
+		IFunction* iFuncGrad = gradPasser.DynamicCompile("Grad");
 
+		Grad* grad1 = dynamic_cast<Grad*> (iFuncGrad);
+		grad1->test();
 
 
 		///////Dynamic Compiling

@@ -136,9 +136,10 @@ namespace Core
 
 
 
-		//Get object function from factory.
-		auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor("ObjectFunction")->Construct();
-		return dynamic_cast<ObjectFunction*>(objFunc);
+		////Get object function from factory.
+		//auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor("ObjectFunction")->Construct();
+		//return dynamic_cast<ObjectFunction*>(objFunc);
+		return NULL;
 
 	
 	}
@@ -193,6 +194,7 @@ namespace Core
 
 	GradPasser::GradPasser()
 	{
+		InitRccSystem();    
 		_eraseExistingCodes_h = true;
 		_eraseExistingCodes_cpp = true;
 	}
@@ -207,7 +209,7 @@ namespace Core
 		string indexStr = std::to_string(index);
 		className = "Grad" + indexStr;
 
-
+		    
 		bool hState = WriteHeadlerFile(functionStr, fileName, index, className );
 
 		bool cppState = WriteCPPFile(functionStr, fileName, index);
@@ -406,7 +408,7 @@ namespace Core
 
 	ExcuteGradParser::ExcuteGradParser()
 	{
-
+		InitRccSystem();
 	}
 
 

@@ -17,5 +17,6 @@ public:
 	virtual PerTypeObjectId GetPerTypeId() const { return 0; }
 	virtual IObjectConstructor* GetConstructor() const { return NULL; };
 	virtual const char* GetTypeName() const { return ""; };
+	void test();
 };
 

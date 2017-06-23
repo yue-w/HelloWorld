@@ -5,6 +5,11 @@
 
 REGISTERCLASS(ObjectFunction);
 
+void ObjectFunction::test()
+{
+	int debug = 0;
+}
+
 double ObjectFunction::Compute(const std::vector<double> &x) const
 {
 	
@@ -15,6 +20,8 @@ double fun=(x[0]-1)*(x[0]-1)+(x[1]-4)*(x[1]-4);
 
 	return fun;
 }
+
+
 
 
 
