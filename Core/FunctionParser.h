@@ -21,7 +21,7 @@ namespace Core
 
 		IFunction* Parse(const string functionStr, const string fileName);
 
-		IFunction* DynamicCompile(const char* fileName);
+		virtual IFunction* DynamicCompile(const char* fileName);
 
 	};
 
@@ -34,11 +34,12 @@ namespace Core
 
 		//Parser string to a function.
 		IFunction* Parse(const string functionStr, const string fileName);
-
+		IFunction* DynamicCompile(const char* fileName);
 
 	private:
 
 		void InitRccSystem();
+
 	};
 
 	class GradPasser :
@@ -55,6 +56,7 @@ namespace Core
 		void EraseExistingCodesCPP(const bool value) { _eraseExistingCodes_cpp = value; }
 
 		IFunction* Parse(const string gradStr, const string ,int index, string& className);
+		IFunction* DynamicCompile(const char* fileName);
 	private:
 
 		void InitRccSystem();
@@ -80,6 +82,8 @@ namespace Core
 		/*vecClassNames stores all the names of 
 		the class that have been compiled dynamically by GradPasser::parse*/
 		IFunction* Parse(const string functionStr, const string fileName, const vector<string> vecClassNames);
+		IFunction* DynamicCompile(const char* fileName);
+
 	private:
 
 		void InitRccSystem();

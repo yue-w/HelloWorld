@@ -15,6 +15,8 @@
 #include <thread>
 #include <fstream>
 #include "CompileGradExcut.h"
+#include "Grad.h"
+
 
 #ifdef _WIN32
 #include "Windows.h"
@@ -144,6 +146,32 @@ namespace Core
 	
 	}
 
+	IFunction * ObjectFuncParser::DynamicCompile(const char * fileName)
+	{
+		Log::PushNDC("ObjectFuncParser");
+
+		//Try to modify ObjectFunction.cpp.
+		string toParse(fileName);
+		Log::Info("Function to parse: " + toParse);
+
+		//Dynamic compile.
+		_sys->CompileAll(true);
+		//Wait for finishing compilation.
+		while (!_sys->GetIsCompiledComplete())
+		{
+		}
+		_sys->LoadCompiledModule();
+
+		Log::PopNDC();
+
+		//Get object function from factory.
+		auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor("ObjectFunction")->Construct();
+		
+		//auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor(fileName)->Construct();		
+		return dynamic_cast<ObjectFunction*>(objFunc);
+		
+	}
+
 	void ObjectFuncParser::InitRccSystem()
 	{
 		StdioLogSystem *pThreadsafeLog = new StdioLogSystem();
@@ -167,26 +195,27 @@ namespace Core
 
 	IFunction * FunctionParser::DynamicCompile(const char* fileName)
 	{
-		Log::PushNDC("ObjectFuncParser");
+		//Log::PushNDC("ObjectFuncParser");
 
-		//Try to modify ObjectFunction.cpp.
-		string toParse(fileName);
-		Log::Info("Function to parse: " + toParse);
+		////Try to modify ObjectFunction.cpp.
+		//string toParse(fileName);
+		//Log::Info("Function to parse: " + toParse);
 
-		//Dynamic compile.
-		_sys->CompileAll(true);
-		//Wait for finishing compilation.
-		while (!_sys->GetIsCompiledComplete())
-		{
-		}
-		_sys->LoadCompiledModule();
+		////Dynamic compile.
+		//_sys->CompileAll(true);
+		////Wait for finishing compilation.
+		//while (!_sys->GetIsCompiledComplete())
+		//{
+		//}
+		//_sys->LoadCompiledModule();
 
-		Log::PopNDC();
+		//Log::PopNDC();
 
-		//Get object function from factory.
-		//auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor("ObjectFunction")->Construct();
-		auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor(fileName)->Construct();		
-		return dynamic_cast<CompileGradExcut*>(objFunc);
+		////Get object function from factory.
+		////auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor("ObjectFunction")->Construct();
+		//auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor(fileName)->Construct();		
+		//return dynamic_cast<CompileGradExcut*>(objFunc);
+		return NULL;
 		
 	}
 
@@ -219,6 +248,32 @@ namespace Core
 		//return dynamic_cast<ObjectFunction*>(objFunc);
 		return NULL;
 
+	}
+
+	IFunction * GradPasser::DynamicCompile(const char * fileName)
+	{
+		Log::PushNDC("GradParser");
+
+		//Try to modify ObjectFunction.cpp.
+		string toParse(fileName);
+		Log::Info("Function to parse: " + toParse);
+
+		//Dynamic compile.
+		_sys->CompileAll(true);
+		//Wait for finishing compilation.
+		while (!_sys->GetIsCompiledComplete())
+		{
+		}
+		_sys->LoadCompiledModule();
+
+		Log::PopNDC();
+
+		//Get object function from factory.
+		auto *gradPtr = _sys->GetObjectFactorySystem()->GetConstructor("Grad")->Construct();
+
+		//auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor(fileName)->Construct();		
+		return dynamic_cast<Grad*>(gradPtr);
+		//return nullptr;
 	}
 
 
@@ -480,6 +535,32 @@ namespace Core
 
 
 		return NULL;
+	}
+	IFunction * ExcuteGradParser::DynamicCompile(const char * fileName)
+	{
+		Log::PushNDC("ExcutGradParser");
+
+		//Try to modify ObjectFunction.cpp.
+		string toParse(fileName);
+		Log::Info("Function to parse: " + toParse);
+
+		//Dynamic compile.
+		_sys->CompileAll(true);
+		//Wait for finishing compilation.
+		while (!_sys->GetIsCompiledComplete())
+		{
+		}
+		_sys->LoadCompiledModule();
+
+		Log::PopNDC();
+
+		//Get object function from factory.
+		auto *CompileGradPtr = _sys->GetObjectFactorySystem()->GetConstructor("CompileGradExcut")->Construct();
+
+		//auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor(fileName)->Construct();		
+		return dynamic_cast<CompileGradExcut*>(CompileGradPtr);
+
+		//return nullptr;
 	}
 	void ExcuteGradParser::InitRccSystem()
 	{

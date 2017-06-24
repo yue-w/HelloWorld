@@ -45,6 +45,7 @@ namespace Core
 		ObjectFuncParser parser;
 		auto func = parser.Parse(objFunc, "..\\Core\\ObjectFunction.cpp");
 		IFunction* iFunctionObjFunc = parser.DynamicCompile("ObjectFunction");
+		func = iFunctionObjFunc;
 		ObjectFunction* objFtest=dynamic_cast<ObjectFunction*>(iFunctionObjFunc);
 		objFtest->test();
 
