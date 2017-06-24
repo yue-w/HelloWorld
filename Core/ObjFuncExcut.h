@@ -9,7 +9,7 @@ private:
 	static ObjectFunction* _objFunDefin;
 
 	////gradient from dynamic compilation
-	static vector<Grad*> _gradDefin;
+	vector<Grad*> _gradDefin;
 	//static Grad* _gradDefin;
 
 
@@ -22,6 +22,6 @@ public:
 
 	////Number of variable
 	static size_t _numOfVar;
-	static void PushGradPnt(Grad* gradPnt) ;//{ _gradDefin.push_back(gradPnt); }
+	void PushGrad(Grad* gradPnt) ;//{ _gradDefin.push_back(gradPnt); }
 };
 

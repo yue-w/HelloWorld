@@ -5,10 +5,7 @@
 
 REGISTERCLASS(ObjectFunction);
 
-void ObjectFunction::test()
-{
-	int debug = 0;
-}
+
 
 double ObjectFunction::Compute(const std::vector<double> &x) const
 {

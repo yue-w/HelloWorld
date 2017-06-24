@@ -47,7 +47,7 @@ namespace Core
 		IFunction* iFunctionObjFunc = parser.DynamicCompile("ObjectFunction");
 		func = iFunctionObjFunc;
 		ObjectFunction* objFtest=dynamic_cast<ObjectFunction*>(iFunctionObjFunc);
-		objFtest->test();
+		
 
 		
 		vector<string> grad = ModifyGrad(&optData); 
@@ -63,7 +63,7 @@ namespace Core
 		IFunction* iFuncGrad = gradPasser.DynamicCompile("Grad");
 
 		Grad* grad1 = dynamic_cast<Grad*> (iFuncGrad);
-		grad1->test();
+		
 
 
 		///////Dynamic Compiling
@@ -73,8 +73,7 @@ namespace Core
 
 		CompileGradExcut* comPilExcu =dynamic_cast<CompileGradExcut*>(iFunc);
 		comPilExcu->PushGradPointer();
-		
-
+	
 
 		if (func == NULL)
 		{
@@ -82,8 +81,10 @@ namespace Core
 		}
 		else
 		{
+			NloptPara* nloptPara = new NloptPara();
+			nloptPara->SetGradDefine(comPilExcu->GetGradDefineVector());
 
-			callNloptOptimize(&optData);
+			CallNloptOptimize(&optData,nloptPara);
 
 			vector<std::string> varNameKeys = data->getVecVariableNameKeys();
 			for (int i = 0; i < varNameKeys.size(); i++)
@@ -261,7 +262,7 @@ namespace Core
 		return minf;
 	}
 
-	void OptimizationCommand::callNloptOptimize(const OptimizationData* optData)
+	void OptimizationCommand::CallNloptOptimize(const OptimizationData* optData,  NloptPara* nloptPara)
 	{
 
 		////Get the total amount of variable.
@@ -290,7 +291,8 @@ namespace Core
 		//ObjFuncExcut::_numOfVar = numberVariable;
 
 		////Set the object function	
-		opt.set_min_objective(ObjFuncExcut::ObjFunction, NULL);
+		//opt.set_min_objective(ObjFuncExcut::ObjFunction, NULL);
+		opt.set_min_objective(ObjFuncExcut::ObjFunction, nloptPara);
 
 
 		////Set the constraint function

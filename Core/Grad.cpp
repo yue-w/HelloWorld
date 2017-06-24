@@ -22,17 +22,6 @@ double Grad::Compute(const std::vector<double>& x) const
 	return gradValue;
 }
 
-void Grad::test()
-{
-	int c = 0;
-}
-
-
-
-
-
-
-
 
 
 

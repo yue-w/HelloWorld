@@ -1,9 +1,11 @@
 #pragma once
 #include "Command.h"
-
+#include "NloptPara.h"
 namespace Core
 {
 	class OptimizationData;
+	//class NloptPara;
+
 	typedef struct {
 		double a, b;
 	} my_constraint_data;
@@ -30,7 +32,7 @@ namespace Core
 		_declspec(dllexport)  double TestOptimize(const std::vector<std::string>& lowerBound, std::vector<double>& var);
 
 		//Excute Nlopt optimization
-		_declspec(dllexport)  void callNloptOptimize(const OptimizationData* optData);
+		_declspec(dllexport)  void CallNloptOptimize(const OptimizationData* optData, NloptPara* nloptPara);
 
 		////Modify the object function input by user
 		string modifyObjectFunc(const OptimizationData* optData);

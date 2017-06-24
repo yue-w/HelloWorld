@@ -518,8 +518,11 @@ namespace Core
 			insertPos = lines.insert(insertPos, insertCode1);
 			
 
-			string insertCode2 = "ObjFuncExcut::PushGradPnt(" + objectName + ");";
+			//string insertCode2 = "ObjFuncExcut::PushGradPnt(" + objectName + ");";
+			string insertCode2 = "_gradDefin.push_back(" + objectName + ");";
+
 			lines.insert(insertPos+1, insertCode2);
+
 		}
 
 
