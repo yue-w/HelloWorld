@@ -173,6 +173,7 @@
     <ClInclude Include="Grad.h" />
     <ClInclude Include="IFunction.h" />
     <ClInclude Include="implementOpt.h" />
+    <ClInclude Include="InverseDataParser.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="NloptPara.h" />
     <ClInclude Include="FunctionParser.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="Grad.cpp" />
     <ClCompile Include="IFunction.cpp" />
     <ClCompile Include="implementOpt.cpp" />
+    <ClCompile Include="InverseDataParser.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NloptPara.cpp" />

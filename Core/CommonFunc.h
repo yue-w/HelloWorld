@@ -1,5 +1,6 @@
 #pragma once
 #include "PublicHeader.h"
+
 namespace Core
 {
 	const double DEFAULT_DOUBLE = 1e10;

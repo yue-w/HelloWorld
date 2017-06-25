@@ -15,6 +15,7 @@
 //#include "GradPasser.h"
 #include "CompileGradExcut.h"
 #include "Grad.h"
+#include "InverseDataParser.h"
 
 
 namespace Core
@@ -103,12 +104,11 @@ namespace Core
 			////Excute. Call NLOPT
 			CallNloptOptimize(&optData,nloptPara, optResult);
 
-			vector<std::string> varNameKeys = data->getVecVariableNameKeys();
-			for (int i = 0; i < varNameKeys.size(); i++)
-			{
-				
+			//vector<std::string> varNameKeys = data->getVecVariableNameKeys();
 
-			}
+			InverseDataParser inverseDataParser(optResult);
+			inverseDataParser.Parse();
+			DataWrapper* outPutWraper = inverseDataParser.GetParsedData();
 		}
 
 	}

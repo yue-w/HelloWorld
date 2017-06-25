@@ -39,6 +39,8 @@ namespace Core
 		static const string Grad;
 	};
 
+
+
 	////Optimization result
 	class _EXPORT_DLL_UNIT_TEST OptimizationResult 
 	{
