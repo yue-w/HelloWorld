@@ -12,10 +12,10 @@ namespace Core
 
 	InverseDataParser::~InverseDataParser()
 	{
-		delete _optResltData;
-		_optResltData = NULL;
-		delete _dataWrapper;
-		_dataWrapper = NULL;
+		//delete _optResltData;
+		//_optResltData = NULL;
+		//delete _dataWrapper;
+		//_dataWrapper = NULL;
 	}
 
 	

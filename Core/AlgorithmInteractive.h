@@ -32,6 +32,8 @@ namespace Core
 		//Currently, only "Optimization" is supported.
 		bool Execute(const string cmd);
 
+		////Set output from output DataWrapper
+		//void SetOutData(DataWrapper* outDataWrapper);
 		unordered_map<string, string> GetOutput() const { return _outdata; }
 
 	private:

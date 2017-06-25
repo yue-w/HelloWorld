@@ -97,9 +97,9 @@ bool CallCppFromQml::doOptimize()
             string minObjValStr = outData["minObjVal"];
 
 
-            double minObjVal = std::stod(minObjValStr);
+            //double minObjVal = std::stod(minObjValStr);
 
-            double c = 0;
+
 
         }
 

@@ -49,8 +49,11 @@ namespace Core
 
 			auto command = _commandCreators[cmd]->Create();
 
+			//DataWrapper* outPutWraper = command->Execute(_dataWrapper);
 			command->Execute(_dataWrapper);
 
+			///Set output
+			//SetOutData(outPutWraper);
 			_outdata = command->GetOutData();
 
 			delete command;
@@ -63,4 +66,8 @@ namespace Core
 			return false;
 		}
 	}
+	//void AlgorithmInteractive::SetOutData(DataWrapper * outDataWrapper)
+	//{
+	//	_outdata = outDataWrapper->GetAllData();
+	//}
 }

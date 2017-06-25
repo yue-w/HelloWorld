@@ -44,8 +44,8 @@ namespace Core
 
 		//Parse the objective function.
 		ObjectFuncParser parser;
-		//string pathObj = "..\\..\\..\\Core\\ObjectFunction.cpp";//Path used in Qt
-		string pathObj = "..\\Core\\ObjectFunction.cpp";//////Path used for debugging in VS
+		string pathObj = "..\\..\\..\\Core\\ObjectFunction.cpp";//Path used in Qt
+		//string pathObj = "..\\Core\\ObjectFunction.cpp";//////Path used for debugging in VS
 		IFunction* func = parser.Parse(objFunc, pathObj);
 		IFunction* iFunctionObjFunc = parser.DynamicCompile("ObjectFunction");
 		func = dynamic_cast<ObjectFunction*>(iFunctionObjFunc);
@@ -62,8 +62,8 @@ namespace Core
 		{
 			string className = "";
 
-			//string pathGrad = "..\\..\\..\\Core\\Grad"; ////Path used for Qt
-			string pathGrad = "..\\Core\\Grad";////For debugging in VS
+			string pathGrad = "..\\..\\..\\Core\\Grad"; ////Path used for Qt
+			//string pathGrad = "..\\Core\\Grad";////For debugging in VS
 
 			auto funcGrad = gradPasser.Parse(grad[i], pathGrad,i, className);
 			vecClassName[i] = className;
@@ -77,8 +77,8 @@ namespace Core
 		///////Dynamic Compiling
 		ExcuteGradParser excuPasser;
 
-		//string pathExcuGrad = "..\\..\\..\\Core\\CompileGradExcut.cpp";////Path for debugging in VS
-		string pathExcuGrad = "..\\Core\\CompileGradExcut.cpp";////Path for debugging in VS
+		string pathExcuGrad = "..\\..\\..\\Core\\CompileGradExcut.cpp";////Path used for Qt
+		//string pathExcuGrad = "..\\Core\\CompileGradExcut.cpp";////Path for debugging in VS
 		excuPasser.Parse(objFunc, pathExcuGrad, vecClassName);
 		IFunction* iFunc = excuPasser.DynamicCompile("CompileGradExcut");
 
@@ -89,6 +89,8 @@ namespace Core
 		if (func == NULL)
 		{
 			Log::Info("func is null");
+			
+			_outData = NULL;
 		}
 		else
 		{
@@ -109,6 +111,8 @@ namespace Core
 			InverseDataParser inverseDataParser(optResult);
 			inverseDataParser.Parse();
 			DataWrapper* outPutWraper = inverseDataParser.GetParsedData();
+			_outData = outPutWraper;
+			
 		}
 
 	}
