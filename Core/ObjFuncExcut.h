@@ -6,7 +6,7 @@ class ObjFuncExcut
 {
 private:
 	////object function from dynamic compilation
-	static ObjectFunction* _objFunDefin;
+	//ObjectFunction* _objFunDefin;
 
 	////gradient from dynamic compilation
 	vector<Grad*> _gradDefin;

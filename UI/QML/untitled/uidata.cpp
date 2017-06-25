@@ -37,6 +37,16 @@ void UIData::pushUpperBnd(const QString value)
     _vecUpperBnd.push_back(value);
 }
 
+QVector<QString> UIData::vecGradient() const
+{
+    return _vecGradient;
+}
+
+void UIData::pushGradient(const QString value)
+{
+    _vecGradient.push_back(value);
+}
+
 QVector<QString> UIData::vecInitialValue() const
 {
     return _vecinitialValue;

@@ -12,6 +12,7 @@ namespace Core
 	{
 		//The input data from UI.
 		DataWrapper* _dataWrapper;
+
 		unordered_map<string, CommandCreator*> _commandCreators;
 
 		unordered_map<string, string> _outdata;

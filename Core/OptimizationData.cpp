@@ -43,5 +43,12 @@ namespace Core
 	const string OptimizationData::ObjectFunction="objFunc";
 
 	const string OptimizationData::Grad = "grad";
+	OptimizationResult::OptimizationResult( OptimizationData * optData)
+	{
+		_optData = new OptimizationData;
+		_optData = optData;
+		_minimumObj = HUGE_VAL;
+	}
+
 }
 

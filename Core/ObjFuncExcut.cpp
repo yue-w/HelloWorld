@@ -7,11 +7,12 @@
 //{
 //}
 
-ObjectFunction* ObjFuncExcut::_objFunDefin = new ObjectFunction();
+//ObjectFunction* ObjFuncExcut::_objFunDefin = new ObjectFunction();
 //vector<Grad*> ObjFuncExcut::_gradDefin ;
 
 ObjFuncExcut::ObjFuncExcut() 
 {
+	//_objFunDefin = new ObjectFunction();
 }
 
 
@@ -36,7 +37,10 @@ double ObjFuncExcut::ObjFunction(const std::vector<double>& x, std::vector<doubl
 		}		
 	}
 
-	double obj = _objFunDefin->Compute(x);
+	//double obj = _objFunDefin->Compute(x);
+	ObjectFunction* objFunDefin = para->GetObjectFunction();
+
+	double obj = objFunDefin->Compute(x);
 	return obj;
 }
 

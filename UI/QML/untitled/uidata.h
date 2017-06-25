@@ -19,6 +19,9 @@ public:
     QVector<QString> vecUpperBnd() const;
     void pushUpperBnd(const QString value);
 
+    QVector<QString> vecGradient() const;
+    void pushGradient(const QString value);
+
     QVector<QString> vecInitialValue() const;
     void pushInitialValue(const QString value);
 
@@ -33,6 +36,7 @@ private:
     QVector<QString> _vecLowerBnd;
     QVector<QString> _vecUpperBnd;
     QVector<QString> _vecinitialValue;
+    QVector<QString> _vecGradient;
     QString _objectFunction;
     QVector<std::string> _vecNameKeys;
 };

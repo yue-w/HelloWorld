@@ -29,6 +29,7 @@ public:
     Q_INVOKABLE void pushInitialValue(QString oneinitialValue);
     Q_INVOKABLE void pushName(QString oneName);
     Q_INVOKABLE void setObjectFunction(QString value);
+    Q_INVOKABLE void pushGradient(QString oneGradient);
     Q_INVOKABLE bool doOptimize();
 
     UIData *uiData() const;

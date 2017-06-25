@@ -54,11 +54,19 @@ void CallCppFromQml::pushName(QString oneName)
     _uiData->pushvariableName(oneName);
 }
 
+
+void CallCppFromQml::pushGradient(QString oneGradient)
+{
+     _uiData->pushGradient(oneGradient);
+}
+
 void CallCppFromQml::setObjectFunction(QString value)
 {
     _uiData->setObjectFunction(value);
 
 }
+
+
 
 bool CallCppFromQml::doOptimize()
 {
@@ -87,7 +95,7 @@ bool CallCppFromQml::doOptimize()
         {
             unordered_map<string, string> outData = interative->GetOutput();
             string modifiedObj = outData.at("modi");
-            int c= 0;
+
 
         }
 
@@ -121,6 +129,10 @@ void CallCppFromQml::TransferDataToCpp(Core::AlgorithmInteractive *interative, c
     keyValue = "upBnd";
     TransferDataToCppExcute(interative,keyValue, _uiData->vecUpperBnd() );
 
+    //Transfer gradient
+    keyValue ="grad";
+    TransferDataToCppExcute(interative,keyValue, _uiData->vecGradient() );
+
     //Transfer initial value
     keyValue = "initVal";
     TransferDataToCppExcute(interative,keyValue, _uiData->vecInitialValue() );
@@ -132,7 +144,7 @@ void CallCppFromQml::TransferDataToCpp(Core::AlgorithmInteractive *interative, c
     //transfer the vector that contains all the keys of the name
     interative->setVarNameKey(_uiData->vecNameKeys().toStdVector());
 
-    int c = 0;
+
 }
 
 void CallCppFromQml::TransferDataToCppExcute(Core::AlgorithmInteractive* interative, QString key,QVector<QString> vecValue)

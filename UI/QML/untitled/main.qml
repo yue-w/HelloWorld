@@ -14,8 +14,8 @@ Window {
         id: theModel_variableName
 
 
-        ListElement{name:""; lowerBound:""; upperBound:"";initialValue:""; solution:""}
-        ListElement{name:""; lowerBound:""; upperBound:"";initialValue:""; solution:""}
+        ListElement{name:""; lowerBound:""; upperBound:"";initialValue:"";Gradient:""; solution:""}
+        ListElement{name:""; lowerBound:""; upperBound:"";initialValue:"";Gradient:""; solution:""}
 
     }
 
@@ -98,6 +98,15 @@ Window {
             clip: true
             model: theModel_variableName
             delegate: variableName
+
+            ScrollBar.vertical: ScrollBar {
+                    parent: flickable.parent
+                    anchors.top: flickable.top
+                    anchors.left: flickable.right
+                    anchors.bottom: flickable.bottom
+                    active : true
+                }
+
         }
 
     }
@@ -152,10 +161,39 @@ Window {
             height: 100
             border.color: "black"
             border.width: 1
-            anchors.leftMargin: 10
-            Text {
-                id: objResultTxt
-                text: ""
+            anchors.leftMargin: marginValue
+
+            Grid{
+                id:outputGrid
+                width:240
+                height:80
+                anchors.left: parent.left
+                anchors.leftMargin: marginValue
+                anchors.top: parent.top
+                anchors.topMargin: marginValue
+                rows:1
+                columns:4
+                spacing: 10
+
+                Text {
+                    id: minText
+                    //anchors.left: parent.left
+                    text: qsTr("Minimum value")
+
+                }
+
+                TextField{
+                    id:minTxtField
+                    width: 100
+                    height: 25
+                    placeholderText: " "
+                    readOnly:true
+                    onEditingFinished:{
+                         ////Todo
+                       }////onEditingFinished Finish
+
+                }
+
             }
 
         }
@@ -233,9 +271,9 @@ Window {
             ////TextField for the variable name start.
             TextField {
                 id:textFieldVariable
-                width: 100
+                width: 50
                 height: 25
-                placeholderText: "Vairable Name"
+                placeholderText: "Name"
                 onEditingFinished:{
                 //set the text of the textField to the ListElement's property.
                 name = textFieldVariable.getText(0,20)
@@ -281,6 +319,21 @@ Window {
 
         }////TextField for the upper bound Finish
 
+
+            ////TextField for the Gradient
+            TextField {
+                id:textFieldGradient
+                width: 80
+                height: 25
+                placeholderText: "Gradient"
+                onEditingFinished:{
+
+                   ////Add.
+                    initialValue = textFieldInitialValue.getText(0,20)
+                    }
+                } ///TextField for the Gradient Finish
+
+
             ////TextField for the InitialValue.
             TextField {
                 id:textFieldInitialValue
@@ -295,6 +348,7 @@ Window {
                 }////onEditingFinished Finish
 
         }////TextField for the InitialValue Finish
+
 
             ////TextField for the Solution.
             TextField {
@@ -341,7 +395,7 @@ Window {
 
     function qmlDataToCpp(){
 
-        //name:""; lowerBound:""; upperBound:"";initialValue:""; solution:""
+        //name:""; lowerBound:""; upperBound:"";initialValue:"";Gradient:""; solution:""
 
         ////Set variable name to C++
         for(var j = 0; j< theModel_variableName.count; j++){
@@ -362,6 +416,12 @@ Window {
         for(var i = 0; i< theModel_variableName.count; i++){
 
            testCallCpp.pushLowerBnd(theModel_variableName.get(i).lowerBound);
+        }
+
+        ////Set Gradient value to C++
+        for(var i = 0; i< theModel_variableName.count; i++){
+
+           testCallCpp.pushGradient(theModel_variableName.get(i).gradient);
         }
 
         ////Set initial value to C++

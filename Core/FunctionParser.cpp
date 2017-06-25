@@ -165,9 +165,9 @@ namespace Core
 		Log::PopNDC();
 
 		//Get object function from factory.
-		auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor("ObjectFunction")->Construct();
+		//auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor("ObjectFunction")->Construct();
 		
-		//auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor(fileName)->Construct();		
+		auto *objFunc = _sys->GetObjectFactorySystem()->GetConstructor(fileName)->Construct();		
 		return dynamic_cast<ObjectFunction*>(objFunc);
 		
 	}

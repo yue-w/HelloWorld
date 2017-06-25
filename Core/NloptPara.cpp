@@ -1,9 +1,10 @@
 #include "NloptPara.h"
-
+#include "ObjectFunction.h"
 
 
 NloptPara::NloptPara()
 {
+	//_objFunDefin = new ObjectFunction();
 }
 
 

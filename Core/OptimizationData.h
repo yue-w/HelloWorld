@@ -3,6 +3,7 @@
 
 #include "VariableProperty.h"
 #include "FunctionData.h"
+#include <vector>
 
 namespace Core
 {
@@ -37,6 +38,45 @@ namespace Core
 		static const string ObjectFunction;
 		static const string Grad;
 	};
+
+	////Optimization result
+	class _EXPORT_DLL_UNIT_TEST OptimizationResult 
+	{
+		OptimizationData* _optData;
+
+		////Minimum Object function value
+		double _minimumObj;
+
+		////Result of the variables
+		std::vector<double> _vecVariableReslt;
+
+		////Iteration numbers
+		int _itNumbers;
+
+		////Add more...
+
+
+	public:
+		OptimizationResult( OptimizationData* optData );
+
+		void MinimumObj(double val) { _minimumObj = val; }
+		double MinimumObj() { return _minimumObj; }
+
+		void VecVariableReslt(const std::vector<double> x) { _vecVariableReslt = x; }
+		std::vector<double> VecVariableReslt() { return _vecVariableReslt; }
+
+		void ItNumbers(int value) { _itNumbers = value; }
+		int ItNumbers() { return _itNumbers; }
+
+
+
+	};
+
+
+
+
+
+
 }
 
 

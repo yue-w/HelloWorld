@@ -4,6 +4,7 @@
 namespace Core
 {
 	class OptimizationData;
+	class OptimizationResult;
 	//class NloptPara;
 
 	typedef struct {
@@ -32,7 +33,7 @@ namespace Core
 		_declspec(dllexport)  double TestOptimize(const std::vector<std::string>& lowerBound, std::vector<double>& var);
 
 		//Excute Nlopt optimization
-		_declspec(dllexport)  void CallNloptOptimize(const OptimizationData* optData, NloptPara* nloptPara);
+		_declspec(dllexport) void CallNloptOptimize(const OptimizationData* optData, NloptPara* nloptPara, OptimizationResult* optResult);
 
 		////Modify the object function input by user
 		string modifyObjectFunc(const OptimizationData* optData);
@@ -49,6 +50,9 @@ namespace Core
 
 		//Push Grad Pointer to the static vector in the class ObjFuncExcut
 		//void PushGradPointer(const int totalVariable);
+
+		////Set the output value.
+		void SetOptResult(OptimizationResult * optResult, const vector<double> x, const double minf);
 
 	public:
 		static double myvfunc(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data);
