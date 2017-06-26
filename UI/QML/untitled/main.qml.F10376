@@ -329,7 +329,7 @@ Window {
                 onEditingFinished:{
 
                    ////Add.
-                    Gradient = textFieldGradient.getText(0,20)
+                    gradient = textFieldGradient.getText(0,20)
                     }
                 } ///TextField for the Gradient Finish
 
@@ -421,7 +421,7 @@ Window {
         ////Set Gradient value to C++
         for(var i = 0; i< theModel_variableName.count; i++){
 
-           testCallCpp.pushGradient(theModel_variableName.get(i).Gradient);
+           testCallCpp.pushGradient(theModel_variableName.get(i).gradient);
         }
 
         ////Set initial value to C++
@@ -436,7 +436,7 @@ Window {
 
         testCallCpp.doOptimize();
 
-        minTxtField.text = testCallCpp.getOptimizedObjValue();
+       //var a = testCallCpp.GetOptimizedObjValue();
 
 
         var c = 0;

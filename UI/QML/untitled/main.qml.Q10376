@@ -436,7 +436,7 @@ Window {
 
         testCallCpp.doOptimize();
 
-        minTxtField.text = testCallCpp.getOptimizedObjValue();
+       var a = testCallCpp.GetOptimizedObjValue();
 
 
         var c = 0;

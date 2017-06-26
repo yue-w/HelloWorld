@@ -1,6 +1,8 @@
 #include "callcppfromqml.h"
 #include <QDebug>
 #include "uidata.h"
+#include "outputdataui.h"
+#include "outputui.h"
 #include <string>
 #include "../../../Core/AlgorithmInteractive.h"
 
@@ -15,7 +17,26 @@ void CallCppFromQml::setUiData(UIData *uiData)
     _uiData = uiData;
 }
 
-CallCppFromQml::CallCppFromQml(QObject *parent) : QObject(parent),_uiData(new UIData)
+
+
+
+
+OutputDataUI *CallCppFromQml::outputDataUI() const
+{
+    return _outputDataUI;
+}
+
+void CallCppFromQml::setOutputDataUI(OutputDataUI *outputDataUI)
+{
+    _outputDataUI = outputDataUI;
+}
+
+QString CallCppFromQml::getOptimizedObjValue()
+{
+    return _outputDataUI->getMinObjValue();
+}
+
+CallCppFromQml::CallCppFromQml(QObject *parent) : QObject(parent),_uiData(new UIData),_outputDataUI(new OutputDataUI)
 {
 
     //_uiData = new UIData();
@@ -70,38 +91,22 @@ void CallCppFromQml::setObjectFunction(QString value)
 
 bool CallCppFromQml::doOptimize()
 {
-//    Core::AlgorithmInteractive interative;
-//    interative.AddParam("x1key", "x1");
-//    interative.AddParam("x2key", "x2");
-
-//    ////map that contains the object function
-//    interative.AddParam("objFunc", "x1*x1+x2*x2");
-
-//    if (interative.Execute("Optimization"))
-//    {
-//        unordered_map<string, string> outData = interative.GetOutput();
-//        string modifiedObj = outData.at("modi");
-//        int c= 0;
-
-//    }
-
-
 
     Core::AlgorithmInteractive* interative = new Core::AlgorithmInteractive ;
     TransferDataToCpp(interative,uiData());
 
 
-        if (interative->Execute("Optimization"))
-        {
-            unordered_map<string, string> outData = interative->GetOutput();
-            string minObjValStr = outData["minObjVal"];
+    if (interative->Execute("Optimization"))
+    {
+        unordered_map<string, string> outData = interative->GetOutput();
+        string minObjValStr = outData["minObjVal"];
 
 
-            double minObjVal = std::stod(minObjValStr);
+        QString minObjValStrQstr = QString::fromStdString(minObjValStr);
+        _outputDataUI->setMinObjValue(minObjValStrQstr);
+        //double minObjVal = std::stod(minObjValStr);
 
-            double c = 0;
-
-        }
+    }
 
     ////Modify the return value.
     return true;
@@ -109,15 +114,6 @@ bool CallCppFromQml::doOptimize()
 
 void CallCppFromQml::TransferDataToCpp(Core::AlgorithmInteractive *interative, const UIData *_uiData)
 {
-//    ////Transfer variable name
-//    for(int i =0; i< _uiData->vecVariableName().size(); i++)
-//    {
-//        QString str;
-//        str.setNum(i+1);
-//        QString key = "varName"+str;
-//        TransferDataToCppExcute(interative, key ,_uiData->vecVariableName()[i]);
-//    }
-
     QString keyValue = "";
 
     //Transfer variable name

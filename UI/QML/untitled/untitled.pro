@@ -5,7 +5,8 @@ CONFIG += c++11
 
 SOURCES += main.cpp \
     callcppfromqml.cpp \
-    uidata.cpp
+    uidata.cpp \
+    outputdataui.cpp
 
 RESOURCES += qml.qrc
 
@@ -34,7 +35,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     callcppfromqml.h \
-    uidata.h
+    uidata.h \
+    outputdataui.h
 
 
 

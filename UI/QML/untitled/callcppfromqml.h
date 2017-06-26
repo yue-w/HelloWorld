@@ -2,12 +2,15 @@
 #define CALLCPPFROMQML_H
 
 #include <QObject>
-#include "uidata.h"
+//#include "uidata.h"
 #include <QVector>
 #include <QString>
 #include <string>
 
+
 class UIData;
+class OutputDataUI;
+class OutputUI;
 
 namespace Core {
 
@@ -20,6 +23,12 @@ class CallCppFromQml : public QObject
     Q_OBJECT
 private:
     UIData* _uiData;
+
+    ////Output data to UI. Optimized from C++
+    OutputDataUI* _outputDataUI;
+
+    OutputUI* _outputUI;
+
 public:
     explicit CallCppFromQml(QObject *parent = 0);
 
@@ -34,6 +43,11 @@ public:
 
     UIData *uiData() const;
     void setUiData(UIData *uiData);
+
+    OutputDataUI *outputDataUI() const;
+    void setOutputDataUI(OutputDataUI *outputDataUI);
+
+    Q_INVOKABLE QString getOptimizedObjValue();
 
 private:
     Q_INVOKABLE void TransferDataToCpp(Core::AlgorithmInteractive* interative, const UIData* _uiData);

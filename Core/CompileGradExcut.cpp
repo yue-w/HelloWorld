@@ -17,7 +17,10 @@ CompileGradExcut::~CompileGradExcut()
 void CompileGradExcut::PushGradPointer()
 {
 //CompileGradExcut-insert start
-
+Grad0* grad0=new Grad0;
+_gradDefin.push_back(grad0);
+Grad1* grad1=new Grad1;
+_gradDefin.push_back(grad1);
 
 //CompileGradExcut-insert end
 
