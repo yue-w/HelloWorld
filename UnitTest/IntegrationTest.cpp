@@ -45,6 +45,7 @@ TEST(IntegrationTest, Optimize)
 	////map that contains the object function
 	interactive_test.AddParam("objFunc", /*"(x1+x2+x3+x4)*(x1+x2+x3+x4)"*/"(x1-1)*(x1-1)+(x2-4)*(x2-4)");
 
+	interactive_test.AddParam("optMethod", "1");
 	if (interactive_test.Execute("Optimization"))
 	{
 		auto outData_test = interactive_test.GetOutput();

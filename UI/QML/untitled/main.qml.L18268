@@ -448,7 +448,7 @@ Window {
 
         ////Set optimization method
         var optMethod = comboBox_optMethod.currentIndex;
-        testCallCpp.setOptMethod(optMethod);
+
         testCallCpp.doOptimize();
 
         minTxtField.text = testCallCpp.getOptimizedObjValue();

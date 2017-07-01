@@ -12,6 +12,17 @@ namespace Core
 	{
 	}
 
+	void OptimizationData::SetOptMethod(const OptMethodClass val)
+	{
+
+		_optMethod = val;
+	}
+
+	OptMethodClass OptimizationData::GetOptMethod() const
+	{
+		 return _optMethod; 
+	}
+
 	string OptimizationData::GetObjFunc() const
 	{
 		return _funcData.ObjFun();
@@ -43,11 +54,30 @@ namespace Core
 	const string OptimizationData::ObjectFunction="objFunc";
 
 	const string OptimizationData::Grad = "grad";
+
+	const string OptimizationData::OptMethod = "optMethod";
+
+
 	OptimizationResult::OptimizationResult( OptimizationData * optData)
 	{
 		_optData = new OptimizationData;
 		_optData = optData;
 		_minimumObj = HUGE_VAL;
+	}
+
+	OptMethodClass::OptMethodClass(nlopt::algorithm valMethod, bool valCompile)
+	{
+		_optMethod =valMethod;
+		_dynamicCompile = valCompile;
+		
+	}
+
+	OptMethodClass::OptMethodClass()
+	{
+	}
+
+	OptMethodClass::~OptMethodClass()
+	{
 	}
 
 }

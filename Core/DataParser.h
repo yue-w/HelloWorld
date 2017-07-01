@@ -1,13 +1,20 @@
 #pragma once
 #include "PublicHeader.h"
 
+namespace nlopt
+{
+	enum  algorithm;
+}
+
 namespace Core
 {
 	class DataWrapper;
 	class OptimizationData;
 	class VariableProperty;
 	class FunctionData;////store the object function input from UI
-
+	class OptMethodClass;
+	//enum algorithm;
+	//unordered_map<string, algorithm> _optMtdMap;
 	//////////////////////////////////////////////////////////////////////////
 	//Parse data from DataWrapper to a concrete data class.
 	//////////////////////////////////////////////////////////////////////////
@@ -31,6 +38,10 @@ namespace Core
 
 		VariableProperty ParseEachVar(const int varIndex);
 		FunctionData ParseFunctionData();
+
+		OptMethodClass ParseOptMethod();
+
+		//void SetOptMtdMap();
 	};
 
 }

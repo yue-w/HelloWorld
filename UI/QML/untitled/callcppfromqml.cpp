@@ -87,6 +87,25 @@ void CallCppFromQml::setObjectFunction(QString value)
 
 }
 
+void CallCppFromQml::setOptMethod(int value)
+{
+
+//    switch (value) {
+//    case 0:
+//        _uiData->setOptMethod(LD_MMA);
+//        break;
+//    case 1:
+//         _uiData->setOptMethod(LN_COBYLA);
+//        break;
+//    default:
+//        _uiData->setOptMethod(LD_MMA);
+//        break;
+//    }
+
+    _uiData->setOptMethod(QString::number(value));
+
+}
+
 
 
 bool CallCppFromQml::doOptimize()

@@ -84,3 +84,12 @@ QVector<QString> UIData::vecVariableName() const
     return _vecVariableName;
 }
 
+QString UIData::getoptMethod() const
+{
+    return _optMethod;
+}
+
+void UIData::setOptMethod(const QString &optMethod)
+{
+    _optMethod = optMethod;
+}

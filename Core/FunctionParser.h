@@ -81,7 +81,7 @@ namespace Core
 
 		/*vecClassNames stores all the names of 
 		the class that have been compiled dynamically by GradPasser::parse*/
-		IFunction* Parse(const string functionStr, const string fileName, const vector<string> vecClassNames);
+		IFunction* Parse(const string fileName, const vector<string> vecClassNames);
 		IFunction* DynamicCompile(const char* fileName);
 
 	private:

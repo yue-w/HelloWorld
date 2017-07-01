@@ -4,11 +4,15 @@
 #include "CommonFunc.h"
 #include "OptimizationData.h"
 #include "VariableProperty.h"
+#include "OptMthdParser.h"
 
 namespace Core
 {
 	DataParser::DataParser(const DataWrapper* dataWrapper):_dataWapper(new DataWrapper(*dataWrapper)), _optData(NULL)
 	{
+		//_optMtdMap["0"] = LD_MMA;
+		//
+		//_optMtdMap["1"] = LN_COBYLA;
 	}
 
 
@@ -43,6 +47,15 @@ namespace Core
 		//Pass object function. Because there is only one object function,it is stored seperately.
 		auto funcData = ParseFunctionData();
 		_optData->SetFuncData(funcData);
+
+		//Parse optimization method
+
+		
+		 
+		OptMethodClass optMtd= ParseOptMethod();
+		//optMtd.SetOptMethod(val);
+
+		_optData->SetOptMethod(optMtd);
 	}
 
 	Core::OptimizationData DataParser::GetParsedData() const
@@ -131,6 +144,39 @@ namespace Core
 
 		return funcData;
 	}
+
+	OptMethodClass DataParser::ParseOptMethod()
+	{
+			string optMethodKey = OptimizationData::OptMethod;
+			if (_dataWapper->HasData(optMethodKey))
+			{
+				string optMethod = _dataWapper->GetData(optMethodKey);
+				OptMthdParser* optParser = new OptMthdParser;
+				return optParser->Parse(optMethod);
+			}
+			else throw;
+
+
+	}
+
+	//algorithm DataParser::ParseOptMethod()
+	//{
+	//	string optMethodKey = OptimizationData::OptMethod;
+	//	if (_dataWapper->HasData(optMethodKey))
+	//	{
+	//		string optMethod = _dataWapper->GetData(optMethodKey);
+
+	//	}
+
+	//	return algorithm();
+	//}
+
+	//void DataParser::SetOptMtdMap()
+	//{
+	//	_optMtdMap["0"] = nlopt::LD_MMA;
+	//	
+	//	_optMtdMap["1"] = nlopt::LN_COBYLA;
+	//}
 
 }
 

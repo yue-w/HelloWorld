@@ -200,7 +200,7 @@ Window {
 
     }
 
-    /////input
+    /////Rectangle that contains input
     Rectangle{
         id:inputs
         border.width: 1
@@ -265,12 +265,24 @@ Window {
 
             }
 
+//            ComboBox {
+//                id: optMethod
+//                width: 200
+//                height: 25
+//                model: [ "Local gradient-based", "Derivative-free algorithm" ]
+//            }
             ComboBox {
-                id:comboBox_optMethod
+                currentIndex: 2
+                model: ListModel {
+                    id: cbItems
+                    ListElement { text: "Banana"; color: "Yellow" }
+                    ListElement { text: "Apple"; color: "Green" }
+                    ListElement { text: "Coconut"; color: "Brown" }
+                }
                 width: 200
-                height: 25
-                model: [ "Local gradient-based", "Derivative-free algorithm" ]
+                onCurrentIndexChanged: console.debug(cbItems.get(currentIndex).text + ", " + cbItems.get(currentIndex).color)
             }
+
         }
 
 
@@ -447,8 +459,9 @@ Window {
         testCallCpp.setObjectFunction(objectFunction.text);
 
         ////Set optimization method
-        var optMethod = comboBox_optMethod.currentIndex;
-        testCallCpp.setOptMethod(optMethod);
+        optMethod.
+
+
         testCallCpp.doOptimize();
 
         minTxtField.text = testCallCpp.getOptimizedObjValue();

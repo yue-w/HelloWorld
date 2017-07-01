@@ -5,19 +5,46 @@
 #include "FunctionData.h"
 #include <vector>
 
+namespace nlopt
+{
+	enum  algorithm;
+}
 namespace Core
 {
+	class OptMethodClass
+	{
+	private:
+		nlopt::algorithm _optMethod;
+		bool _dynamicCompile;
+	public:
+		OptMethodClass(nlopt::algorithm valMethod, bool valCompile);
+		OptMethodClass();
+		~OptMethodClass();
+
+		void SetOptMethod(nlopt::algorithm val) { _optMethod = val; }
+		nlopt::algorithm GetOptMethod() { return _optMethod; }
+
+		void SetDynamicComp(bool val) { _dynamicCompile = val; }
+		bool GetDynamicComp() { return _dynamicCompile; }
+	};
+
+
+
 	class _EXPORT_DLL_UNIT_TEST OptimizationData
 	{
 		vector<VariableProperty> _varData;
 		FunctionData _funcData;
-
+		//nlopt::algorithm _optMethod;
+		OptMethodClass _optMethod;
 	public:
 		OptimizationData();
 		~OptimizationData();
 
 		void AddVar(const VariableProperty varData) { _varData.push_back(varData); }
 		void SetFuncData(const FunctionData& data) { _funcData = data; }
+
+		void SetOptMethod(const OptMethodClass val);
+		OptMethodClass GetOptMethod() const;
 
 		//Get string of objective function.
 		string GetObjFunc() const;
@@ -37,9 +64,9 @@ namespace Core
 		static const string InitialValue;
 		static const string ObjectFunction;
 		static const string Grad;
+		static const string OptMethod;
+
 	};
-
-
 
 	////Optimization result
 	class _EXPORT_DLL_UNIT_TEST OptimizationResult 

@@ -6,11 +6,13 @@
 #include <QVector>
 #include <QString>
 #include <string>
+//#include <unordered_map>
 
 
 class UIData;
 class OutputDataUI;
 class OutputUI;
+enum optMethod;
 
 namespace Core {
 
@@ -29,6 +31,8 @@ private:
 
     OutputUI* _outputUI;
 
+    //std::unordered_map<std::string, optMethod> _undMapOptMethod;
+
 public:
     explicit CallCppFromQml(QObject *parent = 0);
 
@@ -38,6 +42,7 @@ public:
     Q_INVOKABLE void pushInitialValue(QString oneinitialValue);
     Q_INVOKABLE void pushName(QString oneName);
     Q_INVOKABLE void setObjectFunction(QString value);
+    Q_INVOKABLE void setOptMethod(int value);
     Q_INVOKABLE void pushGradient(QString oneGradient);
     Q_INVOKABLE bool doOptimize();
 

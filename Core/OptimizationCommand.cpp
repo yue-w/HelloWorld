@@ -16,7 +16,7 @@
 #include "CompileGradExcut.h"
 #include "Grad.h"
 #include "InverseDataParser.h"
-
+#include "NloptPara.h"
 
 namespace Core
 {
@@ -42,49 +42,64 @@ namespace Core
 		OptimizationData optData = dataParser.GetParsedData();
 		string objFunc = modifyObjectFunc(&optData);
 
-		//Parse the objective function.
+		//Parse the objective function and dynamic compiling
 		ObjectFuncParser parser;
-		string pathObj = "..\\..\\..\\Core\\ObjectFunction.cpp";//Path used in Qt
-		//string pathObj = "..\\Core\\ObjectFunction.cpp";//////Path used for debugging in VS
+		//string pathObj = "..\\..\\..\\Core\\ObjectFunction.cpp";//Path used in Qt
+		string pathObj = "..\\Core\\ObjectFunction.cpp";//////Path used for debugging in VS
 		IFunction* func = parser.Parse(objFunc, pathObj);
 		IFunction* iFunctionObjFunc = parser.DynamicCompile("ObjectFunction");
 		func = dynamic_cast<ObjectFunction*>(iFunctionObjFunc);
-		//vector<double> x;
-		//x.push_back(0);
-		//x.push_back(0);
-		//func->Compute(x);
 		
-		vector<string> grad = ModifyGrad(&optData); 
-		//pass the gradient
-		GradPasser gradPasser;
-		vector<string> vecClassName(grad.size());
-		for (size_t i = 0; i<grad.size(); i++)
-		{
-			string className = "";
-
-			string pathGrad = "..\\..\\..\\Core\\Grad"; ////Path used for Qt
-			//string pathGrad = "..\\Core\\Grad";////For debugging in VS
-
-			auto funcGrad = gradPasser.Parse(grad[i], pathGrad,i, className);
-			vecClassName[i] = className;
-		}
-		IFunction* iFuncGrad = gradPasser.DynamicCompile("Grad");
-
-		Grad* grad1 = dynamic_cast<Grad*> (iFuncGrad);
-		
+		////Pass object function the NloptPara, which will bring it ot nlopt
+		NloptPara* nloptPara = new NloptPara;
+		ObjectFunction* objFun = dynamic_cast<ObjectFunction*> (func);
+		nloptPara->SetObjectFunction(objFun);
 
 
-		///////Dynamic Compiling
-		ExcuteGradParser excuPasser;
+		//vector<string> grad = ModifyGrad(&optData); 
+		////pass the gradient
+		//GradPasser gradPasser;
+		//vector<string> vecClassName(grad.size());
+		//for (size_t i = 0; i<grad.size(); i++)
+		//{
+		//	string className = "";
 
-		string pathExcuGrad = "..\\..\\..\\Core\\CompileGradExcut.cpp";////Path used for Qt
+		//	//string pathGrad = "..\\..\\..\\Core\\Grad"; ////Path used for Qt
+		//	string pathGrad = "..\\Core\\Grad";////For debugging in VS
+
+		//	auto funcGrad = gradPasser.Parse(grad[i], pathGrad,i, className);
+		//	vecClassName[i] = className;
+		//}
+		//IFunction* iFuncGrad = gradPasser.DynamicCompile("Grad");
+
+		//
+		//
+
+
+		/////////Dynamic Compiling
+		//ExcuteGradParser excuPasser;
+
+		////string pathExcuGrad = "..\\..\\..\\Core\\CompileGradExcut.cpp";////Path used for Qt
 		//string pathExcuGrad = "..\\Core\\CompileGradExcut.cpp";////Path for debugging in VS
-		excuPasser.Parse(objFunc, pathExcuGrad, vecClassName);
-		IFunction* iFunc = excuPasser.DynamicCompile("CompileGradExcut");
+		//excuPasser.Parse( pathExcuGrad, vecClassName);
+		//IFunction* iFunc = excuPasser.DynamicCompile("CompileGradExcut");
 
-		CompileGradExcut* comPilExcu =dynamic_cast<CompileGradExcut*>(iFunc);
-		comPilExcu->PushGradPointer();
+		//CompileGradExcut* comPilExcu =dynamic_cast<CompileGradExcut*>(iFunc);
+		//comPilExcu->PushGradPointer();
+
+
+
+		string pathGrad = "..\\Core\\Grad";////For debugging in VS
+		string pathExcuGrad = "..\\Core\\CompileGradExcut.cpp";////Path for debugging in VS
+		////string pathExcuGrad = "..\\..\\..\\Core\\CompileGradExcut.cpp";////Path used for Qt
+		//string pathGrad = "..\\..\\..\\Core\\Grad"; ////Path used for Qt
 	
+		OptMethodClass optMthod = optData.GetOptMethod();
+		if (optMthod.GetDynamicComp())
+		{
+			CompileGrad(pathGrad, pathExcuGrad, &optData, nloptPara);
+		}
+		
 
 		if (func == NULL)
 		{
@@ -94,11 +109,10 @@ namespace Core
 		}
 		else
 		{
-			NloptPara* nloptPara = new NloptPara();
-			nloptPara->SetGradDefine(comPilExcu->GetGradDefineVector());
+			//NloptPara* nloptPara = new NloptPara();
+			//nloptPara->SetGradDefine(comPilExcu->GetGradDefineVector());
 
-			ObjectFunction* testD = dynamic_cast<ObjectFunction*> (func);
-			nloptPara->SetObjectFunction(testD);
+
 
 			//Optimization reslut
 			OptimizationResult* optResult = new OptimizationResult(&optData);
@@ -304,8 +318,10 @@ namespace Core
 			x[index]=varData.InitVal();
 		}
 
-
-		nlopt::opt opt(nlopt::LD_MMA, x.size());//LD_MMA //GN_DIRECT//LD_AUGLAG_EQ
+		//int test = nlopt::LD_MMA;
+		//nlopt::opt opt(nlopt::LD_MMA, x.size());//LD_MMA //GN_DIRECT//LD_AUGLAG_EQ
+		nlopt::algorithm optMethod= optData->GetOptMethod().GetOptMethod();
+		nlopt::opt opt(optMethod, x.size());//LD_MMA //GN_DIRECT//LD_AUGLAG_EQ
 		opt.set_lower_bounds(lb);
 		opt.set_upper_bounds(ub);
 
@@ -347,6 +363,40 @@ namespace Core
 		optResult->VecVariableReslt(x);
 
 		////Add more, such as iteration time...
+
+	}
+
+	void OptimizationCommand::CompileGrad(const string pathGrad, const string pathExcu, const OptimizationData* optData, NloptPara* nloptPara)
+	{
+		vector<string> grad = ModifyGrad(optData);
+		//pass the gradient
+		GradPasser gradPasser;
+		vector<string> vecClassName(grad.size());
+		for (size_t i = 0; i<grad.size(); i++)
+		{
+			string className = "";
+
+			//string pathGrad = "..\\..\\..\\Core\\Grad"; ////Path used for Qt
+			//string pathGrad = "..\\Core\\Grad";////For debugging in VS
+
+			auto funcGrad = gradPasser.Parse(grad[i], pathGrad, i, className);
+			vecClassName[i] = className;
+		}
+		IFunction* iFuncGrad = gradPasser.DynamicCompile("Grad");
+
+		///////Dynamic Compiling
+		ExcuteGradParser excuPasser;
+
+		//string pathExcuGrad = "..\\..\\..\\Core\\CompileGradExcut.cpp";////Path used for Qt
+		//string pathExcuGrad = "..\\Core\\CompileGradExcut.cpp";////Path for debugging in VS
+		excuPasser.Parse(pathExcu, vecClassName);
+		IFunction* iFunc = excuPasser.DynamicCompile("CompileGradExcut");
+
+		CompileGradExcut* comPilExcu = dynamic_cast<CompileGradExcut*>(iFunc);
+		comPilExcu->PushGradPointer();
+
+		
+		nloptPara->SetGradDefine(comPilExcu->GetGradDefineVector());
 
 	}
 

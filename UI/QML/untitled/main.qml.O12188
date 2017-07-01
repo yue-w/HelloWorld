@@ -205,20 +205,20 @@ Window {
         id:inputs
         border.width: 1
         anchors.top: rectangleObjFunc.bottom
-        width: 680
+        width: 480
         height: 100
 
 
         Grid{
             id:inputGrid
-            width:500
+            width:300
             height:80
             anchors.left: parent.left
             anchors.leftMargin: marginValue
             anchors.top: parent.top
             anchors.topMargin: marginValue
             rows:1
-            columns:6
+            columns:5
             spacing: 10
 
             Text {
@@ -230,7 +230,7 @@ Window {
 
             TextField{
                 id:maxIteInputTxt
-                width: 100
+                width: 200
                 height: 25
                 placeholderText: "1000"
                  onEditingFinished:{
@@ -258,18 +258,10 @@ Window {
 
             }
 
-            Text {
-                id: txtOptMethod
-                //anchors.left: parent.left
-                text: qsTr("Optimization Method:")
-
-            }
-
             ComboBox {
-                id:comboBox_optMethod
-                width: 200
+                width: 100
                 height: 25
-                model: [ "Local gradient-based", "Derivative-free algorithm" ]
+                model: [ "Optimization Method", "Apple", "Coconut" ]
             }
         }
 
@@ -446,9 +438,7 @@ Window {
         ////Set object function
         testCallCpp.setObjectFunction(objectFunction.text);
 
-        ////Set optimization method
-        var optMethod = comboBox_optMethod.currentIndex;
-        testCallCpp.setOptMethod(optMethod);
+
         testCallCpp.doOptimize();
 
         minTxtField.text = testCallCpp.getOptimizedObjValue();

@@ -90,6 +90,9 @@
     <ClInclude Include="InverseDataParser.h">
       <Filter>Data</Filter>
     </ClInclude>
+    <ClInclude Include="OptMthdParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementOpt.cpp">
@@ -157,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="InverseDataParser.cpp">
       <Filter>Data</Filter>
+    </ClCompile>
+    <ClCompile Include="OptMthdParser.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

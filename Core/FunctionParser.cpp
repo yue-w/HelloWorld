@@ -471,7 +471,7 @@ namespace Core
 	{
 	}
 
-	IFunction * ExcuteGradParser::Parse(const string functionStr, const string fileName, const vector<string> vecClassNames)
+	IFunction * ExcuteGradParser::Parse( const string fileName, const vector<string> vecClassNames)
 	{
 
 		vector<string> lines;

@@ -1,11 +1,14 @@
 #pragma once
 #include "Command.h"
-#include "NloptPara.h"
+//#include "NloptPara.h"
+
+class NloptPara;
 namespace Core
 {
 	class OptimizationData;
 	class OptimizationResult;
-	//class NloptPara;
+	//class CompileGradExcut;
+	
 
 	typedef struct {
 		double a, b;
@@ -53,6 +56,8 @@ namespace Core
 
 		////Set the output value.
 		void SetOptResult(OptimizationResult * optResult, const vector<double> x, const double minf);
+
+		void CompileGrad(const string pathGrad, const string pathExcu, const OptimizationData* optData, NloptPara* nloptPara);
 
 	public:
 		static double myvfunc(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data);
