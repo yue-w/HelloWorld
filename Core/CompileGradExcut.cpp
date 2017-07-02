@@ -21,6 +21,10 @@ Grad0* grad0=new Grad0;
 _gradDefin.push_back(grad0);
 Grad1* grad1=new Grad1;
 _gradDefin.push_back(grad1);
+Grad2* grad2=new Grad2;
+_gradDefin.push_back(grad2);
+Grad3* grad3=new Grad3;
+_gradDefin.push_back(grad3);
 
 //CompileGradExcut-insert end
 

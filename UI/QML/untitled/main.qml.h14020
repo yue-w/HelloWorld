@@ -135,7 +135,6 @@ Window {
                 anchors.leftMargin: marginValue
                 anchors.top: parent.top
                 anchors.topMargin: marginValue
-                selectByMouse: true
 
 
                 width: 400
@@ -194,7 +193,6 @@ Window {
                     height: 25
                     placeholderText: " "
                     readOnly:true
-                    selectByMouse: true
                     onEditingFinished:{
                          ////Todo
                        }////onEditingFinished Finish
@@ -240,7 +238,6 @@ Window {
                 width: 100
                 height: 25
                 placeholderText: "1000"
-                selectByMouse: true
                  onEditingFinished:{
                      ////Todo
                    }////onEditingFinished Finish
@@ -258,7 +255,6 @@ Window {
                 width: 100
                 height: 25
                 //anchors.right:  maxIteInputTxt.right
-                selectByMouse: true
 
                 placeholderText: "0.001"
                  onEditingFinished:{
@@ -296,7 +292,6 @@ Window {
                 width: 50
                 height: 25
                 placeholderText: "Name"
-                selectByMouse: true
                 onEditingFinished:{
                 //set the text of the textField to the ListElement's property.
                 name = textFieldVariable.getText(0,20)
@@ -313,7 +308,6 @@ Window {
                 width: 80
                 height: 25
                 placeholderText: "Lower bound"
-                selectByMouse: true
                 onEditingFinished:{
 
                    ////Add
@@ -334,7 +328,6 @@ Window {
                 width: 80
                 height: 25
                 placeholderText: "Upper bound"
-                selectByMouse: true
                 onEditingFinished:{
 
                    ////Add.
@@ -350,26 +343,21 @@ Window {
                 id:textFieldGradient
                 width: 80
                 height: 25
-                placeholderText: "Gradient"
-                selectByMouse: true
+                placeholderText: "Gradient1111"
 
                 onEditingFinished:{
                    ////Add.
-
-                    JSFunc.gradInPutSetting();
+                    Gradient = textFieldGradient.getText(0,20)
+                    //textFieldGradient.readOnly=true;
+                    //JSFunc.gradInPutSetting();
                    // theModel_variableName.remove(index);
                     if(comboBox_optMethod.currentIndex==1)
                     {
 
                         textFieldGradient.clear();
-                        placeholderText= "Gradient"
-                        //textFieldGradient.readOnly =true;
+                        placeholderText: "HHHH"
+                        textFieldGradient.readOnly =true;
                         //textFieldGradient.color = "black";
-
-                    }
-                    else
-                    {
-                        Gradient = textFieldGradient.getText(0,20)
 
                     }
 
@@ -384,7 +372,6 @@ Window {
                 width: 80
                 height: 25
                 placeholderText: "Initial Value"
-                selectByMouse: true
                 onEditingFinished:{
 
                    ////Add.
@@ -402,7 +389,6 @@ Window {
                 height: 25
                 placeholderText: "Solution"
                 readOnly:true
-                selectByMouse: true
                 onEditingFinished:{
 
                    ////Add.

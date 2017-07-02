@@ -42,6 +42,20 @@ Grad1(){};
 ~Grad1(){};
 virtual double Compute(const std::vector<double> &x) const;
 };
+class	Grad2: public Grad
+{
+public:
+Grad2(){};
+~Grad2(){};
+virtual double Compute(const std::vector<double> &x) const;
+};
+class	Grad3: public Grad
+{
+public:
+Grad3(){};
+~Grad3(){};
+virtual double Compute(const std::vector<double> &x) const;
+};
 
 //Gradient Class Headler file-insert end
 

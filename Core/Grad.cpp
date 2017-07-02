@@ -38,5 +38,17 @@ double gradValue=2*x[1]-8;
 return gradValue;
 }
 REGISTERCLASS(Grad1);
+double	Grad2::Compute(const std::vector<double>& x) const
+{
+double gradValue=2*x[0]-2;
+return gradValue;
+}
+REGISTERCLASS(Grad2);
+double	Grad3::Compute(const std::vector<double>& x) const
+{
+double gradValue=2*x[1]-8;
+return gradValue;
+}
+REGISTERCLASS(Grad3);
 
 //Gradient Class CPP file-insert end

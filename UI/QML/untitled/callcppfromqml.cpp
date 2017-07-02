@@ -160,6 +160,10 @@ void CallCppFromQml::TransferDataToCpp(Core::AlgorithmInteractive *interative, c
     QString objStr = _uiData->objectFunction();
     interative->AddParam("objFunc", objStr.toStdString());
 
+    //Transfer optimization method
+    QString optMthod = _uiData->getoptMethod();
+    interative->AddParam("optMethod" ,optMthod.toStdString());
+
     //transfer the vector that contains all the keys of the name
     interative->setVarNameKey(_uiData->vecNameKeys().toStdVector());
 
