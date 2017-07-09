@@ -44,18 +44,19 @@ namespace Core
 			_optData->AddVar(varProperty);
 		}
 
-		//Pass object function. Because there is only one object function,it is stored seperately.
-		auto funcData = ParseFunctionData();
+		//Parse object function. Because there is only one object function,it is stored seperately.
+		auto funcData = ParseFunctionData();		
+
+		//Parse inequality constraint functions
+		ParseInequalityConstraint(funcData);
+
 		_optData->SetFuncData(funcData);
 
-		//Parse optimization method
-
-		
-		 
+		//Parse optimization method		 
 		OptMethodClass optMtd= ParseOptMethod();
 		//optMtd.SetOptMethod(val);
-
 		_optData->SetOptMethod(optMtd);
+
 	}
 
 	Core::OptimizationData DataParser::GetParsedData() const
@@ -128,13 +129,37 @@ namespace Core
 			varProperty.Grad(gradStr);
 		}
 
+		//Parse Gradient for Inequality constraint
+		vector<string> inequalGrad=ParseInequalCnst_Grad(i);
+		varProperty.GradInequalCnstrt(inequalGrad);
+
 		return varProperty;
+	}
+
+	vector<string> DataParser::ParseInequalCnst_Grad(const int indexVariable)
+	{
+		////Out put
+		vector<string> gradForThisInequalFunc;
+		/*indexInequalFunc is the index for inequality constraint function.
+		indexVariable is the index for the variable*/
+		int indexInequalFunc = 1;////The index for the keys start from 1.
+		string key = OptimizationData::InequalityConstraintGrad + CommonTool::StringFormat("%d", indexInequalFunc)+ CommonTool::StringFormat("%d", indexVariable); 
+		while (_dataWapper->HasData(key))
+		{
+			string str = _dataWapper->GetData(key);
+			gradForThisInequalFunc.push_back(str);			
+			indexInequalFunc++;
+			key = OptimizationData::InequalityConstraintGrad + CommonTool::StringFormat("%d", indexInequalFunc) + CommonTool::StringFormat("%d", indexVariable);
+		}
+
+		return gradForThisInequalFunc;
 	}
 
 	Core::FunctionData DataParser::ParseFunctionData()
 	{
 		FunctionData funcData;
 
+		////Object function
 		string objFun_key= OptimizationData::ObjectFunction;
 		if (_dataWapper->HasData(objFun_key))
 		{
@@ -142,7 +167,27 @@ namespace Core
 			funcData.ObjFun(objFun);
 		}
 
+		////Inequality constraint
+		//ParseInequalityConstraint(funcData);
+
 		return funcData;
+	}
+
+	void DataParser::ParseInequalityConstraint(FunctionData& funcData)
+	{
+		vector<string> keys;
+		int index = 1;//The index start from 1.	
+		string inequaKey = OptimizationData::InequalityConstraint + CommonTool::StringFormat("%d", index);
+		////search all the inequal constraint. According to the name rule, the key is OptimizationData::InequalityConstraint+index
+		while (_dataWapper->HasData(inequaKey))
+		{			
+			string oneInequalCns = _dataWapper->GetData(inequaKey);
+			keys.push_back(oneInequalCns);
+			index++;
+			inequaKey = OptimizationData::InequalityConstraint + CommonTool::StringFormat("%d", index);
+		}
+		funcData.InEqualConstrnFun(keys);
+		 
 	}
 
 	OptMethodClass DataParser::ParseOptMethod()

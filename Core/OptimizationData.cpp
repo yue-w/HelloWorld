@@ -28,6 +28,11 @@ namespace Core
 		return _funcData.ObjFun();
 	}
 
+	vector<string> OptimizationData::GetInequalCnstFunc() const
+	{
+		return _funcData.InEqualConstrnFun();
+	}
+
 	Core::VariableProperty OptimizationData::GetVarData(const int index) const
 	{
 		if (index<1 || index>_varData.size())
@@ -56,6 +61,10 @@ namespace Core
 	const string OptimizationData::Grad = "grad";
 
 	const string OptimizationData::OptMethod = "optMethod";
+
+	const string OptimizationData::InequalityConstraint = "inequalCnst";
+
+	const string OptimizationData::InequalityConstraintGrad = "inequalGrad";
 
 
 	OptimizationResult::OptimizationResult( OptimizationData * optData)

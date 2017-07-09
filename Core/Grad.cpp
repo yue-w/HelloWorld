@@ -28,27 +28,42 @@ double Grad::Compute(const std::vector<double>& x) const
 //Gradient Class CPP file-insert start
 double	Grad0::Compute(const std::vector<double>& x) const
 {
-double gradValue=2*x[0]-2;
+double gradValue=0;
 return gradValue;
 }
 REGISTERCLASS(Grad0);
 double	Grad1::Compute(const std::vector<double>& x) const
 {
-double gradValue=2*x[1]-8;
+double gradValue=0.5/sqrt(x[1]);
 return gradValue;
 }
 REGISTERCLASS(Grad1);
-double	Grad2::Compute(const std::vector<double>& x) const
+double	Grad11::Compute(const std::vector<double>& x) const
 {
-double gradValue=2*x[0]-2;
+double gradValue=24*x[0]*x[0];
 return gradValue;
 }
-REGISTERCLASS(Grad2);
-double	Grad3::Compute(const std::vector<double>& x) const
+REGISTERCLASS(Grad11);
+double	Grad12::Compute(const std::vector<double>& x) const
 {
-double gradValue=2*x[1]-8;
+double gradValue=-1;
 return gradValue;
 }
-REGISTERCLASS(Grad3);
+REGISTERCLASS(Grad12);
+double	Grad21::Compute(const std::vector<double>& x) const
+{
+double gradValue=-3*(1-x[0])*(1-x[0]);
+return gradValue;
+}
+REGISTERCLASS(Grad21);
+double	Grad22::Compute(const std::vector<double>& x) const
+{
+double gradValue=-1;
+return gradValue;
+}
+REGISTERCLASS(Grad22);
 
 //Gradient Class CPP file-insert end
+
+
+//REGISTERCLASS(InequalCnsrntGrad)

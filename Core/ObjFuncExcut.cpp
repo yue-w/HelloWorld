@@ -1,6 +1,8 @@
 #include "ObjFuncExcut.h"
 #include "NloptPara.h"
 #include "Grad.h"
+#include <math.h>
+
 
 //:_dataWapper(new DataWrapper(*dataWrapper))
 //ObjFuncExcut::ObjFuncExcut(const ObjectFunction* _objFunDefin):_objFunDefin(new ObjectFunction (*_objFunDefin))

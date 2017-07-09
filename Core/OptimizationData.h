@@ -36,18 +36,24 @@ namespace Core
 		FunctionData _funcData;
 		//nlopt::algorithm _optMethod;
 		OptMethodClass _optMethod;
+
 	public:
 		OptimizationData();
 		~OptimizationData();
 
 		void AddVar(const VariableProperty varData) { _varData.push_back(varData); }
 		void SetFuncData(const FunctionData& data) { _funcData = data; }
+		FunctionData GetFuncData() const { return _funcData; }
 
 		void SetOptMethod(const OptMethodClass val);
 		OptMethodClass GetOptMethod() const;
 
 		//Get string of objective function.
 		string GetObjFunc() const;
+
+		//Get strings of inequality constriant function
+		vector<string> GetInequalCnstFunc() const;
+
 
 		//<index> should not be larger than Count of var.
 		//<index> start from 1.
@@ -65,6 +71,8 @@ namespace Core
 		static const string ObjectFunction;
 		static const string Grad;
 		static const string OptMethod;
+		static const string InequalityConstraint;
+		static const string InequalityConstraintGrad;
 
 	};
 

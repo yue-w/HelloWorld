@@ -2,6 +2,7 @@
 
 #include "../Middleware/rcc/include/RuntimeObjectSystem/ObjectInterfacePerModule.h"
 #include <math.h>
+using namespace std;
 
 
 
@@ -11,7 +12,7 @@ double ObjectFunction::Compute(const std::vector<double> &x) const
 {
 	
 //Insert Function
-double fun=(x[0]-1)*(x[0]-1)+(x[1]-4)*(x[1]-4)+11.1;
+double fun=sqrt(x[1]);
 
 
 

@@ -166,6 +166,7 @@
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommonFunc.h" />
     <ClInclude Include="CompileGradExcut.h" />
+    <ClInclude Include="CompileIneqlCnstFuncExcut.h" />
     <ClInclude Include="DataParser.h" />
     <ClInclude Include="DataWrapper.h" />
     <ClInclude Include="DebugCppAndQml.h" />
@@ -173,6 +174,8 @@
     <ClInclude Include="Grad.h" />
     <ClInclude Include="IFunction.h" />
     <ClInclude Include="implementOpt.h" />
+    <ClInclude Include="InequalCnstrntFunc.h" />
+    <ClInclude Include="InequalConstraintFuncExcute.h" />
     <ClInclude Include="InverseDataParser.h" />
     <ClInclude Include="Log.h" />
     <ClInclude Include="NloptPara.h" />
@@ -191,6 +194,7 @@
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommonFunc.cpp" />
     <ClCompile Include="CompileGradExcut.cpp" />
+    <ClCompile Include="CompileIneqlCnstFuncExcut.cpp" />
     <ClCompile Include="DataParser.cpp" />
     <ClCompile Include="DataWrapper.cpp" />
     <ClCompile Include="DebugCppAndQml.cpp" />
@@ -198,6 +202,8 @@
     <ClCompile Include="Grad.cpp" />
     <ClCompile Include="IFunction.cpp" />
     <ClCompile Include="implementOpt.cpp" />
+    <ClCompile Include="InequalCnstrntFunc.cpp" />
+    <ClCompile Include="InequalConstraintFuncExcute.cpp" />
     <ClCompile Include="InverseDataParser.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="main.cpp" />

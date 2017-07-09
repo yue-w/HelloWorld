@@ -9,10 +9,12 @@ namespace Core
 	//////////////////////////////////////////////////////////////////////////
 	class FunctionData
 	{
+		//Object function
 		string _objFun;
-		string _gradFun;
+
 		////inequal constraint functions
 		vector<string> _ineqCnstrntFun;
+
 		////equal constraint functions
 		vector<string> _eqCnstrntFuns;
 
@@ -23,8 +25,12 @@ namespace Core
 
 		string ObjFun() const { return _objFun; }
 		void ObjFun(string val) { _objFun = val; }
-		string GradFun() const { return _gradFun; }
-		void GradFun(string val) { _gradFun = val; }
+
+		 void InEqualConstrnFun(vector<string> val) { _ineqCnstrntFun = val; }
+		 vector<string>  InEqualConstrnFun()const { return _ineqCnstrntFun; }
+
+
+
 	};
 }
 

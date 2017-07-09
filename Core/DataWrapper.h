@@ -8,7 +8,8 @@ namespace Core
 		unordered_map<string, string> _data;
 
 		//contains all the keys of variable name.
-		vector<std::string> _vecVariableNameKeys;////to be delete
+		vector<std::string> _vecVariableNameKeys;////to be deleted
+		//size_t _numInqlCnstrnt;
 
 	public:
 		DataWrapper();
@@ -28,6 +29,9 @@ namespace Core
 		void setVecVariableNameKeys(const vector<std::string> nameKeys);
 		vector<std::string>getVecVariableNameKeys()const;
 		//void PushBackVecVariableNameKey(const std::string nameKey);
+
+		//void SetNumInequalCnst(size_t val) { _numInqlCnstrnt = val; }
+		//size_t GetNumInequalCnst() { return _numInqlCnstrnt; }
 	};
 }
 

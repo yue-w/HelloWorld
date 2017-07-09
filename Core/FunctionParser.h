@@ -3,6 +3,7 @@
 #include "ThreadLocker.h"
 
 class RuntimeObjectSystem;
+
 namespace Core
 {
 	class IFunction;
@@ -19,7 +20,7 @@ namespace Core
 		FunctionParser();
 		~FunctionParser();
 
-		IFunction* Parse(const string functionStr, const string fileName);
+		void Parse(const string functionStr, const string fileName);
 
 		virtual IFunction* DynamicCompile(const char* fileName);
 
@@ -33,7 +34,7 @@ namespace Core
 		~ObjectFuncParser();
 
 		//Parser string to a function.
-		IFunction* Parse(const string functionStr, const string fileName);
+		void Parse(const string functionStr, const string fileName);
 		IFunction* DynamicCompile(const char* fileName);
 
 	private:
@@ -55,22 +56,51 @@ namespace Core
 		bool EraseExistingCodesCPP() { return _eraseExistingCodes_cpp; }
 		void EraseExistingCodesCPP(const bool value) { _eraseExistingCodes_cpp = value; }
 
-		IFunction* Parse(const string gradStr, const string ,int index, string& className);
+		void Parse(const string functionStr, const string fileName, int index, string& className);
 		IFunction* DynamicCompile(const char* fileName);
+
 	private:
 
 		void InitRccSystem();
 
 		//Write .h file
-		bool WriteHeadlerFile(const string gradStr, const string, int index, string& className);
+		bool WriteHeadlerFile(const string gradStr, const string fileName, int index, string& className);
 
 		//write .cpp file
-		bool WriteCPPFile(const string gradStr, const string, int index);
+		bool WriteCPPFile(const string gradStr, const string fileName, int index, string& className);
 
 		bool _eraseExistingCodes_h;
 		bool _eraseExistingCodes_cpp;
 	};
 
+	class InequalConstrtFunParser :
+		public FunctionParser
+	{
+
+	public:
+		InequalConstrtFunParser();
+		~InequalConstrtFunParser();
+
+		void Parse(const string functionStr, const string fileName, int index, string& className);
+		IFunction* DynamicCompile(const char* fileName);
+
+		bool EraseExistingCodesH() { return _eraseExistingCodes_h; }
+		void EraseExistingCodesH(const bool value) { _eraseExistingCodes_h = value; }
+
+		bool EraseExistingCodesCPP() { return _eraseExistingCodes_cpp; }
+		void EraseExistingCodesCPP(const bool value) { _eraseExistingCodes_cpp = value; }
+
+	private:
+		void InitRccSystem();
+		//Write .h file
+		bool WriteHeadlerFile(const string gradStr, const string fileName, int index, string& className);
+
+		//write .cpp file
+		bool WriteCPPFile(const string gradStr, const string fileName, int index, string& className);
+
+		bool _eraseExistingCodes_h;
+		bool _eraseExistingCodes_cpp;
+	};
 
 	class ExcuteGradParser : 
 		public FunctionParser
@@ -81,7 +111,23 @@ namespace Core
 
 		/*vecClassNames stores all the names of 
 		the class that have been compiled dynamically by GradPasser::parse*/
-		IFunction* Parse(const string fileName, const vector<string> vecClassNames);
+		void Parse(const string fileName, const vector<string> vecClassNames);
+
+		void ParseInequalGrad(const string fileName, const vector<string> vecClassNames);
+
+		IFunction* DynamicCompile(const char* fileName);
+
+	private:
+
+		void InitRccSystem();
+	};
+
+	class ExcuteInequalConstrtParser : public FunctionParser
+	{
+	public:
+		ExcuteInequalConstrtParser();
+		~ExcuteInequalConstrtParser();
+		void Parse(const string fileName, const vector<string> vecClassNames);
 		IFunction* DynamicCompile(const char* fileName);
 
 	private:

@@ -17,6 +17,9 @@
 #include "Grad.h"
 #include "InverseDataParser.h"
 #include "NloptPara.h"
+#include "CompileIneqlCnstFuncExcut.h"
+#include "InequalConstraintFuncExcute.h"
+#include "InequalCnstrntFunc.h"
 
 namespace Core
 {
@@ -44,61 +47,35 @@ namespace Core
 
 		//Parse the objective function and dynamic compiling
 		ObjectFuncParser parser;
-		string pathObj = "..\\..\\..\\Core\\ObjectFunction.cpp";//Path used in Qt
-		//string pathObj = "..\\Core\\ObjectFunction.cpp";//////Path used for debugging in VS
-		IFunction* func = parser.Parse(objFunc, pathObj);
+		string pathObj = "..\\Core\\ObjectFunction.cpp";//////Path used for debugging in VS
+		//string pathObj = "..\\..\\..\\Core\\ObjectFunction.cpp";//Path used in Qt
+		parser.Parse(objFunc, pathObj);
 		IFunction* iFunctionObjFunc = parser.DynamicCompile("ObjectFunction");
-		func = dynamic_cast<ObjectFunction*>(iFunctionObjFunc);
-		
-		////Pass object function the NloptPara, which will bring it ot nlopt
+		ObjectFunction* func = dynamic_cast<ObjectFunction*>(iFunctionObjFunc);
+		////Pass object function to the NloptPara, which will bring it ot nlopt
 		NloptPara* nloptPara = new NloptPara;
 		ObjectFunction* objFun = dynamic_cast<ObjectFunction*> (func);
 		nloptPara->SetObjectFunction(objFun);
 
-
-		//vector<string> grad = ModifyGrad(&optData); 
-		////pass the gradient
-		//GradPasser gradPasser;
-		//vector<string> vecClassName(grad.size());
-		//for (size_t i = 0; i<grad.size(); i++)
-		//{
-		//	string className = "";
-
-		//	//string pathGrad = "..\\..\\..\\Core\\Grad"; ////Path used for Qt
-		//	string pathGrad = "..\\Core\\Grad";////For debugging in VS
-
-		//	auto funcGrad = gradPasser.Parse(grad[i], pathGrad,i, className);
-		//	vecClassName[i] = className;
-		//}
-		//IFunction* iFuncGrad = gradPasser.DynamicCompile("Grad");
-
-		//
-		//
-
-
-		/////////Dynamic Compiling
-		//ExcuteGradParser excuPasser;
-
-		////string pathExcuGrad = "..\\..\\..\\Core\\CompileGradExcut.cpp";////Path used for Qt
-		//string pathExcuGrad = "..\\Core\\CompileGradExcut.cpp";////Path for debugging in VS
-		//excuPasser.Parse( pathExcuGrad, vecClassName);
-		//IFunction* iFunc = excuPasser.DynamicCompile("CompileGradExcut");
-
-		//CompileGradExcut* comPilExcu =dynamic_cast<CompileGradExcut*>(iFunc);
-		//comPilExcu->PushGradPointer();
-
-
-
-		//string pathGrad = "..\\Core\\Grad";////For debugging in VS
-		//string pathExcuGrad = "..\\Core\\CompileGradExcut.cpp";////Path for debugging in VS
-		string pathExcuGrad = "..\\..\\..\\Core\\CompileGradExcut.cpp";////Path used for Qt
-		string pathGrad = "..\\..\\..\\Core\\Grad"; ////Path used for Qt
-	
+		////Compile Gradient for Object Function.
+		string pathGrad = "..\\Core\\Grad";////For debugging in VS
+		string pathExcuGrad = "..\\Core\\CompileGradExcut.cpp";////Path for debugging in VS
+		//string pathExcuGrad = "..\\..\\..\\Core\\CompileGradExcut.cpp";////Path used for Qt
+		//string pathGrad = "..\\..\\..\\Core\\Grad"; ////Path used for Qt
 		OptMethodClass optMthod = optData.GetOptMethod();
 		if (optMthod.GetDynamicComp())
 		{
 			CompileGrad(pathGrad, pathExcuGrad, &optData, nloptPara);
 		}
+
+
+		//Parse the inequality constraint function
+		string pathInequal = "..\\Core\\InequalCnstrntFunc";////For debugging in VS
+		string pathExcuInequal = "..\\Core\\CompileIneqlCnstFuncExcut.cpp";////Path for debugging in VS
+		//string pathExcuGrad = "..\\..\\..\\Core\\CompileGradExcut.cpp";////Path used for Qt
+		//string pathGrad = "..\\..\\..\\Core\\Grad"; ////Path used for Qt
+		//vector<string> vecInequalCnstFuncs = ModifyInequalConstraints(&optData);
+		CompileInequalCnstFunc(pathInequal, pathExcuInequal, &optData, nloptPara);
 		
 
 		if (func == NULL)
@@ -133,8 +110,8 @@ namespace Core
 
 	string OptimizationCommand::modifyObjectFunc(const OptimizationData* optData)
 	{
-		string modifiedObjFun = optData->GetObjFunc();////Object function input by the user
-		return ChangeNameToIndex(modifiedObjFun, optData);
+		string objFunc = optData->GetObjFunc();////Object function input by the user
+		return ChangeNameToIndex(objFunc, optData);
 		
 		
 		/*
@@ -166,6 +143,17 @@ namespace Core
 
 	
 	}
+	vector<string> OptimizationCommand::ModifyInequalConstraints(const OptimizationData * optData)
+	{
+		size_t numOfCnsts = optData->GetInequalCnstFunc().size();
+		vector<string> changedStrings(numOfCnsts);
+		for (size_t i = 0; i < numOfCnsts; i++)
+		{
+			changedStrings[i] = ChangeNameToIndex(optData->GetInequalCnstFunc()[i], optData);
+		}
+
+		return changedStrings;
+	}
 	std::vector<string> OptimizationCommand::ModifyGrad(const OptimizationData * optData)
 	{
 		int varNumber = optData->VarCount();
@@ -173,35 +161,11 @@ namespace Core
 		////will be returned.
 		std::vector<string> grad(varNumber);
 		
-		int indexInx = 0;
+		//int indexInx = 0;
 		for (size_t i = 1; i <= varNumber; i++)
 		{
 			auto varData = optData->GetVarData(i);
 			string modifiedGrad = varData.Grad();
-
-			//change xi to x[i-0]. Start
-
-			//int varNumber = optData->VarCount();
-			//int indexInx = 0;
-			//for (size_t i = 1; i <= varNumber; i++)
-			//{
-			//	auto varData = optData->GetVarData(i);
-			//	string value = varData.VarName();
-
-			//	///find and replace the variable
-			//	size_t pos = modifiedGrad.find(value, 0);
-			//	while (pos != string::npos)////if find the occurance
-			//	{
-			//		string replace = "x[" + std::to_string(indexInx) + "]";
-			//		modifiedGrad.replace(pos, value.length(), replace);
-
-			//		pos = modifiedGrad.find(value, 0);
-			//	}
-			//	indexInx++;
-
-			//}
-
-			//change xi to x[i-0]. End
 
 			grad[i - 1] = ChangeNameToIndex(modifiedGrad, optData);
 			//grad[i - 1] = modifiedGrad;
@@ -209,6 +173,39 @@ namespace Core
 
 		return grad;
 	}
+
+	std::vector<vector<string>> OptimizationCommand::ModifyGrad_Inequal(const OptimizationData * optData)
+	{
+		FunctionData funData = optData->GetFuncData();
+		int inequalCnstNum = funData.InEqualConstrnFun().size();
+		int varNumber = optData->VarCount();
+		//will be returned
+		std::vector<vector<string>> vecGrad(inequalCnstNum,vector<string>(varNumber));
+
+		////all the grads for one constraint function
+		//std::vector<string> grad(varNumber);
+
+
+		////loop for each variable
+		for (size_t i_grad = 1; i_grad <= varNumber; i_grad++)
+		{
+			auto varData = optData->GetVarData(i_grad);
+			vector<string> modifiedGrad = varData.GradInequalCnstrt();
+
+			//Loop for each inequality constraint function
+			for (size_t i_cnstrtF = 0; i_cnstrtF < inequalCnstNum; i_cnstrtF++)
+			{
+				vecGrad[i_cnstrtF][i_grad-1] = ChangeNameToIndex(modifiedGrad[i_cnstrtF], optData);
+			}
+			
+			//grad[i - 1] = modifiedGrad;
+		}
+		
+
+
+		return vecGrad;
+	}
+
 	vector<double> OptimizationCommand::changeVariableToVector(const unordered_map<string, string> & variableKeyValue)
 	{
 		//////make a copy of data, and eraze object function, so that only numbers are remained.
@@ -229,7 +226,7 @@ namespace Core
 
 		return x;
 	}
-	string OptimizationCommand::ChangeNameToIndex(string  modified, const OptimizationData* optData)
+	string OptimizationCommand::ChangeNameToIndex(string  originString, const OptimizationData* optData)
 	{
 
 		int varNumber = optData->VarCount();
@@ -240,13 +237,13 @@ namespace Core
 			string value = varData.VarName();
 
 			///find and replace the variable
-			size_t pos = modified.find(value, 0);
+			size_t pos = originString.find(value, 0);
 			while (pos != string::npos)////if find the occurance
 			{
 				string replace = "x[" + std::to_string(indexInx) + "]";
-				modified.replace(pos, value.length(), replace);
+				originString.replace(pos, value.length(), replace);
 
-				pos = modified.find(value, 0);
+				pos = originString.find(value, 0);
 			}
 			indexInx++;
 
@@ -254,7 +251,7 @@ namespace Core
 
 
 
-		return modified;
+		return originString;
 
 	}
 	unordered_map<string, string> OptimizationCommand::GetOutData() const
@@ -337,6 +334,18 @@ namespace Core
 		//opt.add_inequality_constraint(myvconstraint, &data[0], 1e-8);
 		//opt.add_inequality_constraint(myvconstraint, &data[1], 1e-8);
 
+		
+		size_t numInequalConst = optData->GetInequalCnstFunc().size();
+		
+		vector<vector<Grad*>> gradForInequalFUnc = nloptPara->GetGradDefineInequalFunc();
+		for (size_t i = 0; i < numInequalConst; i++)
+		{
+			InequalCnstrntFunc* oneInequalDefine=nloptPara->GetOneInequCntrntDefine(i);
+			NloptPara_OneInequalityConstraint* oneInequalFuncPara = new NloptPara_OneInequalityConstraint(oneInequalDefine, gradForInequalFUnc[i]);
+
+			opt.add_inequality_constraint(InequalConstraintFuncExcute::InequalConstraintFunction, oneInequalFuncPara,1e-6);
+		}
+
 		opt.set_xtol_rel(1e-4);
 
 
@@ -368,36 +377,114 @@ namespace Core
 
 	void OptimizationCommand::CompileGrad(const string pathGrad, const string pathExcu, const OptimizationData* optData, NloptPara* nloptPara)
 	{
+		////Grad for the object function
 		vector<string> grad = ModifyGrad(optData);
-		//pass the gradient
+		//parse the gradient
 		GradPasser gradPasser;
 		vector<string> vecClassName(grad.size());
 		for (size_t i = 0; i<grad.size(); i++)
 		{
 			string className = "";
 
-			//string pathGrad = "..\\..\\..\\Core\\Grad"; ////Path used for Qt
-			//string pathGrad = "..\\Core\\Grad";////For debugging in VS
-
-			auto funcGrad = gradPasser.Parse(grad[i], pathGrad, i, className);
+			gradPasser.Parse(grad[i], pathGrad, i, className);
 			vecClassName[i] = className;
 		}
+
+		///Grad for the inequality constraint function
+		vector<vector<string>> grad_inequal = ModifyGrad_Inequal(optData);
+		vector<string> vecClassNameInequalGrad;
+		for (size_t i_inequalFun = 0; i_inequalFun<grad_inequal.size(); i_inequalFun++)
+		{
+			string className = "";
+			for (size_t i_grad = 0; i_grad < grad_inequal[i_inequalFun].size(); i_grad++)
+			{
+				////the index start from 1. "Grad21" means 2nd inequality functin, and the grad for the 1st variable.
+				int index = 10 * (i_inequalFun+1) + (i_grad+1);
+				gradPasser.Parse(grad_inequal[i_inequalFun][i_grad], pathGrad, index, className);
+				vecClassNameInequalGrad.push_back(className);
+			}
+			
+			
+		}
+
+		//Compile grad.cpp
 		IFunction* iFuncGrad = gradPasser.DynamicCompile("Grad");
 
-		///////Dynamic Compiling
-		ExcuteGradParser excuPasser;
 
-		//string pathExcuGrad = "..\\..\\..\\Core\\CompileGradExcut.cpp";////Path used for Qt
-		//string pathExcuGrad = "..\\Core\\CompileGradExcut.cpp";////Path for debugging in VS
+
+		///////Push defination of grad to the vector. -Object function
+		ExcuteGradParser excuPasser;
 		excuPasser.Parse(pathExcu, vecClassName);
+
+		////Push defination of grad to the vector. -Inequality constraint function
+		excuPasser.ParseInequalGrad(pathExcu, vecClassNameInequalGrad);
+	
+		
 		IFunction* iFunc = excuPasser.DynamicCompile("CompileGradExcut");
 
 		CompileGradExcut* comPilExcu = dynamic_cast<CompileGradExcut*>(iFunc);
+		////Push the run time defination of gradient of the object function 
 		comPilExcu->PushGradPointer();
+		////Push the run time defination of gradient of the inequality constraint function 
 
+		comPilExcu->PushGradPointer_InequalfuncGrad();
+
+		
+		vector<vector<Grad*>> twoDimGrad = OneDToTwoD(optData->VarCount(),comPilExcu->GetTemGrad());
+		comPilExcu->SetGradDefineVectorInequal(twoDimGrad);
+			
 		
 		nloptPara->SetGradDefine(comPilExcu->GetGradDefineVector());
 
+		nloptPara->SetGradDefineInequalFunc(comPilExcu->GetGradDefineVectorInequal());
+	}
+
+	vector<vector<Grad*>> OptimizationCommand::OneDToTwoD(int varNum, const vector<Grad*> oneDGrad)
+	{
+		vector<vector<Grad*>> twoDVec;
+		vector<Grad*> temGrad;
+		for (size_t i = 0; i < oneDGrad.size(); )
+		{
+			for (size_t j = 0; j < varNum; j++)
+			{
+				temGrad.push_back(oneDGrad[i]);
+				i++;
+			}
+			
+			twoDVec.push_back(temGrad);
+			temGrad.clear();
+			//i += varNum;
+		}
+		return twoDVec;
+	}
+
+	void OptimizationCommand::CompileInequalCnstFunc(const string pathIneqCnstfunc, const string pathExcu, const OptimizationData * optData, NloptPara * nloptPara)
+	{
+		vector<string> vecInequalCnstFuncs = ModifyInequalConstraints(optData);
+		size_t length= vecInequalCnstFuncs.size();
+		if (0!=length)
+		{
+			//parse the gradient
+			InequalConstrtFunParser Passer;
+			vector<string> vecClassName(length);
+			for (size_t i = 0; i < length; i++)
+			{
+				string className = "";
+				Passer.Parse(vecInequalCnstFuncs[i], pathIneqCnstfunc, i, className);
+				vecClassName[i] = className;
+			}
+			IFunction* iFuncInequal = Passer.DynamicCompile("InequalCnstrntFunc");
+
+			ExcuteInequalConstrtParser excuPasser;
+			excuPasser.Parse(pathExcu, vecClassName);
+			IFunction* iFuncInequalExc = excuPasser.DynamicCompile("CompileIneqlCnstFuncExcut");
+
+			CompileIneqlCnstFuncExcut* comPilExcu = dynamic_cast<CompileIneqlCnstFuncExcut*>(iFuncInequalExc);
+			comPilExcu->PushInequFuncPointer();
+
+
+			nloptPara->SetInequCntrntDefine(comPilExcu->GetIneqFuncDefin());
+		}
 	}
 
 	double OptimizationCommand::myvfunc(const std::vector<double> &x, std::vector<double> &grad, void *my_func_data)

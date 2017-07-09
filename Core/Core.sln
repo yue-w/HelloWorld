@@ -10,6 +10,26 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest", "..\UnitTest\Uni
 		{DBEE1767-4879-4C06-8469-7C8E2C5C6EBE} = {DBEE1767-4879-4C06-8469-7C8E2C5C6EBE}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{303C5F7B-B47B-4762-95A3-7CDC5C1E2E93}"
+	ProjectSection(SolutionItems) = preProject
+		CompileIneqlCnstFuncExcut.cpp = CompileIneqlCnstFuncExcut.cpp
+		CompileIneqlCnstFuncExcut.h = CompileIneqlCnstFuncExcut.h
+		DataParser.cpp = DataParser.cpp
+		DataParser.h = DataParser.h
+		DataWrapper.h = DataWrapper.h
+		FunctionParser.cpp = FunctionParser.cpp
+		FunctionParser.h = FunctionParser.h
+		InequalCnstrntFunc.cpp = InequalCnstrntFunc.cpp
+		InequalCnstrntFunc.h = InequalCnstrntFunc.h
+		InequalConstraintFuncExcute.cpp = InequalConstraintFuncExcute.cpp
+		InequalConstraintFuncExcute.h = InequalConstraintFuncExcute.h
+		NloptPara.h = NloptPara.h
+		ObjFuncExcut.cpp = ObjFuncExcut.cpp
+		ObjFuncExcut.h = ObjFuncExcut.h
+		OptimizationCommand.cpp = OptimizationCommand.cpp
+		OptimizationCommand.h = OptimizationCommand.h
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

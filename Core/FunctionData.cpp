@@ -7,7 +7,7 @@ namespace Core
 	FunctionData::FunctionData()
 	{
 		_objFun = DEFAULT_STRING;
-		_gradFun = DEFAULT_STRING;
+		//_gradFun = DEFAULT_STRING;
 	}
 
 

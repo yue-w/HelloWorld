@@ -363,13 +363,14 @@ Window {
 
                         textFieldGradient.clear();
                         placeholderText= "Gradient"
-                        //textFieldGradient.readOnly =true;
+                        textFieldGradient.readOnly =true;
                         //textFieldGradient.color = "black";
 
                     }
                     else
                     {
                         Gradient = textFieldGradient.getText(0,20)
+                        textFieldGradient.readOnly =false;
 
                     }
 

@@ -11,6 +11,10 @@ namespace Core
 		double _ub;//upper bound.
 		double _initVal;//initial value.
 		string _grad;//gradient
+		/*gradient for inequal constraint. Every variable hasa gradient for every inequal constraint equation. 
+		The dimention of this vector is the same with the number of inequality constraint function. This vector
+		can be empty if non-gradient method is used.*/
+		vector<string> _gradInequalCnstrnt;
 
 	public:
 		VariableProperty(const string varName);
@@ -26,6 +30,8 @@ namespace Core
 		void InitVal(double val) { _initVal = val; }
 		string Grad()const { return _grad; }
 		void Grad(string val) { _grad = val; }
+		vector<string> GradInequalCnstrt() { return _gradInequalCnstrnt; }
+		void GradInequalCnstrt(vector<string> val) { _gradInequalCnstrnt = val; }
 	};
 
 }

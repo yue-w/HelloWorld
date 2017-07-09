@@ -93,6 +93,15 @@
     <ClInclude Include="OptMthdParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="InequalCnstrntFunc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CompileIneqlCnstFuncExcut.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InequalConstraintFuncExcute.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="implementOpt.cpp">
@@ -162,6 +171,15 @@
       <Filter>Data</Filter>
     </ClCompile>
     <ClCompile Include="OptMthdParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InequalCnstrntFunc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CompileIneqlCnstFuncExcut.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InequalConstraintFuncExcute.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

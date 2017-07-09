@@ -37,7 +37,11 @@ namespace Core
 		size_t ComputeVarCount();
 
 		VariableProperty ParseEachVar(const int varIndex);
+		vector<string> ParseInequalCnst_Grad(const int indexVariable);
 		FunctionData ParseFunctionData();
+
+		void ParseInequalityConstraint(FunctionData& funcData);
+
 
 		OptMethodClass ParseOptMethod();
 
