@@ -13,6 +13,7 @@ function qmlDataToCpp(){
     //name:""; lowerBound:""; upperBound:"";initialValue:"";Gradient:""; solution:""
 
     ////Set variable name to C++
+    var debug = theModel_variableName.count;
     for(var j = 0; j< theModel_variableName.count; j++){
 
       testCallCpp.pushName(theModel_variableName.get(j).name);
@@ -52,6 +53,17 @@ function qmlDataToCpp(){
     var optMethod = comboBox_optMethod.currentIndex;
     testCallCpp.setOptMethod(optMethod);
 
+    ////Set inequality constraint function and correspond gradient
+    for(var i = 0; i< theModel_inequalityFuncAndGrad.count; i++){
+       //Set inequality function
+       var a = theModel_inequalityFuncAndGrad.get(i).inequalityFun;
+       testCallCpp.pushInequalFunc(theModel_inequalityFuncAndGrad.get(i).inequalityFun);
+
+    }
+
+
+
+
 }
 
 function letsGo()
@@ -81,6 +93,7 @@ function uiLogicalCheck()
     if(gradientCheck())
     {
        //messageDialog.visible = true;
+         excute();
     }
     else
     {

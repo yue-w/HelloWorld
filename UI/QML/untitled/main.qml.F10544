@@ -27,16 +27,8 @@ Window {
     ListModel{
         id: theModel_inequalityFuncAndGrad
 
-        ListElement{inequalityFun:"" }
-        ListElement{inequalityFun:"" }
-    }
-
-    ListModel{
-        id: grad_Inequal
-
-        ListElement{gradIneq:"" }
-        ListElement{gradIneq:"" }
-        //ListElement{gradIneq:"" }
+        ListElement{}
+        ListElement{}
     }
 
 
@@ -135,7 +127,7 @@ Window {
     Rectangle{
         id:rectangleObjFunc
         width: 480
-        height: 230
+        height: 150
         border.width: 1
         anchors.top: recListView.bottom
         anchors.left: parent.left
@@ -160,7 +152,7 @@ Window {
                    }////onEditingFinished Finish
             }
 
-            ////Rectangle that contains the inequality function and corresponding grads
+            ////Rectangle that contains the inequality function
             Rectangle{
                 id:recInequalityFuncs
                 anchors.left: parent.left
@@ -168,7 +160,7 @@ Window {
                 anchors.top: objectFunction.bottom
                 anchors.topMargin: marginValue
                 width: 460
-                height: 180
+                height: 300
                 border.width: 1
 
                 ListView {
@@ -176,8 +168,8 @@ Window {
                     anchors.fill: parent
                     anchors.margins: marginValue
                     clip: true
-                    model:theModel_inequalityFuncAndGrad
-                   //model: theModel_inequalityFuncAndGrad
+                    model:2
+                   // model: theModel_inequalityFuncAndGrad
                     delegate:group_inequalFuncAndGrads
                     //Horizontal
                     //flickableDirection:Horizontal
@@ -192,11 +184,41 @@ Window {
                             anchors.bottom: flickable.bottom
                             active : true
                         }
+
                 }
+
+//                ////contains one inequality function and the grads
+//                Column{
+
+//                    Rectangle{
+//                        id:oneInequalityFunc
+//                        width: 225
+//                        height: 25
+//                        border.width: 1
+//                        anchors.top: parent.top
+//                        anchors.left: parent.left
+//                        anchors.leftMargin: marginValue
+//                        anchors.topMargin: marginValue
+//                    }
+
+//                    Rectangle{
+//                        id:gradsForInequalFunc
+//                        width: 225
+//                        height: 55
+//                        border.width: 1
+//                        anchors.top: oneInequalityFunc.bottom
+//                        anchors.left: parent.left
+//                        anchors.leftMargin:marginValue
+//                        //anchors.topMargin: marginValue
+//                    }
+
+//                }
 
             }
 
         }
+
+
 
     }
 
@@ -255,84 +277,83 @@ Window {
 
     }
 
-    ///input- max iteration...
-    Rectangle{
-        id:inputs
-        border.width: 1
-        anchors.top: rectangleObjFunc.bottom
-        width: 680
-        height: 100
-        anchors.topMargin: marginValue
+    /////input- max iteration...
+//    Rectangle{
+//        id:inputs
+//        border.width: 1
+//        anchors.top: rectangleObjFunc.bottom
+//        width: 680
+//        height: 100
 
 
-        Grid{
-            id:inputGrid
-            width:500
-            height:80
-            anchors.left: parent.left
-            anchors.leftMargin: marginValue
-            anchors.top: parent.top
-            anchors.topMargin: marginValue
-            rows:1
-            columns:6
-            spacing: 10
+//        Grid{
+//            id:inputGrid
+//            width:500
+//            height:80
+//            anchors.left: parent.left
+//            anchors.leftMargin: marginValue
+//            anchors.top: parent.top
+//            anchors.topMargin: marginValue
+//            rows:1
+//            columns:6
+//            spacing: 10
 
-            Text {
-                id: txtItetimes
-                //anchors.left: parent.left
-                text: qsTr("Max iteration\n"+"times:")
+//            Text {
+//                id: txtItetimes
+//                //anchors.left: parent.left
+//                text: qsTr("Max iteration\n"+"times:")
 
-            }
+//            }
 
-            TextField{
-                id:maxIteInputTxt
-                width: 100
-                height: 25
-                placeholderText: "1000"
-                selectByMouse: true
-                 onEditingFinished:{
-                     ////Todo
-                   }////onEditingFinished Finish
+//            TextField{
+//                id:maxIteInputTxt
+//                width: 100
+//                height: 25
+//                placeholderText: "1000"
+//                selectByMouse: true
+//                 onEditingFinished:{
+//                     ////Todo
+//                   }////onEditingFinished Finish
 
-            }
+//            }
 
-            Text {
-                id: txtAccuracy
-                //anchors.left: parent.left
-                text: qsTr("Accuracy:")
-            }
+//            Text {
+//                id: txtAccuracy
+//                //anchors.left: parent.left
+//                text: qsTr("Accuracy:")
+//            }
 
-            TextField{
-                id:inputAccuracy
-                width: 100
-                height: 25
-                //anchors.right:  maxIteInputTxt.right
-                selectByMouse: true
+//            TextField{
+//                id:inputAccuracy
+//                width: 100
+//                height: 25
+//                //anchors.right:  maxIteInputTxt.right
+//                selectByMouse: true
 
-                placeholderText: "0.001"
-                 onEditingFinished:{
-                     ////Todo
-                   }////onEditingFinished Finish
+//                placeholderText: "0.001"
+//                 onEditingFinished:{
+//                     ////Todo
+//                   }////onEditingFinished Finish
 
-            }
+//            }
 
-            Text {
-                id: txtOptMethod
-                //anchors.left: parent.left
-                text: qsTr("Optimization Method:")
+//            Text {
+//                id: txtOptMethod
+//                //anchors.left: parent.left
+//                text: qsTr("Optimization Method:")
 
-            }
+//            }
 
-            ComboBox {
-                id:comboBox_optMethod
-                width: 200
-                height: 25
-                model: [ "Local gradient-based", "Derivative-free algorithm" ]
-            }
-        }
+//            ComboBox {
+//                id:comboBox_optMethod
+//                width: 200
+//                height: 25
+//                model: [ "Local gradient-based", "Derivative-free algorithm" ]
+//            }
+//        }
 
 
-    }
+//    }
 
 
     Component {
@@ -349,8 +370,7 @@ Window {
                 onEditingFinished:{
                 //set the text of the textField to the ListElement's property.
                 name = textFieldVariable.getText(0,20)
-                    var d = 0
-                    var e = 0
+
                 //The following is an example of getting a certain ListElement by ID (3 in this example)
                 //nameText.text = theModel_variableName.get(3).name
            }////onEditingFinished Finish
@@ -478,79 +498,57 @@ Window {
         Column{
 
             id:colum_inequFunAndGrad
-           // anchors.top: parent.top
-           // anchors.leftMargin: marginValue
-           // anchors.topMargin: marginValue
 
             Rectangle{
                 id:oneInequalityFunc
                 width: 225
                 height: 25
-                border.width: 0.51
-                anchors.topMargin: marginValue
-
-                TextField{
-                    id: txtFieldInequalFunction
-                    //anchors.left: parent.left
-                    //anchors.leftMargin: marginValue
-                    //anchors.top: parent.top
-                    anchors.topMargin: marginValue
-                    selectByMouse: true
-                    width: parent.width
-                    height: 25
-                    placeholderText: "Inequality constraint function"
-                     onEditingFinished:{
-                         //inequalityFun = txtFieldInequalFunction.getText(0,20)
-
-                        inequalityFun =  txtFieldInequalFunction.getText(0,20)
-                       }////onEditingFinished Finish
-                }
-
+                border.width: 1
+//                anchors.top: parent.top
+//                anchors.left: parent.left
+//                anchors.leftMargin: marginValue
+//                anchors.topMargin: marginValue
             }
 
             Rectangle{
+                id:gradsForInequalFunc
                 width: 225
-                height: 90
-                border.width: 0.51
-                anchors.topMargin: marginValue
-
-                ListView {
-                    id:listViewInequalityGrad
-                    anchors.fill: parent
-                    anchors.margins: marginValue
-                    clip: true
-                    model:grad_Inequal
-                    delegate:gradInequalCnst
-                    //orientation: ListView.Horizontal
-
-                }
+                height: 55
+                border.width: 1
+//                anchors.top: oneInequalityFunc.bottom
+//                anchors.left: parent.left
+//                anchors.leftMargin:marginValue
+                //anchors.topMargin: marginValue
             }
+
         }
 
     }
 
-
-        //Gradient for inequality constraint function
-        Component{
-            id:gradInequalCnst
-
-            Column{
-                ////TextField for the Gradient
-                TextField {
-                    id:textFieldGradient_inequal
-                    width: 120
-                    height: 25
-                    placeholderText: "Gradient"
-                    selectByMouse: true
-
-                    onEditingFinished:{
-                        gradIneq= textFieldGradient_inequal.getText(0,20)
-                        }
-
-                    } ///TextField for the Gradient Finish
+   Component{
+       id:tttt
+       Row{
+           TextField {
+               id:textFieldVariable
+               width: 50
+               height: 25
+               placeholderText: "Name"
+               selectByMouse: true
 
             }
-        }
+           TextField {
+               id:textFieldVariable2
+               width: 50
+               height: 25
+               placeholderText: "Name"
+               selectByMouse: true
+
+                }
+
+       }
+   }
+
+
 
         ////Warning dialog
         MessageDialog {

@@ -87,20 +87,13 @@ void CallCppFromQml::setObjectFunction(QString value)
 
 }
 
+void CallCppFromQml::pushInequalFunc(QString oneInequalFunc)
+{
+    _uiData->pushInequalFunc(oneInequalFunc);
+}
+
 void CallCppFromQml::setOptMethod(int value)
 {
-
-//    switch (value) {
-//    case 0:
-//        _uiData->setOptMethod(LD_MMA);
-//        break;
-//    case 1:
-//         _uiData->setOptMethod(LN_COBYLA);
-//        break;
-//    default:
-//        _uiData->setOptMethod(LD_MMA);
-//        break;
-//    }
 
     _uiData->setOptMethod(QString::number(value));
 
@@ -130,6 +123,8 @@ bool CallCppFromQml::doOptimize()
     ////Modify the return value.
     return true;
 }
+
+
 
 void CallCppFromQml::TransferDataToCpp(Core::AlgorithmInteractive *interative, const UIData *_uiData)
 {
@@ -167,6 +162,9 @@ void CallCppFromQml::TransferDataToCpp(Core::AlgorithmInteractive *interative, c
     //transfer the vector that contains all the keys of the name
     interative->setVarNameKey(_uiData->vecNameKeys().toStdVector());
 
+    //transfer the inequality function
+    keyValue = "inequalCnst";
+    TransferDataToCppExcute(interative,keyValue, _uiData->getVecInequalFunc() );
 
 }
 

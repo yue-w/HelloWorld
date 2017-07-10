@@ -47,8 +47,8 @@ namespace Core
 
 		//Parse the objective function and dynamic compiling
 		ObjectFuncParser parser;
-		string pathObj = "..\\Core\\ObjectFunction.cpp";//////Path used for debugging in VS
-		//string pathObj = "..\\..\\..\\Core\\ObjectFunction.cpp";//Path used in Qt
+		//string pathObj = "..\\Core\\ObjectFunction.cpp";//////Path used for debugging in VS
+		string pathObj = "..\\..\\..\\Core\\ObjectFunction.cpp";//Path used in Qt
 		parser.Parse(objFunc, pathObj);
 		IFunction* iFunctionObjFunc = parser.DynamicCompile("ObjectFunction");
 		ObjectFunction* func = dynamic_cast<ObjectFunction*>(iFunctionObjFunc);
@@ -58,10 +58,10 @@ namespace Core
 		nloptPara->SetObjectFunction(objFun);
 
 		////Compile Gradient for Object Function.
-		string pathGrad = "..\\Core\\Grad";////For debugging in VS
-		string pathExcuGrad = "..\\Core\\CompileGradExcut.cpp";////Path for debugging in VS
-		//string pathExcuGrad = "..\\..\\..\\Core\\CompileGradExcut.cpp";////Path used for Qt
-		//string pathGrad = "..\\..\\..\\Core\\Grad"; ////Path used for Qt
+		//string pathGrad = "..\\Core\\Grad";////For debugging in VS
+		//string pathExcuGrad = "..\\Core\\CompileGradExcut.cpp";////Path for debugging in VS
+		string pathGrad = "..\\..\\..\\Core\\Grad";////Path used for Qt
+		string pathExcuGrad = "..\\..\\..\\Core\\CompileGradExcut.cpp";////Path used for Qt
 		OptMethodClass optMthod = optData.GetOptMethod();
 		if (optMthod.GetDynamicComp())
 		{
@@ -70,10 +70,10 @@ namespace Core
 
 
 		//Parse the inequality constraint function
-		string pathInequal = "..\\Core\\InequalCnstrntFunc";////For debugging in VS
-		string pathExcuInequal = "..\\Core\\CompileIneqlCnstFuncExcut.cpp";////Path for debugging in VS
-		//string pathExcuGrad = "..\\..\\..\\Core\\CompileGradExcut.cpp";////Path used for Qt
-		//string pathGrad = "..\\..\\..\\Core\\Grad"; ////Path used for Qt
+		//string pathInequal = "..\\Core\\InequalCnstrntFunc";////For debugging in VS
+		//string pathExcuInequal = "..\\Core\\CompileIneqlCnstFuncExcut.cpp";////Path for debugging in VS
+		string pathInequal = "..\\..\\..\\Core\\InequalCnstrntFunc";////Path used for Qt
+		string pathExcuInequal = "..\\..\\..\\Core\\CompileIneqlCnstFuncExcut.cpp";////Path used for Qt
 		//vector<string> vecInequalCnstFuncs = ModifyInequalConstraints(&optData);
 		CompileInequalCnstFunc(pathInequal, pathExcuInequal, &optData, nloptPara);
 		

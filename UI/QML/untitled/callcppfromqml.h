@@ -45,6 +45,7 @@ public:
     Q_INVOKABLE void setOptMethod(int value);
     Q_INVOKABLE void pushGradient(QString oneGradient);
     Q_INVOKABLE bool doOptimize();
+    Q_INVOKABLE void pushInequalFunc(QString oneInequalFunc);
 
     UIData *uiData() const;
     void setUiData(UIData *uiData);

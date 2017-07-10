@@ -1,5 +1,17 @@
 #include "uidata.h"
 
+QVector<QString> UIData::getVecInequalFunc() const
+{
+    return _vecInequalFunc;
+}
+
+void UIData::pushInequalFunc(const QString value)
+{
+    _vecInequalFunc.push_back(value);
+}
+
+
+
 UIData::UIData()
 {
 

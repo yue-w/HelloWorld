@@ -22,6 +22,7 @@ private:
     QVector<QString> _vecUpperBnd;
     QVector<QString> _vecinitialValue;
     QVector<QString> _vecGradient;
+    QVector<QString> _vecInequalFunc;
     QString _objectFunction;
     QVector<std::string> _vecNameKeys;
     QString _optMethod;
@@ -48,6 +49,8 @@ public:
     QVector<QString> vecInitialValue() const;
     void pushInitialValue(const QString value);
 
+
+
     QString objectFunction() const;
     void setObjectFunction(const QString &objectFunction);
 
@@ -58,6 +61,8 @@ public:
     void setOptMethod(const QString &optMethod);
 
 
+    QVector<QString> getVecInequalFunc() const;
+    void pushInequalFunc(const QString value);
 
 };
 
