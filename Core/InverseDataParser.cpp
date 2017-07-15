@@ -55,7 +55,7 @@ namespace Core
 		for (size_t i = 1; i <= varCount; ++i)
 		{
 			string indexS = CommonTool::Num2String<size_t>(i);
-			string para = "optVali" + indexS;
+			string para = "optVal" + indexS;
 			double keyDb = _optResltData->VecVariableReslt()[i - 1];
 			string keyStr = CommonTool::Num2String<double>(keyDb);
 			_dataWrapper->Add(para, keyStr);

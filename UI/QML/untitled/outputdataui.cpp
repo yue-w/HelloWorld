@@ -17,9 +17,14 @@ QVector<QString> OutputDataUI::getOptimizedVariableValue() const
     return optimizedVariableValue;
 }
 
-void OutputDataUI::setOptimizedVariableValue(const QVector<QString> &value)
+void OutputDataUI::setOptimizedVariableValue(const QVector<QString> value)
 {
     optimizedVariableValue = value;
+}
+
+QString OutputDataUI::getOneVarValue(int index)
+{
+    return optimizedVariableValue[index];
 }
 
 QString OutputDataUI::getMinObjValue() const

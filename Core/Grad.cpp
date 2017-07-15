@@ -52,7 +52,7 @@ return gradValue;
 REGISTERCLASS(Grad12);
 double	Grad21::Compute(const std::vector<double>& x) const
 {
-double gradValue=-3*(1-x[0])*(1-x[0]);
+double gradValue=-10;
 return gradValue;
 }
 REGISTERCLASS(Grad21);

@@ -10,16 +10,28 @@ void UIData::pushInequalFunc(const QString value)
     _vecInequalFunc.push_back(value);
 }
 
+void UIData::pushGradofInequalFunc(const QString value)
+{
+    _vecGradient_InequalFunc.push_back(value);
+}
+
+QVector<QString> UIData::getGradofInequalFunc() const
+{
+    return _vecGradient_InequalFunc;
+}
+
+
+
 
 
 UIData::UIData()
 {
-
+    
 }
 
 UIData::~UIData()
 {
-
+    
 }
 
 QVector<QString> UIData::vecLowerBnd() const

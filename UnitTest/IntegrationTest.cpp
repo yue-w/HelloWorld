@@ -42,7 +42,7 @@ TEST(IntegrationTest, Optimize)
 
 	interactive_test.AddParam("inequalGrad11", "24*x1*x1");
 	interactive_test.AddParam("inequalGrad12", "-1");
-	interactive_test.AddParam("inequalGrad21", "-3*(1-x1)*(1-x1)");
+	interactive_test.AddParam("inequalGrad21", "-10");
 	interactive_test.AddParam("inequalGrad22", "-1");
 
 

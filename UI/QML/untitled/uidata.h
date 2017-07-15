@@ -22,6 +22,7 @@ private:
     QVector<QString> _vecUpperBnd;
     QVector<QString> _vecinitialValue;
     QVector<QString> _vecGradient;
+    QVector<QString> _vecGradient_InequalFunc;
     QVector<QString> _vecInequalFunc;
     QString _objectFunction;
     QVector<std::string> _vecNameKeys;
@@ -63,6 +64,9 @@ public:
 
     QVector<QString> getVecInequalFunc() const;
     void pushInequalFunc(const QString value);
+
+    void pushGradofInequalFunc(const QString value);
+    QVector<QString> getGradofInequalFunc() const;
 
 };
 

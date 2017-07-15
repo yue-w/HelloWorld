@@ -10,7 +10,9 @@ public:
     ~OutputDataUI();
 
     QVector<QString> getOptimizedVariableValue() const;
-    void setOptimizedVariableValue(const QVector<QString> &value);
+    void setOptimizedVariableValue(const QVector<QString> value);
+
+    QString getOneVarValue(int index);
 
     QString getMinObjValue() const;
     void setMinObjValue(const QString &value);

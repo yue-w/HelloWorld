@@ -53,11 +53,30 @@ function qmlDataToCpp(){
     var optMethod = comboBox_optMethod.currentIndex;
     testCallCpp.setOptMethod(optMethod);
 
-    ////Set inequality constraint function and correspond gradient
-    for(var i = 0; i< theModel_inequalityFuncAndGrad.count; i++){
+//    ////Set inequality constraint function and correspond gradient
+//    for(var i = 0; i< restRepeater.count; i++){
+
+//        var a = restRepeater.itemAt(i).text
+//        var cc =0;
+//    }
+
+
+    var numOfInequal = grid_ineqFun_grad.columns;
+    for(var i = 0; i< repeaterInequalityFunAndGrad.count; i++){
+
        //Set inequality function
-       var a = theModel_inequalityFuncAndGrad.get(i).inequalityFun;
-       testCallCpp.pushInequalFunc(theModel_inequalityFuncAndGrad.get(i).inequalityFun);
+
+        if(i<numOfInequal){
+            //var debug = repeaterInequalityFunAndGrad.itemAt(i).text;
+            testCallCpp.pushInequalFunc(repeaterInequalityFunAndGrad.itemAt(i).text);
+            continue;
+        }
+
+       //the index for the current gradient. Start from 0
+        var index = i - grid_ineqFun_grad.columns;
+        //Set gradient for inequality function
+        testCallCpp.pushGradient_InequalFunc(repeaterInequalityFunAndGrad.itemAt(i).text,grid_ineqFun_grad.columns,index );
+
 
     }
 
@@ -68,6 +87,7 @@ function qmlDataToCpp(){
 
 function letsGo()
 {
+
     uiLogicalCheck();
 
 }
@@ -84,6 +104,10 @@ function excute()
 
     ////Show the optimization result to UI
     minTxtField.text = testCallCpp.getOptimizedObjValue();
+
+    ////Show the variable value after optimization
+    //var num = testCallCpp.getOptimizedVariableValue.size();
+    showOptimizedValue(/*num*/);
 }
 
 function uiLogicalCheck()
@@ -127,4 +151,26 @@ function gradInPutSetting()
     }
 
 
+}
+
+function addInequalityFuncAndGrad(){
+
+    var colums = grid_ineqFun_grad.columns;
+    var total = repeaterInequalityFunAndGrad.model;
+    var rows = total/colums;
+    var newColums=colums +1;
+    var newTotal = newColums*rows;
+    repeaterInequalityFunAndGrad.model = newTotal;
+    grid_ineqFun_grad.columns = newColums;
+}
+
+function showOptimizedValue(/*numOfVar*/){
+
+    for(var i = 0; i<theModel_variableName.count; i++)
+    {
+
+        var value = testCallCpp.getOneVarValue(i);
+        theModel_variableName.get(i).solution =value;
+
+    }
 }
