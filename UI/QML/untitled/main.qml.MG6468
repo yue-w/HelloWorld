@@ -500,23 +500,13 @@ Window {
         }////TextField for the InitialValue Finish
 
 
-            Rectangle{
-                width: 80
-                height: 25
+            Text {
+                anchors.right: parent.right
 
-                    Text {
-                        anchors.centerIn: parent
+                font.pixelSize: 10
 
-                        font.pixelSize: 10
-
-                        text: solution
-                    }
-
+                text: "number"
             }
-
-
-
-
 
 //            ////TextField for the Solution.
 //            TextField {

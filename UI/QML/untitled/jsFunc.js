@@ -117,12 +117,23 @@ function uiLogicalCheck()
     if(gradientCheck())
     {
        //messageDialog.visible = true;
-         excute();
+       excute();
     }
     else
     {
        excute();
     }
+
+
+//    for(var cc = 0; cc<theModel_variableName.count; cc++)
+//    {
+
+//        theModel_variableName.get(cc).solution = "Hello";
+
+//        var tt = theModel_variableName.get(cc).solution;
+
+//        var ddd = 0;
+//    }
 
 
 
@@ -170,7 +181,7 @@ function showOptimizedValue(/*numOfVar*/){
     {
 
         var value = testCallCpp.getOneVarValue(i);
-        theModel_variableName.get(i).solution =value;
+         theModel_variableName.get(cc).solution =value;
 
     }
 }
