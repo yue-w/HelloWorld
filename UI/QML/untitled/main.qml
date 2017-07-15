@@ -136,6 +136,171 @@ Window {
     }
 
 
+    ////Rectangle that contains the headler
+    Rectangle{
+        id:headler
+        width: 480
+        height: 25
+        anchors.left: parent.left
+        border.width: 1
+        Row{
+
+            Rectangle{
+
+                id:recName
+                width: 50
+                height: 25
+                //color:  "#f8306a"
+                border.color: black
+                //anchors.margins: marginValue
+                anchors.leftMargin: marginValue
+                anchors.left: parent.left
+
+                Text {
+                    anchors.centerIn: parent
+
+                    font.pixelSize: 10
+
+                    text: "Name"
+                }
+
+            }
+            Rectangle{
+
+                id:recLowBnd
+                width: 80
+                height: 25
+                //color:  "#f8306a"
+                border.color: black
+                //anchors.margins: marginValue
+                //anchors.leftMargin: marginValue
+                anchors.left: recName.right
+
+                Text {
+                    anchors.centerIn: parent
+
+                    font.pixelSize: 10
+
+                    text: "Lower bound"
+                }
+
+            }
+
+            Rectangle{
+
+                id:uperowBnd
+                width: 80
+                height: 25
+                //color:  "#f8306a"
+                border.color: black
+                //anchors.margins: marginValue
+                //anchors.leftMargin: marginValue
+                anchors.left: recLowBnd.right
+
+                Text {
+                    anchors.centerIn: parent
+
+                    font.pixelSize: 10
+
+                    text: "Upper bound"
+                }
+
+            }
+
+            Rectangle{
+
+                id:upperBnd
+                width: 80
+                height: 25
+                //color:  "#f8306a"
+                border.color: black
+                //anchors.margins: marginValue
+                //anchors.leftMargin: marginValue
+                anchors.left: recLowBnd.right
+
+                Text {
+                    anchors.centerIn: parent
+
+                    font.pixelSize: 10
+
+                    text: "Upper bound"
+                }
+
+            }
+
+            Rectangle{
+
+                id:gradHead
+                width: 80
+                height: 25
+                //color:  "#f8306a"
+                border.color: black
+                //anchors.margins: marginValue
+                //anchors.leftMargin: marginValue
+                anchors.left: upperBnd.right
+
+                Text {
+                    anchors.centerIn: parent
+
+                    font.pixelSize: 10
+
+                    text: "Gradient"
+                }
+
+            }
+
+            Rectangle{
+
+                id:initialHead
+                width: 80
+                height: 25
+                //color:  "#f8306a"
+                border.color: black
+                //anchors.margins: marginValue
+                //anchors.leftMargin: marginValue
+                anchors.left: gradHead.right
+
+                Text {
+                    anchors.centerIn: parent
+
+                    font.pixelSize: 10
+
+                    text: "Initial Value"
+                }
+
+            }
+
+            Rectangle{
+
+                id:resultHead
+                width: 80
+                height: 25
+                //color:  "#f8306a"
+                border.color: black
+                //anchors.margins: marginValue
+                //anchors.leftMargin: marginValue
+                anchors.left: initialHead.right
+
+                Text {
+                    anchors.centerIn: parent
+
+                    font.pixelSize: 10
+
+                    text: "Results"
+                }
+
+            }
+
+
+
+        }
+
+
+
+    }
+
+
+
     /////Rectangle that contains the variable name, upper and lower bound, and initial value.
     Rectangle{
         id:recListView
@@ -143,6 +308,7 @@ Window {
         height: 150
         border.width: 1
         anchors.left: parent.left
+        anchors.top: headler.bottom
 
         ListView {
             id:listView_id
@@ -168,7 +334,7 @@ Window {
     Rectangle{
         id:rectangleObjFunc
         width: 480
-        height: 230
+        height: 180
         border.width: 1
         anchors.top: recListView.bottom
         anchors.left: parent.left
@@ -201,7 +367,7 @@ Window {
                 anchors.top: objectFunction.bottom
                 anchors.topMargin: marginValue
                 width: 460
-                height: 180
+                height: 130
                 border.width: 1
 
 
