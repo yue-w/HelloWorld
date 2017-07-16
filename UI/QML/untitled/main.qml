@@ -23,54 +23,6 @@ Window {
 
     }
 
-//    ListModel{
-//        id: theModel_inequalityFuncAndGrad
-
-//        ListElement{inequalityFun:""; gradIneq:""; }
-//        ListElement{inequalityFun:""; gradIneq:"" }
-
-//    }
-
-//    ListModel{
-//        id: grad_Inequal
-
-//        ListElement{gradIneq:"" }
-//        ListElement{gradIneq:"" }
-//        //ListElement{gradIneq:"" }
-//    }
-
-
-
-    ////Button to add componenet
-    Rectangle {
-        id: addComponentButton
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: optimizeButton.top
-        anchors.margins: marginValue
-
-        height: 40
-
-        color: "#53d769"
-        border.color: Qt.lighter(color, 1.1)
-
-        Text {
-            anchors.centerIn: parent
-
-            text: "Add a variable!"
-        }
-
-        MouseArea {
-            anchors.fill: parent
-
-            onClicked: {
-                theModel_variableName.append({})
-
-              //testCallCpp.test()
-            }
-        }
-
-    }
 
     ////Button to excute Optimization
     Rectangle {
@@ -136,158 +88,177 @@ Window {
     }
 
 
-    ////Rectangle that contains the headler
+
     Rectangle{
-        id:headler
+        id:recHeadlerAndInputs
         width: 480
-        height: 25
-        anchors.left: parent.left
+        height: 220
         border.width: 1
-        Row{
+        anchors.left: parent.left
+        anchors.margins: marginValue
 
-            Rectangle{
+        ////Rectangle that contains the headler
+        Rectangle{
+            id:headler
+            width: 473
+            height: 25
+            anchors.left: parent.left
+            anchors.leftMargin: marginValue
+            anchors.top: parent.top
+            anchors.topMargin: marginValue
+            //anchors.margins: 5
+           // border.width: 1
+            Row{
 
-                id:recName
-                width: 50
-                height: 25
-                //color:  "#f8306a"
-                border.color: black
-                //anchors.margins: marginValue
-                anchors.leftMargin: marginValue
-                anchors.left: parent.left
+                Rectangle{
 
-                Text {
-                    anchors.centerIn: parent
+                    id:recName
+                    width: 50
+                    height: 25
+                    //color:  "#f8306a"
+                    border.color: black
+                    //anchors.margins: marginValue
+                    //anchors.leftMargin: marginValue
+                    anchors.left: parent.left
 
-                    font.pixelSize: 10
 
-                    text: "Name"
+                    Text {
+                        anchors.centerIn: parent
+
+                        font.pixelSize: 10
+
+                        text: "Name"
+                    }
+
+                }
+                Rectangle{
+
+                    id:recLowBnd
+                    width: 80
+                    height: 25
+                    //color:  "#f8306a"
+                    border.color: black
+                    //anchors.margins: marginValue
+                    //anchors.leftMargin: marginValue
+                    anchors.left: recName.right
+                    anchors.leftMargin: marginValue
+
+                    Text {
+                        anchors.centerIn: parent
+
+                        font.pixelSize: 10
+
+                        text: "Lower bound"
+                    }
+
                 }
 
-            }
-            Rectangle{
+                Rectangle{
 
-                id:recLowBnd
-                width: 80
-                height: 25
-                //color:  "#f8306a"
-                border.color: black
-                //anchors.margins: marginValue
-                //anchors.leftMargin: marginValue
-                anchors.left: recName.right
+                    id:uperowBnd
+                    width: 80
+                    height: 25
+                    //color:  "#f8306a"
+                    border.color: black
+                    //anchors.margins: marginValue
+                    //anchors.leftMargin: marginValue
+                    anchors.left: recLowBnd.right
 
-                Text {
-                    anchors.centerIn: parent
+                    Text {
+                        anchors.centerIn: parent
 
-                    font.pixelSize: 10
+                        font.pixelSize: 10
 
-                    text: "Lower bound"
+                        text: "Upper bound"
+                    }
+
                 }
 
-            }
+                Rectangle{
 
-            Rectangle{
+                    id:upperBnd
+                    width: 80
+                    height: 25
+                    //color:  "#f8306a"
+                    border.color: black
+                    //anchors.margins: marginValue
+                    //anchors.leftMargin: marginValue
+                    anchors.left: recLowBnd.right
 
-                id:uperowBnd
-                width: 80
-                height: 25
-                //color:  "#f8306a"
-                border.color: black
-                //anchors.margins: marginValue
-                //anchors.leftMargin: marginValue
-                anchors.left: recLowBnd.right
+                    Text {
+                        anchors.centerIn: parent
 
-                Text {
-                    anchors.centerIn: parent
+                        font.pixelSize: 10
 
-                    font.pixelSize: 10
+                        text: "Upper bound"
+                    }
 
-                    text: "Upper bound"
                 }
 
-            }
+                Rectangle{
 
-            Rectangle{
+                    id:gradHead
+                    width: 80
+                    height: 25
+                    //color:  "#f8306a"
+                    border.color: black
+                    //anchors.margins: marginValue
+                    //anchors.leftMargin: marginValue
+                    anchors.left: upperBnd.right
 
-                id:upperBnd
-                width: 80
-                height: 25
-                //color:  "#f8306a"
-                border.color: black
-                //anchors.margins: marginValue
-                //anchors.leftMargin: marginValue
-                anchors.left: recLowBnd.right
+                    Text {
+                        anchors.centerIn: parent
 
-                Text {
-                    anchors.centerIn: parent
+                        font.pixelSize: 10
 
-                    font.pixelSize: 10
+                        text: "Gradient"
+                    }
 
-                    text: "Upper bound"
                 }
 
-            }
+                Rectangle{
 
-            Rectangle{
+                    id:initialHead
+                    width: 80
+                    height: 25
+                    //color:  "#f8306a"
+                    border.color: black
+                    //anchors.margins: marginValue
+                    //anchors.leftMargin: marginValue
+                    anchors.left: gradHead.right
 
-                id:gradHead
-                width: 80
-                height: 25
-                //color:  "#f8306a"
-                border.color: black
-                //anchors.margins: marginValue
-                //anchors.leftMargin: marginValue
-                anchors.left: upperBnd.right
+                    Text {
+                        anchors.centerIn: parent
 
-                Text {
-                    anchors.centerIn: parent
+                        font.pixelSize: 10
 
-                    font.pixelSize: 10
+                        text: "Initial Value"
+                    }
 
-                    text: "Gradient"
                 }
 
-            }
+                Rectangle{
 
-            Rectangle{
+                    id:resultHead
+                    width: 80
+                    height: 25
+                    //color:  "#f8306a"
+                    border.color: black
+                    //anchors.margins: marginValue
+                    //anchors.leftMargin: marginValue
+                    anchors.left: initialHead.right
 
-                id:initialHead
-                width: 80
-                height: 25
-                //color:  "#f8306a"
-                border.color: black
-                //anchors.margins: marginValue
-                //anchors.leftMargin: marginValue
-                anchors.left: gradHead.right
+                    Text {
+                        anchors.centerIn: parent
 
-                Text {
-                    anchors.centerIn: parent
+                        font.pixelSize: 10
 
-                    font.pixelSize: 10
+                        text: "Results"
+                    }
 
-                    text: "Initial Value"
                 }
 
-            }
 
-            Rectangle{
-
-                id:resultHead
-                width: 80
-                height: 25
-                //color:  "#f8306a"
-                border.color: black
-                //anchors.margins: marginValue
-                //anchors.leftMargin: marginValue
-                anchors.left: initialHead.right
-
-                Text {
-                    anchors.centerIn: parent
-
-                    font.pixelSize: 10
-
-                    text: "Results"
-                }
 
             }
 
@@ -295,40 +266,110 @@ Window {
 
         }
 
+        /////Rectangle that contains the variable name, upper and lower bound, and initial value.
+        Rectangle{
+            id:recListView
+            width: 473
+            height: 140
+           // border.width: 1
+            anchors.left: parent.left
+            anchors.leftMargin: marginValue
+            anchors.top: headler.bottom
 
 
-    }
+            ListView {
+                id:listView_id
+                anchors.fill: parent
+                anchors.margins: marginValue
+                clip: true
+                model: theModel_variableName
+                delegate: variableName
+
+                ScrollBar.vertical: ScrollBar {
+                        parent: flickable.parent
+                        anchors.top: flickable.top
+                        anchors.left: flickable.right
+                        anchors.bottom: flickable.bottom
+                        active : true
+                    }
+
+            }
+
+        }
 
 
+        ////Button to add componenet
+        Rectangle {
+            id: addComponentButton
+            anchors.left: parent.left
+            //anchors.right: parent.right
 
-    /////Rectangle that contains the variable name, upper and lower bound, and initial value.
-    Rectangle{
-        id:recListView
-        width: 480
-        height: 150
-        border.width: 1
-        anchors.left: parent.left
-        anchors.top: headler.bottom
-
-        ListView {
-            id:listView_id
-            anchors.fill: parent
+            //anchors.bottom: optimizeButton.top
+            anchors.top: recListView.bottom
             anchors.margins: marginValue
-            clip: true
-            model: theModel_variableName
-            delegate: variableName
 
-            ScrollBar.vertical: ScrollBar {
-                    parent: flickable.parent
-                    anchors.top: flickable.top
-                    anchors.left: flickable.right
-                    anchors.bottom: flickable.bottom
-                    active : true
+            height: 40
+            width: parent.width/2- marginValue
+
+            color: "#53d769"
+            border.color: Qt.lighter(color, 1.1)
+
+            Text {
+                anchors.centerIn: parent
+
+                text: "Add a variable"
+            }
+
+            MouseArea {
+                anchors.fill: parent
+
+                onClicked: {
+                    theModel_variableName.append({})
+                    JSFunc.setInequalityGrad();
+
+
+                  //testCallCpp.test()
                 }
+            }
+
+        }
+
+        ////Button to remove a Component
+        Rectangle {
+            id: removeComponentButton
+            anchors.left: addComponentButton.right
+            anchors.right: parent.right
+            //anchors.bottom: optimizeButton.top
+            anchors.top: recListView.bottom
+            anchors.margins: marginValue
+
+            height: 40
+
+            color: "#53d769"
+            border.color: Qt.lighter(color, 1.1)
+
+            Text {
+                anchors.centerIn: parent
+
+                text: "Remove a variable"
+            }
+
+            MouseArea {
+                anchors.fill: parent
+
+                onClicked: {
+                    theModel_variableName.remove(theModel_variableName.count-1,1);
+                    JSFunc.setInequalityGrad();
+
+
+                  //testCallCpp.test()
+                }
+            }
 
         }
 
     }
+
 
     /////Rectangle that contains object function and inequality function
     Rectangle{
@@ -336,9 +377,11 @@ Window {
         width: 480
         height: 180
         border.width: 1
-        anchors.top: recListView.bottom
+        anchors.top: recHeadlerAndInputs.bottom
         anchors.left: parent.left
         //anchors.top: recListView.top
+        anchors.topMargin: marginValue
+        anchors.margins: marginValue
 
 
         Column{
@@ -371,22 +414,22 @@ Window {
                 border.width: 1
 
 
-                Grid{
-                    id:grid_ineqFun_grad
-                    columns: 2
-                    columnSpacing  :10
-                    Repeater{
-                        id:repeaterInequalityFunAndGrad
-                        model: 6
-                        TextField {
-                            width: 100.1; height: 40
-                            text:""
+                    Grid{
+                        id:grid_ineqFun_grad
+                        columns: 2
+                        columnSpacing  :10
+                        Repeater{
+                            id:repeaterInequalityFunAndGrad
+                            model: 6
+                            TextField {
+                                width: 100.1; height: 40
+                                text:""
+
+                            }
 
                         }
 
                     }
-
-                }
                 }
 
 
@@ -483,7 +526,9 @@ Window {
         anchors.top: rectangleObjFunc.bottom
         width: 680
         height: 100
+        anchors.left: parent.left
         anchors.topMargin: marginValue
+        anchors.margins: marginValue
 
 
         Grid{
@@ -566,7 +611,7 @@ Window {
                 id:textFieldVariable
                 width: 50
                 height: 25
-                placeholderText: "Name"
+                //placeholderText: "Name"
                 selectByMouse: true
                 onEditingFinished:{
                 //set the text of the textField to the ListElement's property.
@@ -582,7 +627,7 @@ Window {
                 id:textFieldLowerBound
                 width: 80
                 height: 25
-                placeholderText: "Lower bound"
+               // placeholderText: "Lower bound"
                 selectByMouse: true
                 onEditingFinished:{
 
@@ -603,7 +648,7 @@ Window {
                 id:textFieldUpperBound
                 width: 80
                 height: 25
-                placeholderText: "Upper bound"
+                //placeholderText: "Upper bound"
                 selectByMouse: true
                 onEditingFinished:{
 
@@ -620,7 +665,7 @@ Window {
                 id:textFieldGradient
                 width: 80
                 height: 25
-                placeholderText: "Gradient"
+               // placeholderText: "Gradient"
                 selectByMouse: true
 
                 onEditingFinished:{
@@ -654,7 +699,7 @@ Window {
                 id:textFieldInitialValue
                 width: 80
                 height: 25
-                placeholderText: "Initial Value"
+                //placeholderText: "Initial Value"
                 selectByMouse: true
                 onEditingFinished:{
 
@@ -710,16 +755,16 @@ Window {
 
 
 
-        ////Warning dialog
-        MessageDialog {
-                id: messageDialog
-                title: "May I have your attention please"
-                text: "It's so cool that you are using Qt Quick."
-                onAccepted: {
-                    console.log("And of course you could only agree.")
-                    Qt.quit()
-                }
-                Component.onCompleted: visible = false
+    ////Warning dialog
+    MessageDialog {
+            id: messageDialog
+            title: "May I have your attention please"
+            text: "It's so cool that you are using Qt Quick."
+            onAccepted: {
+                console.log("And of course you could only agree.")
+                Qt.quit()
             }
+            Component.onCompleted: visible = false
+        }
 
 }

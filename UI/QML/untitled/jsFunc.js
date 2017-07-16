@@ -13,7 +13,7 @@ function qmlDataToCpp(){
     //name:""; lowerBound:""; upperBound:"";initialValue:"";Gradient:""; solution:""
 
     ////Set variable name to C++
-    var debug = theModel_variableName.count;
+    //var debug = theModel_variableName.count;
     for(var j = 0; j< theModel_variableName.count; j++){
 
       testCallCpp.pushName(theModel_variableName.get(j).name);
@@ -185,4 +185,17 @@ function showOptimizedValue(/*numOfVar*/){
          theModel_variableName.get(i).solution =value;
 
     }
+}
+
+function setInequalityGrad(){
+
+    var numOfVar = theModel_variableName.count;
+
+    var colums = grid_ineqFun_grad.columns;
+    var total = repeaterInequalityFunAndGrad.model;
+
+    var newTotal = (numOfVar+1)*colums;
+
+    repeaterInequalityFunAndGrad.model = newTotal;
+
 }
