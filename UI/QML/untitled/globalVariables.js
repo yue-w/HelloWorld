@@ -1,0 +1,1 @@
+var globalV = 10;

@@ -1,17 +1,16 @@
-//function test(cpp,theModel_variableName)
-//{
-//    ////Set variable name to C++
-//    for(var j = 0; j< theModel_variableName.count; j++){
 
-//      testCallCpp.pushName(theModel_variableName.get(j).name);
 
-//    }
-//}
+
+////The number of input for each variable, which include variable name,
+////lower bound, upper bound, gradient, and initial value.
+var numOfInputEachVariable = 5;
+
 
 function qmlDataToCpp(){
 
-    //name:""; lowerBound:""; upperBound:"";initialValue:"";Gradient:""; solution:""
 
+
+/*
     ////Set variable name to C++
     //var debug = theModel_variableName.count;
     for(var j = 0; j< theModel_variableName.count; j++){
@@ -53,19 +52,44 @@ function qmlDataToCpp(){
     var optMethod = comboBox_optMethod.currentIndex;
     testCallCpp.setOptMethod(optMethod);
 
-//    ////Set inequality constraint function and correspond gradient
-//    for(var i = 0; i< restRepeater.count; i++){
+*/
 
-//        var a = restRepeater.itemAt(i).text
-//        var cc =0;
-//    }
+    var indexInput = 0;
+    var total = userInputRepeater_id.model
+    var numOfVariable = total/numOfInputEachVariable;
+    for(var i = 0; i<numOfVariable; i++){
 
+        ////Set variable name
+        testCallCpp.pushName(  userInputRepeater_id.itemAt(indexInput).text  );
+
+        ////Set upper bound to C++
+         testCallCpp.pushUpperBnd(userInputRepeater_id.itemAt(indexInput+1).text );
+
+        ////Set lower bound to C++
+        testCallCpp.pushLowerBnd(userInputRepeater_id.itemAt(indexInput+2).text);
+
+        ////Set Gradient value to C++
+        testCallCpp.pushGradient(userInputRepeater_id.itemAt(indexInput+3).text);
+
+
+        ////Set initial value to C++
+        testCallCpp.pushInitialValue(userInputRepeater_id.itemAt(indexInput+4).text);
+
+        indexInput +=5;
+
+    }
+
+    ////Set object function
+    testCallCpp.setObjectFunction(objectFunction.text);
+
+    ////Set optimization method
+    var optMethod = comboBox_optMethod.currentIndex;
+    testCallCpp.setOptMethod(optMethod);
 
     var numOfInequal = grid_ineqFun_grad.columns;
     for(var i = 0; i< repeaterInequalityFunAndGrad.count; i++){
 
        //Set inequality function
-
         if(i<numOfInequal){
             //var debug = repeaterInequalityFunAndGrad.itemAt(i).text;
             testCallCpp.pushInequalFunc(repeaterInequalityFunAndGrad.itemAt(i).text);
@@ -189,7 +213,8 @@ function showOptimizedValue(/*numOfVar*/){
 
 function setInequalityGrad(){
 
-    var numOfVar = theModel_variableName.count;
+
+    var numOfVar = userInputRepeater_id.model/numOfInputEachVariable;
 
     var colums = grid_ineqFun_grad.columns;
     var total = repeaterInequalityFunAndGrad.model;

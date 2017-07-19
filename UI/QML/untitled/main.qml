@@ -8,11 +8,33 @@ import "jsFunc.js" as JSFunc
 
 Window {
 
+
+    id: mainWindow_id
     visible: true
     width: 800
     height: 600
-    id:root
     property int marginValue: 5
+
+    ////The total number of input for the matrix that contains
+    ////The variable name, lower bound, upper bound and so on.
+    property int inputMatrixTotal: 5
+
+    ////The number of variable.
+    property int numOfVariable:1
+
+    ////The number of inequalitu functin
+    property int numOfInequalFunc:1
+
+    ////The number of the total input for the inequality function and corresponding
+    ////Gradient. Each variable should have a gradeitn for each inequality function
+    property int numOfInequalFuncAndGradInput: 6
+
+    property string someParameter: "defaultParameter"
+
+    Text {
+        anchors.bottom: optimizeButton.top
+        text: mainWindow_id.someParameter
+    }
 
     ListModel {
         id: theModel_variableName
@@ -38,6 +60,7 @@ Window {
         border.color: Qt.lighter(color, 1.1)
 
         Text {
+            id: exect_button_id
             anchors.centerIn: parent
 
             text: "Optimize"
@@ -89,6 +112,7 @@ Window {
 
 
 
+    ////Headler, variable name, gradient and so on.
     Rectangle{
         id:recHeadlerAndInputs
         width: 480
@@ -277,21 +301,39 @@ Window {
             anchors.top: headler.bottom
 
 
-            ListView {
-                id:listView_id
-                anchors.fill: parent
-                anchors.margins: marginValue
-                clip: true
-                model: theModel_variableName
-                delegate: variableName
+//            ListView {
+//                id:listView_id
+//                anchors.fill: parent
+//                anchors.margins: marginValue
+//                clip: true
+//                model: theModel_variableName
+//                delegate: variableName
 
-                ScrollBar.vertical: ScrollBar {
-                        parent: flickable.parent
-                        anchors.top: flickable.top
-                        anchors.left: flickable.right
-                        anchors.bottom: flickable.bottom
-                        active : true
+//                ScrollBar.vertical: ScrollBar {
+//                        parent: flickable.parent
+//                        anchors.top: flickable.top
+//                        anchors.left: flickable.right
+//                        anchors.bottom: flickable.bottom
+//                        active : true
+//                    }
+
+//            }
+
+
+            Grid{
+                id:userinput_id
+                columns: 5
+                columnSpacing  :10
+                Repeater{
+                    id:userInputRepeater_id
+                    model: inputMatrixTotal
+                    TextField {
+                        width: 50; height: 25
+                        text:""
+
                     }
+
+                }
 
             }
 
@@ -324,11 +366,12 @@ Window {
                 anchors.fill: parent
 
                 onClicked: {
+
+
                     theModel_variableName.append({})
                     JSFunc.setInequalityGrad();
 
 
-                  //testCallCpp.test()
                 }
             }
 
@@ -416,11 +459,11 @@ Window {
 
                     Grid{
                         id:grid_ineqFun_grad
-                        columns: 2
+                        columns:numOfInequalFunc
                         columnSpacing  :10
                         Repeater{
                             id:repeaterInequalityFunAndGrad
-                            model: 6
+                            model: numOfInequalFuncAndGradInput
                             TextField {
                                 width: 100.1; height: 40
                                 text:""

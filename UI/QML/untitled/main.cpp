@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     QScopedPointer<CallCppFromQml> testCallCpp (new CallCppFromQml);
 
     QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/startPage.qml")));
 
 
     engine.rootContext()->setContextProperty("testCallCpp",testCallCpp.data());

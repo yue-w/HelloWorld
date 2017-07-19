@@ -3,5 +3,8 @@
         <file>main.qml</file>
         <file>MainForm.ui.qml</file>
         <file>jsFunc.js</file>
+        <file>startPage.qml</file>
+        <file>jsPassData.js</file>
+        <file>globalVariables.js</file>
     </qresource>
 </RCC>
