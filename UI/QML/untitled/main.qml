@@ -301,38 +301,94 @@ Window {
             anchors.top: headler.bottom
 
 
-//            ListView {
-//                id:listView_id
-//                anchors.fill: parent
-//                anchors.margins: marginValue
-//                clip: true
-//                model: theModel_variableName
-//                delegate: variableName
 
-//                ScrollBar.vertical: ScrollBar {
-//                        parent: flickable.parent
-//                        anchors.top: flickable.top
-//                        anchors.left: flickable.right
-//                        anchors.bottom: flickable.bottom
-//                        active : true
-//                    }
+            Rectangle{
+                id: recVariableInput_id
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.bottom: parent.bottom
+                width: 390
+                border.color: black
+                border.width: 1
 
-//            }
+                Grid{
+                    id:userinput_id
+                    columns: 5
+                    columnSpacing  :10
 
 
-            Grid{
-                id:userinput_id
-                columns: 5
-                columnSpacing  :10
-                Repeater{
-                    id:userInputRepeater_id
-                    model: inputMatrixTotal
-                    TextField {
-                        width: 50; height: 25
-                        text:""
+                    Repeater{
+                        id:userInputRepeater_id
+                        model: inputMatrixTotal
+
+                        TextField {
+                            width: 50; height: 25
+                            text:""
+
+                        }
 
                     }
 
+                }
+
+            }
+
+            Rectangle{
+                id:recVarOptVal
+                anchors.left: recVariableInput_id.right
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.bottom: parent.bottom
+                border.color: black
+                border.width: 1
+
+
+//                    //Optimized value of the variables
+//                    ListView{
+//                        id: optimizedVarVal_id
+//                        //anchors.left: parent.left
+//                        anchors.fill: parent
+//                        anchors.right: parent.right
+//                        model:0
+//                        delegate: component_optimizedVarVal_id
+
+//                    }
+
+                Column{
+                    //anchors.fill: parent
+                    Repeater{
+                        id:optimizedVarVal_id
+                        model:0
+                        Rectangle {
+                            id:recContainsResult
+                            width: 50
+                            height: 25
+                            //anchors.centerIn: resultHead.Center
+                            //anchors.right: recVarOptVal.right
+                            //anchors.rightMargin: marginValue
+
+                            color: ListView.isCurrentItem?"#157efb":"#53d769"
+                            border.color: Qt.lighter(color, 1.1)
+                            property string optRest: "Error"
+
+                            Text {
+                                anchors.centerIn: parent
+
+                                font.pixelSize: 10
+
+                                text: recContainsResult.optRest
+                            }
+                        }
+//                            Text {
+//                                anchors.left: recVarOptVal.left
+//                                anchors.centerIn: parent
+
+//                                font.pixelSize: 30
+
+//                                text: "error"
+//                            }
+
+                    }
                 }
 
             }
@@ -367,9 +423,10 @@ Window {
 
                 onClicked: {
 
+                    //theModel_variableName.append({})
+                    //JSFunc.setInequalityGrad();
 
-                    theModel_variableName.append({})
-                    JSFunc.setInequalityGrad();
+                    JSFunc.addAVariable();
 
 
                 }
@@ -461,6 +518,7 @@ Window {
                         id:grid_ineqFun_grad
                         columns:numOfInequalFunc
                         columnSpacing  :10
+
                         Repeater{
                             id:repeaterInequalityFunAndGrad
                             model: numOfInequalFuncAndGradInput
@@ -797,6 +855,28 @@ Window {
     }////Component Finish
 
 
+//    Component{
+//        id:component_optimizedVarVal_id
+
+//        Rectangle {
+//            width: 50
+//            height: 25
+//            //anchors.centerIn: resultHead.Center
+//            //anchors.right: recVarOptVal.right
+//            //anchors.rightMargin: marginValue
+
+//            color: ListView.isCurrentItem?"#157efb":"#53d769"
+//            border.color: Qt.lighter(color, 1.1)
+
+//            Text {
+//                anchors.centerIn: parent
+
+//                font.pixelSize: 10
+
+//                text: "error"
+//            }
+//        }
+//    }
 
     ////Warning dialog
     MessageDialog {

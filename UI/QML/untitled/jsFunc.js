@@ -141,7 +141,8 @@ function uiLogicalCheck()
     if(gradientCheck())
     {
        //messageDialog.visible = true;
-      excute();
+
+    excute();
     }
     else
     {
@@ -202,13 +203,16 @@ function addInequalityFuncAndGrad(){
 
 function showOptimizedValue(/*numOfVar*/){
 
-    for(var i = 0; i<theModel_variableName.count; i++)
+    var numOfVar = userInputRepeater_id.model/numOfInputEachVariable;
+    var test = optimizedVarVal_id.model;
+    optimizedVarVal_id.model = numOfVar;
+    for(var i = 0; i<numOfVar; i++)
     {
 
-        var value = testCallCpp.getOneVarValue(i);
-         theModel_variableName.get(i).solution =value;
+        optimizedVarVal_id.itemAt(i).optRest = testCallCpp.getOneVarValue(i);
 
     }
+
 }
 
 function setInequalityGrad(){
@@ -224,3 +228,14 @@ function setInequalityGrad(){
     repeaterInequalityFunAndGrad.model = newTotal;
 
 }
+
+function addAVariable(){
+
+   var oldModel = userInputRepeater_id.model;
+    userInputRepeater_id.model = oldModel +numOfInputEachVariable ;
+    //userinput_id.columns = 5;
+   // var total = userInputRepeater_id.model;
+   // userInputRepeater_id.model = total+5;
+
+}
+
