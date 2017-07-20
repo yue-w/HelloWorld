@@ -62,11 +62,11 @@ function qmlDataToCpp(){
         ////Set variable name
         testCallCpp.pushName(  userInputRepeater_id.itemAt(indexInput).text  );
 
-        ////Set upper bound to C++
-         testCallCpp.pushUpperBnd(userInputRepeater_id.itemAt(indexInput+1).text );
-
         ////Set lower bound to C++
-        testCallCpp.pushLowerBnd(userInputRepeater_id.itemAt(indexInput+2).text);
+         testCallCpp.pushLowerBnd(userInputRepeater_id.itemAt(indexInput+1).text );
+
+        ////Set upper bound to C++
+        testCallCpp.pushUpperBnd(userInputRepeater_id.itemAt(indexInput+2).text);
 
         ////Set Gradient value to C++
         testCallCpp.pushGradient(userInputRepeater_id.itemAt(indexInput+3).text);

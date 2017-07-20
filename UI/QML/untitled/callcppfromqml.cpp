@@ -33,7 +33,7 @@ void CallCppFromQml::setOutputDataUI(OutputDataUI *outputDataUI)
 
 QString CallCppFromQml::getOptimizedObjValue()
 {
-    return _outputDataUI->getMinObjValue();
+      return _outputDataUI->getMinObjValue();
 }
 
 QVector<QString> CallCppFromQml::getOptimizedVarValue()

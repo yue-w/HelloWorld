@@ -46,7 +46,7 @@ return gradValue;
 REGISTERCLASS(Grad11);
 double	Grad12::Compute(const std::vector<double>& x) const
 {
-double gradValue=-1;
+double gradValue=-1 ;
 return gradValue;
 }
 REGISTERCLASS(Grad12);
@@ -58,7 +58,7 @@ return gradValue;
 REGISTERCLASS(Grad21);
 double	Grad22::Compute(const std::vector<double>& x) const
 {
-double gradValue=-1;
+double gradValue=-1 ;
 return gradValue;
 }
 REGISTERCLASS(Grad22);
