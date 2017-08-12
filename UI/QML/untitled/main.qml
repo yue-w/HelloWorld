@@ -7,7 +7,7 @@ import "jsFunc.js" as JSFunc
 
 
 Window {
-    //
+    //......
 
     id: mainWindow_id
     visible: true
