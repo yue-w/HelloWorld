@@ -201,6 +201,26 @@ function addInequalityFuncAndGrad(){
     grid_ineqFun_grad.columns = newColums;
 }
 
+function updateInequalGrad_add(){
+    var colums = grid_ineqFun_grad.columns;
+    var total = repeaterInequalityFunAndGrad.model;
+    var rows = total/colums;
+    rows = rows+1;
+    var newTotal = rows * colums;
+    repeaterInequalityFunAndGrad.model = newTotal;
+
+}
+
+function updateInequalGrad_delete(){
+    var colums = grid_ineqFun_grad.columns;
+    var total = repeaterInequalityFunAndGrad.model;
+    var rows = total/colums;
+    rows = rows-1;
+    var newTotal = rows * colums;
+    repeaterInequalityFunAndGrad.model = newTotal;
+
+}
+
 function showOptimizedValue(/*numOfVar*/){
 
     var numOfVar = userInputRepeater_id.model/numOfInputEachVariable;
@@ -236,6 +256,14 @@ function addAVariable(){
     //userinput_id.columns = 5;
    // var total = userInputRepeater_id.model;
    // userInputRepeater_id.model = total+5;
+
+}
+
+function removeAVariable(){
+
+   var oldModel = userInputRepeater_id.model;
+    userInputRepeater_id.model = oldModel - numOfInputEachVariable ;
+
 
 }
 

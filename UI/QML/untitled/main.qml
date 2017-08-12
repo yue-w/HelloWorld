@@ -7,7 +7,7 @@ import "jsFunc.js" as JSFunc
 
 
 Window {
-
+    //
 
     id: mainWindow_id
     visible: true
@@ -31,10 +31,7 @@ Window {
 
     property string someParameter: "defaultParameter"
 
-    Text {
-        anchors.bottom: optimizeButton.top
-        text: mainWindow_id.someParameter
-    }
+
 
     ListModel {
         id: theModel_variableName
@@ -308,13 +305,20 @@ Window {
                 anchors.left: parent.left
                 anchors.bottom: parent.bottom
                 width: 390
-                border.color: black
+                height:300
+                //border.color: "red"
                 border.width: 1
+                clip: true
 
                 Grid{
                     id:userinput_id
                     columns: 5
                     columnSpacing  :10
+                    //x:-hbar.position * width + marginValue + marginValue
+                    y: -vbar.position * height + marginValue
+                    anchors.left: parent.left
+                    anchors.leftMargin: marginValue
+                   // anchors.topMargin: marginValue
 
 
                     Repeater{
@@ -331,6 +335,18 @@ Window {
 
                 }
 
+
+                ScrollBar {
+                    id: vbar
+                    hoverEnabled: true
+                    active: hovered || pressed
+                    orientation: Qt.Vertical
+                    size: recVariableInput_id.height / userinput_id.height
+                    anchors.top: parent.top
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                }
+
             }
 
             Rectangle{
@@ -341,18 +357,6 @@ Window {
                 anchors.bottom: parent.bottom
                 border.color: black
                 border.width: 1
-
-
-//                    //Optimized value of the variables
-//                    ListView{
-//                        id: optimizedVarVal_id
-//                        //anchors.left: parent.left
-//                        anchors.fill: parent
-//                        anchors.right: parent.right
-//                        model:0
-//                        delegate: component_optimizedVarVal_id
-
-//                    }
 
                 Column{
                     //anchors.fill: parent
@@ -379,14 +383,7 @@ Window {
                                 text: recContainsResult.optRest
                             }
                         }
-//                            Text {
-//                                anchors.left: recVarOptVal.left
-//                                anchors.centerIn: parent
 
-//                                font.pixelSize: 30
-
-//                                text: "error"
-//                            }
 
                     }
                 }
@@ -422,11 +419,10 @@ Window {
                 anchors.fill: parent
 
                 onClicked: {
-
-                    //theModel_variableName.append({})
-                    //JSFunc.setInequalityGrad();
-
+                    //Add a row for the new variable
                     JSFunc.addAVariable();
+                    //add the gradient for the new variable
+                    JSFunc.updateInequalGrad_add();
 
 
                 }
@@ -458,11 +454,10 @@ Window {
                 anchors.fill: parent
 
                 onClicked: {
-                    theModel_variableName.remove(theModel_variableName.count-1,1);
-                    JSFunc.setInequalityGrad();
-
-
-                  //testCallCpp.test()
+                    //Delete the row of one variable
+                   JSFunc.removeAVariable();
+                   //Delete one gradient for the corresponding variable
+                   JSFunc.updateInequalGrad_delete();
                 }
             }
 
@@ -512,12 +507,19 @@ Window {
                 width: 460
                 height: 130
                 border.width: 1
-
+                //border.color: "red"
+                clip: true
 
                     Grid{
                         id:grid_ineqFun_grad
                         columns:numOfInequalFunc
                         columnSpacing  :10
+                        x:-vbarInequalF_H.position * width
+                        y:-vbarInequalF_V.position * height
+                        //anchors.leftMargin: marginValue
+                        //anchors.left: parent.left
+                        //anchors.topMargin: marginValue
+
 
                         Repeater{
                             id:repeaterInequalityFunAndGrad
@@ -531,6 +533,32 @@ Window {
                         }
 
                     }
+
+                    ////Vertical ScrollBar
+                    ScrollBar {
+                        id: vbarInequalF_V
+                        hoverEnabled: true
+                        active: hovered || pressed
+                        orientation: Qt.Vertical
+                        size: recInequalityFuncs.height / grid_ineqFun_grad.height
+                        anchors.top: parent.top
+                        anchors.right: parent.right
+                        anchors.bottom: parent.bottom
+                    }
+
+                    ////Horizontal ScrollBar
+                    ScrollBar {
+                        id: vbarInequalF_H
+                        hoverEnabled: true
+                        active: hovered || pressed
+                        orientation: Qt.Horizontal
+                        size: recInequalityFuncs.width / grid_ineqFun_grad.width
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.bottom: parent.bottom
+                    }
+
+
                 }
 
 
@@ -855,28 +883,7 @@ Window {
     }////Component Finish
 
 
-//    Component{
-//        id:component_optimizedVarVal_id
 
-//        Rectangle {
-//            width: 50
-//            height: 25
-//            //anchors.centerIn: resultHead.Center
-//            //anchors.right: recVarOptVal.right
-//            //anchors.rightMargin: marginValue
-
-//            color: ListView.isCurrentItem?"#157efb":"#53d769"
-//            border.color: Qt.lighter(color, 1.1)
-
-//            Text {
-//                anchors.centerIn: parent
-
-//                font.pixelSize: 10
-
-//                text: "error"
-//            }
-//        }
-//    }
 
     ////Warning dialog
     MessageDialog {
